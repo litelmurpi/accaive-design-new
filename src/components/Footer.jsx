@@ -1,0 +1,46 @@
+import React from 'react';
+
+const Footer = () => (
+    <footer className="bg-[#1a0f0a] text-white py-20 px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/20 pb-16">
+            <div className="col-span-1 lg:col-span-2">
+                <h2 className="text-3xl font-bold tracking-widest mb-6">ACCAIVE</h2>
+                <div className="max-w-md">
+                    <h3 className="text-xl font-serif mb-4">Keep up to date</h3>
+                    <div className="flex border-b border-white/30 pb-2">
+                        <input type="email" placeholder="Your email" className="bg-transparent border-none outline-none w-full placeholder-white/50" />
+                        <button className="uppercase text-xs font-bold tracking-widest">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 className="text-xs uppercase tracking-widest text-white/50 mb-6">Studio</h4>
+                <ul className="space-y-3 text-sm font-light">
+                    <li><a href="#" className="hover:text-white/70">Work with us</a></li>
+                    <li><a href="#" className="hover:text-white/70">Team</a></li>
+                    <li><a href="#" className="hover:text-white/70">Careers</a></li>
+                    <li><a href="#" className="hover:text-white/70">Press</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 className="text-xs uppercase tracking-widest text-white/50 mb-6">Social</h4>
+                <ul className="space-y-3 text-sm font-light">
+                    <li><a href="#" className="hover:text-white/70">Instagram</a></li>
+                    <li><a href="#" className="hover:text-white/70">LinkedIn</a></li>
+                    <li><a href="#" className="hover:text-white/70">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div className="pt-8 flex flex-col md:flex-row justify-between text-xs text-white/40">
+            <p>&copy; 2025 Accaive Design Studio. All rights reserved.</p>
+            <div className="flex gap-6 mt-4 md:mt-0">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+);
+
+export default Footer;

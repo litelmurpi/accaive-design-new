@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LayoutGrid, List } from "lucide-react";
+import { Link } from "react-router-dom";
 import Contact from "../components/Contact";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,56 +11,62 @@ gsap.registerPlugin(ScrollTrigger);
 const caseStudies = [
   {
     id: 1,
-    title: "The Awakening",
-    brand: "BOSE",
-    category: "Brand Strategy",
-    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop",
+    slug: "the-void-house",
+    title: "The Void House",
+    brand: "VOID",
+    category: "Residential",
+    img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
     bgColor: "bg-[#1a1a1a]",
     height: "h-[520px]",
   },
   {
     id: 2,
-    title: "The Making of a New American Capitalist",
-    brand: "Robinhood",
-    category: "Brand Identity",
-    img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
-    bgColor: "bg-[#00c805]",
+    slug: "nebula-tower",
+    title: "Nebula Tower",
+    brand: "NEBULA",
+    category: "Commercial",
+    img: "https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2600&auto=format&fit=crop",
+    bgColor: "bg-[#2a2a2a]",
     height: "h-[280px]",
   },
   {
     id: 3,
-    title: "A Tale of Two Citizens",
-    brand: "ARCANE",
-    category: "Campaign",
-    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
-    bgColor: "bg-[#937860]",
+    slug: "silence-pavilion",
+    title: "Silence Pavilion",
+    brand: "SILENCE",
+    category: "Cultural",
+    img: "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?q=80&w=2670&auto=format&fit=crop",
+    bgColor: "bg-[#111111]",
     height: "h-[450px]",
   },
   {
     id: 4,
-    title: "Symphony of Innovation",
-    brand: "SYMPHONY",
-    category: "Brand Refresh",
-    img: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=800&auto=format&fit=crop",
-    bgColor: "bg-[#2a2a2a]",
+    slug: "echo-library",
+    title: "Echo Library",
+    brand: "ECHO",
+    category: "Public",
+    img: "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?q=80&w=2574&auto=format&fit=crop",
+    bgColor: "bg-[#0a0a0a]",
     height: "h-[320px]",
   },
   {
     id: 5,
-    title: "Future Forward",
-    brand: "VELOCITY",
-    category: "Reposition",
-    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-    bgColor: "bg-[#ff6b35]",
+    slug: "horizon-villa",
+    title: "Horizon Villa",
+    brand: "HORIZON",
+    category: "Residential",
+    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop",
+    bgColor: "bg-[#151515]",
     height: "h-[580px]",
   },
   {
     id: 6,
-    title: "The Art of Motion",
-    brand: "PRIMARY",
-    category: "Brand Creation",
-    img: "https://images.unsplash.com/photo-1503203294957-42b9c56b5e04?q=80&w=800&auto=format&fit=crop",
-    bgColor: "bg-[#e63946]",
+    slug: "apex-hq",
+    title: "Apex HQ",
+    brand: "APEX",
+    category: "Workplace",
+    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop",
+    bgColor: "bg-[#1f1f1f]",
     height: "h-[380px]",
   },
 ];
@@ -128,9 +135,10 @@ const ShelfCard = ({ study, index }) => {
   const width = widths[index % widths.length];
 
   return (
-    <div
+    <Link
+      to={`/project/${study.slug}`}
       ref={cardRef}
-      className={`group cursor-pointer overflow-hidden rounded-2xl ${study.height} ${width} transition-all duration-700 relative break-inside-avoid mb-8 ${abstractMargin} ${rotation} hover:rotate-0 hover:scale-[1.02]`}
+      className={`group cursor-pointer overflow-hidden rounded-2xl ${study.height} ${width} transition-all duration-700 relative break-inside-avoid block mb-8 ${abstractMargin} ${rotation} hover:rotate-0 hover:scale-[1.02]`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -162,6 +170,7 @@ const ShelfCard = ({ study, index }) => {
           <img
             src={study.img}
             alt={study.brand}
+            loading="lazy"
             className="w-full h-full object-cover transition-all duration-700 filter group-hover:brightness-75 group-hover:saturate-150"
           />
         </div>
@@ -210,7 +219,7 @@ const ShelfCard = ({ study, index }) => {
         {/* Content overlay - slides up on hover */}
         <div className="absolute bottom-0 left-0 right-0 z-40 p-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-8 h-[1px] bg-white/50" />
+            <span className="w-8 h-px bg-white/50" />
             <p className="text-white/60 text-xs uppercase tracking-[0.2em]">
               {study.category}
             </p>
@@ -249,7 +258,7 @@ const ShelfCard = ({ study, index }) => {
           }}
         />
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -284,15 +293,16 @@ const SpineCard = ({ study, index }) => {
   const accentColor = accentColors[index % accentColors.length];
 
   return (
-    <div
+    <Link
+      to={`/project/${study.slug}`}
       ref={cardRef}
-      className="group cursor-pointer rounded-xl overflow-hidden transition-all duration-500 relative"
+      className="group cursor-pointer block rounded-xl overflow-hidden transition-all duration-500 relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Animated gradient border */}
       <div
-        className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+        className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
         style={{
           background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`,
           backgroundSize: "200% 100%",
@@ -379,7 +389,7 @@ const SpineCard = ({ study, index }) => {
 
             {/* Brand name */}
             <span
-              className="text-white text-4xl md:text-5xl font-bold tracking-[0.1em] italic group-hover:tracking-[0.2em] transition-all duration-500"
+              className="text-white text-4xl md:text-5xl font-bold tracking-widest italic group-hover:tracking-[0.2em] transition-all duration-500"
               style={{
                 textShadow: isHovered ? `0 0 40px ${accentColor}` : "none",
               }}
@@ -412,7 +422,7 @@ const SpineCard = ({ study, index }) => {
           style={{ backgroundColor: accentColor }}
         />
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -430,7 +440,7 @@ const CaseStudies = () => {
         ease: "power3.out",
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   return (

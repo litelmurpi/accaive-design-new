@@ -8,6 +8,7 @@ import MenuOverlay from "./components/MenuOverlay";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
 import CustomCursor from "./components/CustomCursor";
+import PageTransition from "./components/PageTransition";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/useTheme";
 
@@ -20,6 +21,8 @@ import TeamPage from "./pages/TeamPage";
 import Careers from "./pages/Careers";
 import Press from "./pages/Press";
 import ContactForm from "./pages/ContactForm";
+import NotFound from "./pages/NotFound";
+import ProjectDetail from "./pages/ProjectDetail";
 
 function AppContent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,7 +73,7 @@ function AppContent() {
 
   return (
     <div
-      className={`relative font-sans cursor-none theme-wrapper ${
+      className={`relative font-sans theme-wrapper custom-cursor-active ${
         isDarkMode ? "theme-dark" : "theme-light"
       }`}
     >
@@ -81,16 +84,20 @@ function AppContent() {
       <MenuOverlay isOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/programs" element={<Programs />} />
-          <Route path="/arts-culture" element={<ArtsCulture />} />
-          <Route path="/team" element={<TeamPage />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/press" element={<Press />} />
-          <Route path="/contact" element={<ContactForm />} />
-        </Routes>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/arts-culture" element={<ArtsCulture />} />
+            <Route path="/team" element={<TeamPage />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/press" element={<Press />} />
+            <Route path="/contact" element={<ContactForm />} />
+            <Route path="/project/:slug" element={<ProjectDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PageTransition>
       </main>
 
       <Footer />

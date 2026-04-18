@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ProjectCard = ({
   title,
+  slug,
   category,
   img,
   size = "small",
@@ -32,7 +34,7 @@ const ProjectCard = ({
         },
       });
     },
-    { scope: cardRef }
+    { scope: cardRef },
   );
 
   const handleMouseEnter = () => {
@@ -58,11 +60,12 @@ const ProjectCard = ({
   };
 
   return (
-    <div
+    <Link
+      to={slug ? `/project/${slug}` : "#"}
       ref={cardRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`group relative overflow-hidden cursor-pointer w-full rounded-2xl transition-all duration-500 hover:shadow-2xl ${
+      className={`group relative overflow-hidden block w-full rounded-2xl transition-all duration-500 hover:shadow-2xl ${
         className || ""
       }`}
     >
@@ -71,19 +74,20 @@ const ProjectCard = ({
           ref={imageRef}
           src={img}
           alt={title}
+          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700"
         />
       </div>
       <div
         ref={overlayRef}
-        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 flex flex-col justify-end p-6 md:p-8 transition-opacity duration-300"
+        className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-0 flex flex-col justify-end p-6 md:p-8 transition-opacity duration-300"
       >
         <span className="text-white/70 text-xs uppercase tracking-widest mb-2">
           {category}
         </span>
         <h3 className="text-white font-serif text-2xl md:text-3xl">{title}</h3>
       </div>
-    </div>
+    </Link>
   );
 };
 

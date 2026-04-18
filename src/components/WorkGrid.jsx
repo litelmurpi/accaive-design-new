@@ -6,6 +6,7 @@ const WorkGrid = () => {
   const projects = [
     {
       title: "The Void House",
+      slug: "the-void-house",
       category: "Residential",
       img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
       size: "large",
@@ -13,6 +14,7 @@ const WorkGrid = () => {
     },
     {
       title: "Nebula Tower",
+      slug: "nebula-tower",
       category: "Commercial",
       img: "https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2600&auto=format&fit=crop",
       size: "small",
@@ -20,6 +22,7 @@ const WorkGrid = () => {
     },
     {
       title: "Silence Pavilion",
+      slug: "silence-pavilion",
       category: "Cultural",
       img: "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?q=80&w=2670&auto=format&fit=crop",
       size: "tall",
@@ -27,6 +30,7 @@ const WorkGrid = () => {
     },
     {
       title: "Echo Library",
+      slug: "echo-library",
       category: "Public",
       img: "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?q=80&w=2574&auto=format&fit=crop",
       size: "wide",
@@ -34,6 +38,7 @@ const WorkGrid = () => {
     },
     {
       title: "Horizon Villa",
+      slug: "horizon-villa",
       category: "Residential",
       img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop",
       size: "large",
@@ -41,6 +46,7 @@ const WorkGrid = () => {
     },
     {
       title: "Apex HQ",
+      slug: "apex-hq",
       category: "Workplace",
       img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop",
       size: "small",
@@ -67,7 +73,7 @@ const WorkGrid = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {projects.map((proj, idx) => (
-          <div key={idx} className={`${proj.span}`}>
+          <div key={proj.slug} className={`${proj.span}`}>
             <ProjectCard {...proj} index={idx} />
           </div>
         ))}

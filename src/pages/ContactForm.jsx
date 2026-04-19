@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Send, ArrowLeft } from "lucide-react";
+import { Send, ArrowLeft, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useContact } from "../hooks/useContact";
 
 const ContactForm = () => {
   const containerRef = useRef(null);
@@ -14,8 +15,12 @@ const ContactForm = () => {
     budget: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const {
+    submitContact,
+    loading: isSubmitting,
+    success: isSubmitted,
+  } = useContact();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useGSAP(
     () => {
@@ -26,7 +31,7 @@ const ContactForm = () => {
         ease: "power3.out",
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   const handleChange = (e) => {
@@ -35,13 +40,12 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    setErrorMessage("");
+    try {
+      await submitContact(formData);
+    } catch (err) {
+      setErrorMessage(err.message || "An error occurred.");
+    }
   };
 
   if (isSubmitted) {
@@ -99,6 +103,11 @@ const ContactForm = () => {
 
         {/* Form */}
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
+          {errorMessage && (
+            <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded-md mb-8">
+              {errorMessage}
+            </div>
+          )}
           {/* Name & Email Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="group">

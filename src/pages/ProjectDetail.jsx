@@ -4,42 +4,18 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft } from "lucide-react";
+import { useProject } from "../hooks/useProjects";
+import Skeleton from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const defaultProject = {
-  title: "Project Name",
-  category: "Architecture",
-  client: "Private Client",
-  year: "2025",
-  description:
-    "A visionary design that emphasizes the connection between interior spaces and natural surroundings. Incorporating raw materials and expansive glass windows to achieve a unified, modern aesthetic.",
-  heroImg:
-    "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
-  gallery: [
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?q=80&w=2670&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-  ],
-};
-
 const ProjectDetail = () => {
   const { slug } = useParams();
+  const { project: data, loading } = useProject(slug);
   const containerRef = useRef(null);
   const heroRef = useRef(null);
   const textRef = useRef(null);
   const galleryRef = useRef(null);
-
-  // Replace with real data fetching in real app
-  const data = {
-    ...defaultProject,
-    title: slug
-      ? slug
-          .split("-")
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(" ")
-      : defaultProject.title,
-  };
 
   useGSAP(
     () => {
@@ -85,6 +61,29 @@ const ProjectDetail = () => {
     { scope: containerRef },
   );
 
+  if (loading) {
+    return (
+      <div className="bg-[#f8f8f8] dark:bg-[#0a0a0a] min-h-screen">
+        <Skeleton className="w-full h-[60vh] md:h-[80vh]" />
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
+            <div className="col-span-1 md:col-span-4 space-y-4">
+              <Skeleton className="w-1/4 h-4" />
+              <Skeleton className="w-3/4 h-12" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data)
+    return (
+      <div className="min-h-screen flex items-center justify-center font-serif text-3xl">
+        Project not found.
+      </div>
+    );
+
   return (
     <div
       ref={containerRef}
@@ -94,7 +93,7 @@ const ProjectDetail = () => {
       <div className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
         <img
           ref={heroRef}
-          src={data.heroImg}
+          src={data.hero_image}
           alt={data.title}
           className="absolute w-full h-[120%] object-cover top-[-10%]"
         />
@@ -153,19 +152,20 @@ const ProjectDetail = () => {
           ref={galleryRef}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12"
         >
-          {data.gallery.map((imgSrc, index) => (
-            <div
-              key={index}
-              className={`gallery-img overflow-hidden rounded-xl ${index === 2 ? "md:col-span-2" : ""}`}
-            >
-              <img
-                src={imgSrc}
-                alt={`Gallery item ${index + 1}`}
-                loading="lazy"
-                className="w-full h-full object-cover aspect-4/3 md:aspect-auto hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-          ))}
+          {data.gallery_images &&
+            data.gallery_images.map((imgSrc, index) => (
+              <div
+                key={index}
+                className={`gallery-img overflow-hidden rounded-xl ${index === 2 ? "md:col-span-2" : ""}`}
+              >
+                <img
+                  src={imgSrc}
+                  alt={`Gallery item ${index + 1}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover aspect-4/3 md:aspect-auto hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            ))}
         </div>
       </div>
     </div>

@@ -5,70 +5,27 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LayoutGrid, List } from "lucide-react";
 import { Link } from "react-router-dom";
 import Contact from "../components/Contact";
+import { useProjects } from "../hooks/useProjects";
+import Skeleton from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const caseStudies = [
-  {
-    id: 1,
-    slug: "the-void-house",
-    title: "The Void House",
-    brand: "VOID",
-    category: "Residential",
-    img: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop",
-    bgColor: "bg-[#1a1a1a]",
-    height: "h-[520px]",
-  },
-  {
-    id: 2,
-    slug: "nebula-tower",
-    title: "Nebula Tower",
-    brand: "NEBULA",
-    category: "Commercial",
-    img: "https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=2600&auto=format&fit=crop",
-    bgColor: "bg-[#2a2a2a]",
-    height: "h-[280px]",
-  },
-  {
-    id: 3,
-    slug: "silence-pavilion",
-    title: "Silence Pavilion",
-    brand: "SILENCE",
-    category: "Cultural",
-    img: "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?q=80&w=2670&auto=format&fit=crop",
-    bgColor: "bg-[#111111]",
-    height: "h-[450px]",
-  },
-  {
-    id: 4,
-    slug: "echo-library",
-    title: "Echo Library",
-    brand: "ECHO",
-    category: "Public",
-    img: "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?q=80&w=2574&auto=format&fit=crop",
-    bgColor: "bg-[#0a0a0a]",
-    height: "h-[320px]",
-  },
-  {
-    id: 5,
-    slug: "horizon-villa",
-    title: "Horizon Villa",
-    brand: "HORIZON",
-    category: "Residential",
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop",
-    bgColor: "bg-[#151515]",
-    height: "h-[580px]",
-  },
-  {
-    id: 6,
-    slug: "apex-hq",
-    title: "Apex HQ",
-    brand: "APEX",
-    category: "Workplace",
-    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop",
-    bgColor: "bg-[#1f1f1f]",
-    height: "h-[380px]",
-  },
+// Array styles for the design overrides based on index modulus
+const backgrounds = [
+  "bg-[#1a1a1a]",
+  "bg-[#2a2a2a]",
+  "bg-[#111111]",
+  "bg-[#0a0a0a]",
+  "bg-[#151515]",
+  "bg-[#1f1f1f]",
+];
+const heights = [
+  "h-[520px]",
+  "h-[280px]",
+  "h-[450px]",
+  "h-[320px]",
+  "h-[580px]",
+  "h-[380px]",
 ];
 
 // Shelf View Card Component - Abstract Aesthetic Design
@@ -168,8 +125,8 @@ const ShelfCard = ({ study, index }) => {
         {/* Background image with advanced effects */}
         <div className="absolute inset-0 transition-all duration-700 group-hover:scale-110">
           <img
-            src={study.img}
-            alt={study.brand}
+            src={study.hero_image}
+            alt={study.title}
             loading="lazy"
             className="w-full h-full object-cover transition-all duration-700 filter group-hover:brightness-75 group-hover:saturate-150"
           />
@@ -245,7 +202,7 @@ const ShelfCard = ({ study, index }) => {
               fontFamily: "serif",
             }}
           >
-            {study.brand}
+            {study.title}
           </span>
         </div>
 
@@ -318,7 +275,7 @@ const SpineCard = ({ study, index }) => {
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700"
           style={{
-            backgroundImage: `url(${study.img})`,
+            backgroundImage: `url(${study.hero_image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "blur(2px)",
@@ -427,6 +384,7 @@ const SpineCard = ({ study, index }) => {
 };
 
 const CaseStudies = () => {
+  const { projects: caseStudies, loading } = useProjects();
   const [viewMode, setViewMode] = useState("shelf"); // 'shelf' or 'spines'
   const containerRef = useRef(null);
   const headingRef = useRef(null);
@@ -489,18 +447,42 @@ const CaseStudies = () => {
 
       {/* Case Studies Grid */}
       <div className="px-6 md:px-12 lg:px-20 pb-32">
-        {viewMode === "shelf" ? (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array(6)
+              .fill(0)
+              .map((_, i) => (
+                <Skeleton key={i} className="w-full h-64" />
+              ))}
+          </div>
+        ) : viewMode === "shelf" ? (
           // Shelf View - Pinterest Masonry Layout
           <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
             {caseStudies.map((study, idx) => (
-              <ShelfCard key={study.id} study={study} index={idx} />
+              <ShelfCard
+                key={study.id}
+                study={{
+                  ...study,
+                  height: heights[idx % heights.length],
+                  bgColor: backgrounds[idx % backgrounds.length],
+                }}
+                index={idx}
+              />
             ))}
           </div>
         ) : (
           // Spines View - Horizontal cards
           <div className="max-w-5xl mx-auto flex flex-col gap-4">
             {caseStudies.map((study, idx) => (
-              <SpineCard key={study.id} study={study} index={idx} />
+              <SpineCard
+                key={study.id}
+                study={{
+                  ...study,
+                  height: heights[idx % heights.length],
+                  bgColor: backgrounds[idx % backgrounds.length],
+                }}
+                index={idx}
+              />
             ))}
           </div>
         )}

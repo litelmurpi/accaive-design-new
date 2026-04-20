@@ -44,3 +44,25 @@ export const useFeaturedStories = () => {
   }, []);
   return { stories, loading };
 };
+
+export const useCareers = () => {
+  const [careers, setCareers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetchApi("/careers")
+      .then(setCareers)
+      .finally(() => setLoading(false));
+  }, []);
+  return { careers, loading };
+};
+
+export const useSettings = () => {
+  const [settings, setSettings] = useState({});
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetchApi("/settings")
+      .then(setSettings)
+      .finally(() => setLoading(false));
+  }, []);
+  return { settings, loading };
+};

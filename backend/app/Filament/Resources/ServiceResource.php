@@ -16,37 +16,35 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
     protected static ?string $navigationGroup = 'Company';
-    protected static ?string $navigationLabel = 'Layanan';
-    protected static ?string $modelLabel = 'Layanan';
-    protected static ?string $pluralModelLabel = 'Daftar Layanan';
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationLabel = 'Expertise';
+    protected static ?string $modelLabel = 'Service';
+    protected static ?string $pluralModelLabel = 'Services';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Detail Layanan')
-                    ->description('Layanan yang ditampilkan di halaman utama website.')
+                Forms\Components\Section::make('Service Offering')
+                    ->description('Define the studio services shown on the landing page.')
                     ->icon('heroicon-o-wrench-screwdriver')
                     ->schema([
                         Forms\Components\TextInput::make('code')
-                            ->label('Kode Layanan')
-                            ->placeholder('contoh: 01')
-                            ->helperText('Nomor urut yang tampil di depan nama layanan.'),
+                            ->label('Service Code')
+                            ->placeholder('e.g. 01')
+                            ->helperText('Index number shown before the title.'),
                         Forms\Components\TextInput::make('title')
-                            ->label('Nama Layanan')
+                            ->label('Service Title')
                             ->required()
-                            ->placeholder('contoh: Spatial Strategy'),
+                            ->placeholder('e.g. Spatial Strategy'),
                         Forms\Components\Textarea::make('description')
-                            ->label('Deskripsi Singkat')
-                            ->placeholder('Jelaskan layanan ini dalam 1-2 kalimat...')
+                            ->label('Brief Description')
+                            ->placeholder('Describe this expertise in 1-2 sentences...')
                             ->rows(3)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('sort_order')
-                            ->label('Urutan Tampil')
+                            ->label('Display Order')
                             ->numeric()
-                            ->default(0)
-                            ->helperText('Angka lebih kecil = tampil lebih dulu.'),
+                            ->default(0),
                     ])->columns(2),
             ]);
     }

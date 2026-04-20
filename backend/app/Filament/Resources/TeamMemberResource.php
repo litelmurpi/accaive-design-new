@@ -26,42 +26,77 @@ class TeamMemberResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('role')
-                    ->required(),
-                Forms\Components\TextInput::make('photo'),
-                Forms\Components\Textarea::make('bio')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('sort_order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
-            ]);
+                Forms\Components\Section::make('Profile Information')
+                    ->description('Personal details and studio role.')
+                    ->icon('heroicon-o-user')
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Full Name')
+                                    ->required()
+                                    ->placeholder('e.g. Alexander Chen'),
+                                Forms\Components\TextInput::make('role')
+                                    ->label('Studio Role')
+                                    ->required()
+                                    ->placeholder('e.g. Lead Architect'),
+                            ]),
+                        Forms\Components\Textarea::make('bio')
+                            ->label('Biography / Narrative')
+                            ->placeholder('Describe the creative journey and expertise...')
+                            ->rows(4)
+                            ->columnSpanFull(),
+                    ])->columnSpan(2),
+
+                Forms\Components\Group::make()
+                    ->schema([
+                        Forms\Components\Section::make('Visual Identity')
+                            ->description('Studio portrait.')
+                            ->icon('heroicon-o-camera')
+                            ->schema([
+                                Forms\Components\FileUpload::make('photo')
+                                    ->label('Portrait Photo')
+                                    ->image()
+                                    ->directory('team')
+                                    ->helperText('High-quality portrait. Grayscale recommended for brand consistency.'),
+                            ]),
+
+                        Forms\Components\Section::make('Management')
+                            ->schema([
+                                Forms\Components\TextInput::make('sort_order')
+                                    ->label('Display Order')
+                                    ->required()
+                                    ->numeric()
+                                    ->default(0)
+                                    ->helperText('Lower numbers appear first in the team grid.'),
+                            ]),
+                    ])->columnSpan(1),
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label('Portrait')
+                    ->square(),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Name')
+                    ->searchable()
+                    ->weight('bold'),
                 Tables\Columns\TextColumn::make('role')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('photo')
-                    ->searchable(),
+                    ->label('Role')
+                    ->searchable()
+                    ->badge()
+                    ->color('gray'),
                 Tables\Columns\TextColumn::make('sort_order')
+                    ->label('Order')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('sort_order')
+            ->reorderable('sort_order')
             ->filters([
                 //
             ])

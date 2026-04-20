@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight } from "lucide-react";
+import { useFeaturedStories } from "../hooks/useSecondary";
 
 const MenuOverlay = ({ isOpen, toggleMenu }) => {
   const containerRef = useRef(null);
   const linksRef = useRef([]);
   const secondaryLinksRef = useRef(null);
   const featuredRef = useRef(null);
+  const { stories, loading } = useFeaturedStories();
 
   useGSAP(
     () => {
@@ -118,48 +120,40 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
             Featured Stories
           </div>
 
-          {[
-            {
-              title: "The Vertical Forest",
-              cat: "Sustainability",
-              img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2070&auto=format&fit=crop",
-            },
-            {
-              title: "Museum of Light",
-              cat: "Culture",
-              img: "https://images.unsplash.com/photo-1506146332389-18140dc7b2fb?q=80&w=1964&auto=format&fit=crop",
-            },
-            {
-              title: "Adaptive Heritage",
-              cat: "Restoration",
-              img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop",
-            },
-          ].map((story, idx) => (
-            <div
-              key={idx}
-              className="group flex gap-6 items-center cursor-pointer"
-            >
-              <div className="w-32 h-24 overflow-hidden rounded-md">
-                <img
-                  src={story.img}
-                  alt={story.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-              <div>
-                <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">
-                  {story.cat}
+          {loading ? (
+             <div className="animate-pulse space-y-4">
+                <div className="h-24 bg-white/10 rounded-md"></div>
+                <div className="h-24 bg-white/10 rounded-md"></div>
+             </div>
+          ) : (
+            stories.map((story, idx) => (
+              <a
+                key={idx}
+                href={story.url}
+                className="group flex gap-6 items-center cursor-pointer"
+              >
+                <div className="w-32 h-24 overflow-hidden rounded-md">
+                  <img
+                    src={story.image}
+                    alt={story.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                 </div>
-                <h3 className="text-xl font-serif font-light group-hover:underline decoration-1 underline-offset-4">
-                  {story.title}
-                </h3>
-              </div>
-              <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                <ArrowRight size={20} />
-              </div>
-            </div>
-          ))}
+                <div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">
+                    {story.category}
+                  </div>
+                  <h3 className="text-xl font-serif font-light group-hover:underline decoration-1 underline-offset-4">
+                    {story.title}
+                  </h3>
+                </div>
+                <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ArrowRight size={20} />
+                </div>
+              </a>
+            ))
+          )}
         </div>
       </div>
     </div>

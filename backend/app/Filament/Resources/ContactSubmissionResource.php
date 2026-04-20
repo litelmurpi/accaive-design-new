@@ -30,32 +30,37 @@ class ContactSubmissionResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Detail Pesan')
-                    ->description('Pesan yang dikirim pengunjung melalui form "Start a Project" di website.')
-                    ->icon('heroicon-o-envelope')
-                    ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->label('Nama Pengirim')
-                            ->disabled(),
-                        Forms\Components\TextInput::make('email')
-                            ->label('Email')
-                            ->disabled(),
-                        Forms\Components\TextInput::make('company')
-                            ->label('Perusahaan')
-                            ->disabled(),
-                        Forms\Components\TextInput::make('budget')
-                            ->label('Perkiraan Budget')
-                            ->disabled(),
-                        Forms\Components\Textarea::make('message')
-                            ->label('Isi Pesan')
-                            ->disabled()
-                            ->rows(5)
-                            ->columnSpanFull(),
-                        Forms\Components\Placeholder::make('created_at')
-                            ->label('Diterima Pada')
-                            ->content(fn($record) => $record?->created_at?->format('d M Y, H:i') ?? '-'),
-                    ])->columns(2),
-            ]);
+                Forms\Components\Split::make([
+                    Forms\Components\Section::make('Message Context')
+                        ->description('Communication details from the studio website.')
+                        ->icon('heroicon-o-envelope')
+                        ->schema([
+                            Forms\Components\TextInput::make('name')
+                                ->label('Sender Name'),
+                            Forms\Components\TextInput::make('email')
+                                ->label('Email Address')
+                                ->suffixIcon('heroicon-o-envelope'),
+                            Forms\Components\TextInput::make('company')
+                                ->label('Organization / Studio'),
+                            Forms\Components\TextInput::make('budget')
+                                ->label('Estimated Budget')
+                                ->placeholder('—'),
+                            Forms\Components\Placeholder::make('created_at')
+                                ->label('Timestamp')
+                                ->content(fn($record) => $record?->created_at?->format('d M Y, H:i') ?? '-'),
+                        ])->columns(2),
+                    
+                    Forms\Components\Section::make('The Inquiry')
+                        ->icon('heroicon-o-chat-bubble-left-right')
+                        ->schema([
+                            Forms\Components\Textarea::make('message')
+                                ->label('Message Content')
+                                ->rows(12)
+                                ->columnSpanFull(),
+                        ])->grow(true),
+                ])->columnSpanFull(),
+            ])
+            ->disabled();
     }
 
     public static function table(Table $table): Table

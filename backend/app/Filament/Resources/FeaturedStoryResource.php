@@ -16,36 +16,33 @@ class FeaturedStoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
     protected static ?string $navigationGroup = 'Content';
-    protected static ?string $navigationLabel = 'Sorotan Utama';
-    protected static ?string $modelLabel = 'Sorotan';
-    protected static ?string $pluralModelLabel = 'Sorotan Utama';
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationLabel = 'Featured Stories';
+    protected static ?string $modelLabel = 'Featured Story';
+    protected static ?string $pluralModelLabel = 'Featured Stories';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Konten Sorotan')
-                    ->description('Item yang muncul di menu navigasi utama sebagai highlight.')
+                Forms\Components\Section::make('Story Highlight')
+                    ->description('Curated content for the main navigation highlight.')
                     ->icon('heroicon-o-star')
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Judul')
+                            ->label('Story Title')
                             ->required()
-                            ->placeholder('contoh: Designing the Future of Work'),
+                            ->placeholder('e.g. Designing the Future of Work'),
                         Forms\Components\TextInput::make('category')
-                            ->label('Kategori')
-                            ->placeholder('contoh: Article, Project, News'),
+                            ->label('Content Category')
+                            ->placeholder('e.g. Article, News'),
                         Forms\Components\TextInput::make('url')
-                            ->label('Link Tujuan')
-                            ->placeholder('contoh: /case-studies')
-                            ->helperText('Halaman yang dibuka ketika item ini diklik.'),
+                            ->label('Destination Link')
+                            ->placeholder('e.g. /case-studies'),
                         Forms\Components\FileUpload::make('image')
-                            ->label('Gambar Thumbnail')
+                            ->label('Story Thumbnail')
                             ->image()
-                            ->imageEditor()
                             ->directory('stories')
-                            ->helperText('Gambar kecil yang muncul di menu navigasi.')
+                            ->helperText('Visual cue for the navigation menu.')
                             ->columnSpanFull(),
                     ])->columns(2),
             ]);

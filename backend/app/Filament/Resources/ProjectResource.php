@@ -25,82 +25,94 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Informasi Proyek')
-                    ->description('Isi detail dasar proyek yang akan ditampilkan di website.')
-                    ->icon('heroicon-o-document-text')
+                Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\Components\TextInput::make('title')
-                            ->label('Nama Proyek')
-                            ->required()
-                            ->placeholder('contoh: The Void House'),
-                        Forms\Components\TextInput::make('slug')
-                            ->label('URL Slug')
-                            ->required()
-                            ->helperText('Otomatis jadi bagian dari link website. Gunakan huruf kecil dan tanda hubung.')
-                            ->placeholder('contoh: the-void-house'),
-                        Forms\Components\TextInput::make('category')
-                            ->label('Kategori')
-                            ->required()
-                            ->placeholder('contoh: Residential, Commercial, Cultural'),
-                        Forms\Components\TextInput::make('client')
-                            ->label('Nama Klien')
-                            ->placeholder('contoh: Private Client'),
-                        Forms\Components\TextInput::make('year')
-                            ->label('Tahun')
-                            ->placeholder('contoh: 2025'),
-                    ])->columns(2),
+                        Forms\Components\Section::make('Core Information')
+                            ->description('Essential details about the project identity.')
+                            ->icon('heroicon-o-document-text')
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->label('Project Title')
+                                    ->required()
+                                    ->placeholder('e.g. The Void House')
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('URL Slug')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->placeholder('the-void-house'),
+                                Forms\Components\TextInput::make('category')
+                                    ->label('Category')
+                                    ->required()
+                                    ->placeholder('e.g. Residential'),
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('client')
+                                            ->label('Client Name')
+                                            ->placeholder('Private Client'),
+                                        Forms\Components\TextInput::make('year')
+                                            ->label('Completion Year')
+                                            ->placeholder('2025'),
+                                    ]),
+                                Forms\Components\Textarea::make('description')
+                                    ->label('Project Narrative')
+                                    ->placeholder('Tell the story behind this architecture...')
+                                    ->rows(6),
+                            ])->columnSpan(2),
 
-                Forms\Components\Section::make('Gambar & Visual')
-                    ->description('Upload gambar utama proyek. Gunakan gambar berkualitas tinggi untuk tampilan terbaik.')
-                    ->icon('heroicon-o-photo')
-                    ->schema([
-                        Forms\Components\FileUpload::make('hero_image')
-                            ->label('Gambar Utama (Hero)')
-                            ->image()
-                            ->imageEditor()
-                            ->directory('projects')
-                            ->helperText('Gambar besar yang muncul di bagian atas halaman proyek. Ukuran ideal: 1920x1080px.')
-                            ->columnSpanFull(),
-                        Forms\Components\Textarea::make('gallery_images')
-                            ->label('Galeri Foto (JSON)')
-                            ->helperText('Daftar URL gambar dalam format JSON. Contoh: ["url1","url2"]')
-                            ->columnSpanFull(),
+                        Forms\Components\Group::make()
+                            ->schema([
+                                Forms\Components\Section::make('Visual Narrative')
+                                    ->description('Main imagery for the project.')
+                                    ->icon('heroicon-o-photo')
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('hero_image')
+                                            ->label('Hero Image')
+                                            ->image()
+                                            ->directory('projects/hero')
+                                            ->required()
+                                            ->helperText('High-resolution landscape (16:9 recommended).'),
+                                    ]),
+
+                                Forms\Components\Section::make('Grid & Curation')
+                                    ->description('How this project appears in the work grid.')
+                                    ->icon('heroicon-o-squares-2x2')
+                                    ->schema([
+                                        Forms\Components\Select::make('size')
+                                            ->label('Card Proportion')
+                                            ->options([
+                                                'large' => 'Large (Full Width)',
+                                                'small' => 'Small (Standard)',
+                                                'tall' => 'Tall (Portrait)',
+                                                'wide' => 'Wide (Horizontal)',
+                                            ])
+                                            ->default('small'),
+                                        Forms\Components\TextInput::make('span')
+                                            ->label('Grid Span (Tailwind)')
+                                            ->placeholder('md:col-span-6'),
+                                        Forms\Components\TextInput::make('sort_order')
+                                            ->label('Sequence Position')
+                                            ->numeric()
+                                            ->default(0),
+                                        Forms\Components\Toggle::make('is_featured')
+                                            ->label('Feature on Homepage')
+                                            ->inline(false)
+                                            ->default(true),
+                                    ]),
+                            ])->columnSpan(1),
                     ]),
 
-                Forms\Components\Section::make('Deskripsi & Pengaturan Tampilan')
-                    ->description('Atur bagaimana proyek ini muncul di halaman utama website.')
-                    ->icon('heroicon-o-adjustments-horizontal')
-                    ->collapsible()
+                Forms\Components\Section::make('Gallery Collection')
+                    ->description('Additional visuals for the detailed case study.')
+                    ->icon('heroicon-o-rectangle-stack')
+                    ->collapsed()
                     ->schema([
-                        Forms\Components\Textarea::make('description')
-                            ->label('Deskripsi Proyek')
-                            ->placeholder('Ceritakan tentang proyek ini secara singkat...')
-                            ->rows(4)
-                            ->columnSpanFull(),
-                        Forms\Components\Select::make('size')
-                            ->label('Ukuran Kartu')
-                            ->options([
-                                'large' => '🟩 Besar',
-                                'small' => '🟨 Kecil',
-                                'tall' => '🟦 Tinggi',
-                                'wide' => '🟪 Lebar',
-                            ])
-                            ->helperText('Menentukan ukuran kartu proyek di halaman utama.'),
-                        Forms\Components\TextInput::make('span')
-                            ->label('Grid Span')
-                            ->placeholder('contoh: md:col-span-7')
-                            ->helperText('Pengaturan lebar kolom di grid (untuk developer).'),
-                        Forms\Components\TextInput::make('sort_order')
-                            ->label('Urutan Tampil')
-                            ->required()
-                            ->numeric()
-                            ->default(0)
-                            ->helperText('Angka lebih kecil = tampil lebih dulu.'),
-                        Forms\Components\Toggle::make('is_featured')
-                            ->label('Tampilkan di Halaman Utama?')
-                            ->helperText('Aktifkan jika ingin proyek ini muncul di homepage.')
-                            ->default(true),
-                    ])->columns(2),
+                        Forms\Components\Textarea::make('gallery_images')
+                            ->label('Gallery Data (JSON)')
+                            ->placeholder('["url1", "url2"]')
+                            ->helperText('Enter an array of image URLs or IDs.'),
+                    ]),
             ]);
     }
 

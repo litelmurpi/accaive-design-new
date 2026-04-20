@@ -13,7 +13,9 @@ const Team = () => {
           <span className="text-xs uppercase tracking-widest text-gray-500 mb-2 block">
             Team
           </span>
-          <h2 className="font-serif text-5xl md:text-6xl">Meet the makers.</h2>
+          <h2 className="font-serif text-5xl md:text-6xl text-gray-900">
+            Meet the makers.
+          </h2>
         </div>
         <p className="md:w-1/3 text-gray-600 mt-6 md:mt-0 leading-relaxed">
           We asked our team to choose a piece of architecture that represents

@@ -37,12 +37,20 @@ Route::get('/projects', function (Request $request) {
     if ($request->boolean('featured')) {
         $query->where('is_featured', true);
     }
-    return response()->json(['data' => $query->orderBy('sort_order')->get()]);
+    $projects = $query->orderBy('sort_order')->get()->map(function ($p) {
+        if ($p->hero_image && !str_starts_with($p->hero_image, 'http')) $p->hero_image = url('storage/' . $p->hero_image);
+        return $p;
+    });
+    return response()->json(['data' => $projects]);
 });
 
 Route::get('/projects/{slug}', function ($slug) {
     $project = Project::where('slug', $slug)->firstOrFail();
-    $project->gallery_images = json_decode($project->gallery_images); // parse JSON
+    $gallery = json_decode($project->gallery_images) ?? [];
+    $project->gallery_images = array_map(function ($img) {
+        return str_starts_with($img, 'http') ? $img : url('storage/' . $img);
+    }, $gallery);
+    if ($project->hero_image && !str_starts_with($project->hero_image, 'http')) $project->hero_image = url('storage/' . $project->hero_image);
     return response()->json(['data' => $project]);
 });
 
@@ -53,12 +61,20 @@ Route::get('/services', function () {
 
 // TEAM
 Route::get('/team', function () {
-    return response()->json(['data' => TeamMember::orderBy('sort_order')->get()]);
+    $team = TeamMember::orderBy('sort_order')->get()->map(function ($member) {
+        if ($member->photo && !str_starts_with($member->photo, 'http')) $member->photo = url('storage/' . $member->photo);
+        return $member;
+    });
+    return response()->json(['data' => $team]);
 });
 
 // EXHIBITIONS
 Route::get('/exhibitions', function () {
-    return response()->json(['data' => Exhibition::orderBy('sort_order')->get()]);
+    $exhibitions = Exhibition::orderBy('sort_order')->get()->map(function ($item) {
+        if ($item->image && !str_starts_with($item->image, 'http')) $item->image = url('storage/' . $item->image);
+        return $item;
+    });
+    return response()->json(['data' => $exhibitions]);
 });
 
 // PRESS ARTICLES
@@ -75,6 +91,7 @@ Route::get('/careers', function () {
 Route::get('/programs', function () {
     $programs = Program::orderBy('sort_order')->get()->map(function ($prog) {
         $prog->features = json_decode($prog->features);
+        if ($prog->image && !str_starts_with($prog->image, 'http')) $prog->image = url('storage/' . $prog->image);
         return $prog;
     });
     return response()->json(['data' => $programs]);
@@ -82,7 +99,11 @@ Route::get('/programs', function () {
 
 // FEATURED STORIES
 Route::get('/featured-stories', function () {
-    return response()->json(['data' => FeaturedStory::orderBy('sort_order')->get()]);
+    $stories = FeaturedStory::orderBy('sort_order')->get()->map(function ($story) {
+        if ($story->image && !str_starts_with($story->image, 'http')) $story->image = url('storage/' . $story->image);
+        return $story;
+    });
+    return response()->json(['data' => $stories]);
 });
 
 // SETTINGS

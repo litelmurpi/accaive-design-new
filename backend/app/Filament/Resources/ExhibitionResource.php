@@ -16,41 +16,39 @@ class ExhibitionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
     protected static ?string $navigationGroup = 'Portfolio';
-    protected static ?string $navigationLabel = 'Pameran';
-    protected static ?string $modelLabel = 'Pameran';
-    protected static ?string $pluralModelLabel = 'Daftar Pameran';
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationLabel = 'Exhibitions';
+    protected static ?string $modelLabel = 'Exhibition';
+    protected static ?string $pluralModelLabel = 'Exhibitions';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Detail Pameran')
-                    ->description('Informasi pameran yang tampil di halaman "Arts & Culture".')
+                Forms\Components\Section::make('Exhibition Detail')
+                    ->description('Showcase info for the "Arts & Culture" narrative.')
                     ->icon('heroicon-o-sparkles')
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Judul Pameran')
+                            ->label('Exhibition Title')
                             ->required()
-                            ->placeholder('contoh: Modern Heritage'),
+                            ->placeholder('e.g. Modern Heritage'),
                         Forms\Components\TextInput::make('location')
-                            ->label('Lokasi')
+                            ->label('Venue / Location')
                             ->required()
-                            ->placeholder('contoh: London, UK'),
+                            ->placeholder('e.g. London, UK'),
                         Forms\Components\TextInput::make('year')
-                            ->label('Tahun')
-                            ->placeholder('contoh: 2024'),
+                            ->label('Exhibition Year')
+                            ->placeholder('2024'),
                         Forms\Components\Textarea::make('description')
-                            ->label('Deskripsi')
-                            ->placeholder('Ceritakan tentang pameran ini...')
+                            ->label('Brief Narrative')
+                            ->placeholder('Describe the atmosphere and purpose...')
                             ->rows(3)
                             ->columnSpanFull(),
                         Forms\Components\FileUpload::make('image')
-                            ->label('Foto Pameran')
+                            ->label('Exhibition Visual')
                             ->image()
-                            ->imageEditor()
                             ->directory('exhibitions')
-                            ->helperText('Foto landscape berkualitas tinggi. Ukuran ideal: 1600x900px.')
+                            ->helperText('High-quality landscape visual.')
                             ->columnSpanFull(),
                     ])->columns(2),
             ]);

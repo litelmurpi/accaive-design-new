@@ -16,35 +16,33 @@ class PressArticleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $navigationGroup = 'Content';
-    protected static ?string $navigationLabel = 'Liputan Media';
-    protected static ?string $modelLabel = 'Artikel Pers';
-    protected static ?string $pluralModelLabel = 'Liputan Media';
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationLabel = 'Press & Media';
+    protected static ?string $modelLabel = 'Press Article';
+    protected static ?string $pluralModelLabel = 'Press Coverage';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Detail Artikel')
-                    ->description('Artikel atau liputan media tentang Accaive yang tampil di halaman "Press".')
+                Forms\Components\Section::make('Press Insight')
+                    ->description('Media coverage and editorial highlights for the studio.')
                     ->icon('heroicon-o-newspaper')
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Judul Artikel')
+                            ->label('Article Headline')
                             ->required()
-                            ->placeholder('contoh: Top 10 Emerging Architecture Firms'),
+                            ->placeholder('e.g. Top 10 Emerging Architecture Firms'),
                         Forms\Components\TextInput::make('source')
-                            ->label('Nama Media / Sumber')
+                            ->label('Publication / Media')
                             ->required()
-                            ->placeholder('contoh: Architectural Digest, Dezeen'),
+                            ->placeholder('e.g. Architectural Digest'),
                         Forms\Components\TextInput::make('url')
-                            ->label('Link Artikel (URL)')
+                            ->label('Original Link (URL)')
                             ->url()
-                            ->placeholder('contoh: https://archdaily.com/article/...')
-                            ->helperText('Link menuju artikel asli di website media.'),
+                            ->placeholder('https://archdaily.com/...')
+                            ->helperText('Direct link to the published article.'),
                         Forms\Components\DatePicker::make('published_at')
-                            ->label('Tanggal Terbit')
-                            ->helperText('Kapan artikel ini dipublikasikan?'),
+                            ->label('Publication Date'),
                     ])->columns(2),
             ]);
     }

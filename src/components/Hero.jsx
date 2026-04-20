@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import videoClip from "../assets/Clip1.mp4";
+import { useSettings } from "../hooks/useSecondary";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ const Hero = () => {
   const headingRef = useRef(null);
   const awardsRef = useRef(null);
   const videoContainerRef = useRef(null);
+  const { settings } = useSettings();
 
   useGSAP(
     () => {
@@ -56,6 +58,8 @@ const Hero = () => {
     { scope: containerRef },
   );
 
+  const heroHeadline = settings?.hero_headline || "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design.";
+
   return (
     <section
       ref={containerRef}
@@ -64,10 +68,8 @@ const Hero = () => {
       <h1
         ref={headingRef}
         className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight mb-24 max-w-4xl opacity-100"
-      >
-        a creation that <br /> <span className="italic">craves</span>
-        <br /> <span className="italic">creative</span> design.
-      </h1>
+        dangerouslySetInnerHTML={{ __html: heroHeadline }}
+      />
 
       <div
         ref={awardsRef}

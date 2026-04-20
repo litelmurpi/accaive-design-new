@@ -51,7 +51,6 @@ class ProgramResource extends Resource
                         Forms\Components\FileUpload::make('image')
                             ->label('Gambar Program')
                             ->image()
-                            ->imageEditor()
                             ->directory('programs')
                             ->helperText('Gambar yang merepresentasikan program ini.')
                             ->columnSpanFull(),

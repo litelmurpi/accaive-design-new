@@ -27,91 +27,87 @@ class ProjectResource extends Resource
             ->schema([
                 Forms\Components\Grid::make(3)
                     ->schema([
-                        Forms\Components\Section::make('Core Information')
-                            ->description('Essential details about the project identity.')
-                            ->icon('heroicon-o-document-text')
+                        Forms\Components\Section::make('Informasi Utama')
+                            ->compact()
                             ->schema([
                                 Forms\Components\TextInput::make('title')
-                                    ->label('Project Title')
+                                    ->label('Judul Proyek')
                                     ->required()
-                                    ->placeholder('e.g. The Void House')
+                                    ->placeholder('contoh: The Void House')
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', \Illuminate\Support\Str::slug($state)) : null),
                                 Forms\Components\TextInput::make('slug')
-                                    ->label('URL Slug')
+                                    ->label('Slug URL')
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->placeholder('the-void-house'),
                                 Forms\Components\TextInput::make('category')
-                                    ->label('Category')
+                                    ->label('Kategori')
                                     ->required()
-                                    ->placeholder('e.g. Residential'),
+                                    ->placeholder('contoh: Residensial'),
                                 Forms\Components\Grid::make(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('client')
-                                            ->label('Client Name')
-                                            ->placeholder('Private Client'),
+                                            ->label('Nama Klien')
+                                            ->placeholder('Klien Pribadi'),
                                         Forms\Components\TextInput::make('year')
-                                            ->label('Completion Year')
+                                            ->label('Tahun Selesai')
                                             ->placeholder('2025'),
                                     ]),
                                 Forms\Components\Textarea::make('description')
-                                    ->label('Project Narrative')
-                                    ->placeholder('Tell the story behind this architecture...')
+                                    ->label('Deskripsi Proyek')
+                                    ->placeholder('Ceritakan kisah di balik arsitektur ini...')
                                     ->rows(6),
                             ])->columnSpan(2),
 
                         Forms\Components\Group::make()
                             ->schema([
-                                Forms\Components\Section::make('Visual Narrative')
-                                    ->description('Main imagery for the project.')
-                                    ->icon('heroicon-o-photo')
+                                Forms\Components\Section::make('Narasi Visual')
+                                    ->compact()
                                     ->schema([
                                         Forms\Components\FileUpload::make('hero_image')
-                                            ->label('Hero Image')
+                                            ->label('Gambar Utama (Hero)')
                                             ->image()
                                             ->directory('projects/hero')
                                             ->required()
-                                            ->helperText('High-resolution landscape (16:9 recommended).'),
+                                            ->helperText('Visual lanskap resolusi tinggi (disarankan 16:9).'),
                                     ]),
 
-                                Forms\Components\Section::make('Grid & Curation')
-                                    ->description('How this project appears in the work grid.')
-                                    ->icon('heroicon-o-squares-2x2')
+                                Forms\Components\Section::make('Grid & Kurasi')
+                                    ->compact()
                                     ->schema([
                                         Forms\Components\Select::make('size')
-                                            ->label('Card Proportion')
+                                            ->label('Proporsi Kartu')
                                             ->options([
-                                                'large' => 'Large (Full Width)',
-                                                'small' => 'Small (Standard)',
-                                                'tall' => 'Tall (Portrait)',
-                                                'wide' => 'Wide (Horizontal)',
+                                                'large' => 'Besar (Lebar Penuh)',
+                                                'small' => 'Kecil (Standar)',
+                                                'tall' => 'Tinggi (Potret)',
+                                                'wide' => 'Lebar (Horizontal)',
                                             ])
                                             ->default('small'),
                                         Forms\Components\TextInput::make('span')
-                                            ->label('Grid Span (Tailwind)')
+                                            ->label('Lebar Grid (Tailwind)')
                                             ->placeholder('md:col-span-6'),
                                         Forms\Components\TextInput::make('sort_order')
-                                            ->label('Sequence Position')
+                                            ->label('Urutan')
                                             ->numeric()
                                             ->default(0),
                                         Forms\Components\Toggle::make('is_featured')
-                                            ->label('Feature on Homepage')
+                                            ->label('Tampilkan di Beranda')
                                             ->inline(false)
                                             ->default(true),
                                     ]),
                             ])->columnSpan(1),
                     ]),
 
-                Forms\Components\Section::make('Gallery Collection')
-                    ->description('Additional visuals for the detailed case study.')
-                    ->icon('heroicon-o-rectangle-stack')
+                Forms\Components\Section::make('Koleksi Galeri')
+                    ->compact()
                     ->collapsed()
                     ->schema([
                         Forms\Components\Textarea::make('gallery_images')
-                            ->label('Gallery Data (JSON)')
+                            ->label('Data Galeri (JSON)')
                             ->placeholder('["url1", "url2"]')
-                            ->helperText('Enter an array of image URLs or IDs.'),
+                            ->helperText('Masukkan array URL gambar atau ID.'),
                     ]),
             ]);
     }
@@ -133,23 +129,28 @@ class ProjectResource extends Resource
                     ->color('gray'),
                 Tables\Columns\TextColumn::make('year')
                     ->label('Tahun'),
-                Tables\Columns\TextColumn::make('sort_order')
+                Tables\Columns\TextInputColumn::make('sort_order')
                     ->label('Urutan')
-                    ->numeric()
+                    ->type('number')
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_featured')
-                    ->label('Featured')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_featured')
+                    ->label('Featured'),
             ])
             ->defaultSort('sort_order')
             ->reorderable('sort_order')
+            ->striped()
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_featured')
                     ->label('Status Featured'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -165,8 +166,6 @@ class ProjectResource extends Resource
     {
         return [
             'index' => Pages\ListProjects::route('/'),
-            'create' => Pages\CreateProject::route('/create'),
-            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 }

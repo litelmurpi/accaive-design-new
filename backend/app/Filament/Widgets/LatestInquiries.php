@@ -22,28 +22,28 @@ class LatestInquiries extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Date')
+                    ->label('Tanggal')
                     ->dateTime('d M Y, H:i')
                     ->color('gray'),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Sender')
+                    ->label('Pengirim')
                     ->weight('bold'),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->icon('heroicon-o-envelope'),
                 Tables\Columns\TextColumn::make('budget')
-                    ->label('Budget')
+                    ->label('Anggaran')
                     ->badge()
                     ->color('info'),
                 Tables\Columns\TextColumn::make('message')
-                    ->label('Message Preview')
+                    ->label('Isi Pesan')
                     ->limit(50),
             ])
             ->actions([
                 Tables\Actions\Action::make('view')
-                    ->url(fn (ContactSubmission $record): string => ContactSubmissionResource::getUrl('view', ['record' => $record]))
-                    ->icon('heroicon-o-eye')
-                    ->label('View Details'),
+                    ->url(fn (): string => ContactSubmissionResource::getUrl('index'))
+                    ->icon('heroicon-o-inbox')
+                    ->label('Buka Inbox'),
             ]);
     }
 }

@@ -26,8 +26,7 @@ class ProgramResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Informasi Program')
-                    ->description('Program edukasi atau inisiatif khusus yang ditampilkan di halaman "Programs".')
-                    ->icon('heroicon-o-academic-cap')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label('Nama Program')
@@ -44,8 +43,7 @@ class ProgramResource extends Resource
                     ])->columns(2),
 
                 Forms\Components\Section::make('Visual & Fitur')
-                    ->description('Tambahkan gambar dan daftar keunggulan program.')
-                    ->icon('heroicon-o-photo')
+                    ->compact()
                     ->collapsible()
                     ->schema([
                         Forms\Components\FileUpload::make('image')
@@ -82,9 +80,15 @@ class ProgramResource extends Resource
                     ->limit(40)
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -100,8 +104,6 @@ class ProgramResource extends Resource
     {
         return [
             'index' => Pages\ListPrograms::route('/'),
-            'create' => Pages\CreateProgram::route('/create'),
-            'edit' => Pages\EditProgram::route('/{record}/edit'),
         ];
     }
 }

@@ -8,9 +8,9 @@ class TeamMember extends Model
 {
     protected $fillable = [
         'name',
-        'position',
+        'role',
+        'photo',
         'bio',
-        'image',
-        'is_featured',
+        'sort_order',
     ];
 }

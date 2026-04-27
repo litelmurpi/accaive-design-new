@@ -15,7 +15,7 @@ class SiteSettingResource extends Resource
     protected static ?string $model = SiteSetting::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationGroup = 'Pengaturan';
     protected static ?string $navigationLabel = 'Pengaturan Website';
     protected static ?string $modelLabel = 'Pengaturan';
     protected static ?string $pluralModelLabel = 'Pengaturan Website';
@@ -26,8 +26,7 @@ class SiteSettingResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Pengaturan')
-                    ->description('Konfigurasi umum website. Ubah nilai sesuai kebutuhan.')
-                    ->icon('heroicon-o-cog-6-tooth')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('key')
                             ->label('Nama Pengaturan')
@@ -57,8 +56,12 @@ class SiteSettingResource extends Resource
                     ->searchable()
                     ->wrap(),
             ])
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Ubah'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Ubah')
+                    ->slideOver(),
             ])
             ->emptyStateHeading('Belum ada pengaturan')
             ->emptyStateDescription('Pengaturan website akan muncul di sini.')
@@ -69,8 +72,6 @@ class SiteSettingResource extends Resource
     {
         return [
             'index' => Pages\ListSiteSettings::route('/'),
-            'create' => Pages\CreateSiteSetting::route('/create'),
-            'edit' => Pages\EditSiteSetting::route('/{record}/edit'),
         ];
     }
 }

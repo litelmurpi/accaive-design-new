@@ -11,6 +11,7 @@ import CustomCursor from "./components/CustomCursor";
 import PageTransition from "./components/PageTransition";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/useTheme";
+import { useSettings } from "./hooks/useSecondary";
 
 // Pages
 import Home from "./pages/Home";
@@ -29,8 +30,16 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const { isDarkMode } = useTheme();
+  const { settings } = useSettings();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Update document title based on site_title setting
+  useEffect(() => {
+    if (settings?.site_title) {
+      document.title = settings.site_title;
+    }
+  }, [settings]);
 
   // Initialize Lenis and sync with GSAP
   useEffect(() => {

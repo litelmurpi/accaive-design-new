@@ -16,33 +16,32 @@ class PressArticleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $navigationGroup = 'Content';
-    protected static ?string $navigationLabel = 'Press & Media';
-    protected static ?string $modelLabel = 'Press Article';
-    protected static ?string $pluralModelLabel = 'Press Coverage';
+    protected static ?string $navigationLabel = 'Pers & Media';
+    protected static ?string $modelLabel = 'Artikel Pers';
+    protected static ?string $pluralModelLabel = 'Liputan Pers';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Press Insight')
-                    ->description('Media coverage and editorial highlights for the studio.')
-                    ->icon('heroicon-o-newspaper')
+                Forms\Components\Section::make('Wawasan Pers')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Article Headline')
+                            ->label('Judul Artikel')
                             ->required()
-                            ->placeholder('e.g. Top 10 Emerging Architecture Firms'),
+                            ->placeholder('contoh: Top 10 Emerging Architecture Firms'),
                         Forms\Components\TextInput::make('source')
-                            ->label('Publication / Media')
+                            ->label('Publikasi / Media')
                             ->required()
-                            ->placeholder('e.g. Architectural Digest'),
+                            ->placeholder('contoh: Architectural Digest'),
                         Forms\Components\TextInput::make('url')
-                            ->label('Original Link (URL)')
+                            ->label('Tautan Asli (URL)')
                             ->url()
                             ->placeholder('https://archdaily.com/...')
-                            ->helperText('Direct link to the published article.'),
+                            ->helperText('Tautan langsung ke artikel yang diterbitkan.'),
                         Forms\Components\DatePicker::make('published_at')
-                            ->label('Publication Date'),
+                            ->label('Tanggal Terbit'),
                     ])->columns(2),
             ]);
     }
@@ -67,9 +66,15 @@ class PressArticleResource extends Resource
                     ->sortable(),
             ])
             ->defaultSort('published_at', 'desc')
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -85,8 +90,6 @@ class PressArticleResource extends Resource
     {
         return [
             'index' => Pages\ListPressArticles::route('/'),
-            'create' => Pages\CreatePressArticle::route('/create'),
-            'edit' => Pages\EditPressArticle::route('/{record}/edit'),
         ];
     }
 }

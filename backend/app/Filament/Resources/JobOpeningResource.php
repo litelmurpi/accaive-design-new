@@ -26,8 +26,7 @@ class JobOpeningResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Detail Lowongan')
-                    ->description('Lowongan kerja yang ditampilkan di halaman "Careers".')
-                    ->icon('heroicon-o-briefcase')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label('Posisi / Jabatan')
@@ -79,9 +78,15 @@ class JobOpeningResource extends Resource
                         default => 'gray',
                     }),
             ])
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -97,8 +102,6 @@ class JobOpeningResource extends Resource
     {
         return [
             'index' => Pages\ListJobOpenings::route('/'),
-            'create' => Pages\CreateJobOpening::route('/create'),
-            'edit' => Pages\EditJobOpening::route('/{record}/edit'),
         ];
     }
 }

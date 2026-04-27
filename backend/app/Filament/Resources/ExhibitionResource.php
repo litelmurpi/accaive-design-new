@@ -16,39 +16,38 @@ class ExhibitionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
     protected static ?string $navigationGroup = 'Portfolio';
-    protected static ?string $navigationLabel = 'Exhibitions';
-    protected static ?string $modelLabel = 'Exhibition';
-    protected static ?string $pluralModelLabel = 'Exhibitions';
+    protected static ?string $navigationLabel = 'Pameran';
+    protected static ?string $modelLabel = 'Pameran';
+    protected static ?string $pluralModelLabel = 'Pameran';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Exhibition Detail')
-                    ->description('Showcase info for the "Arts & Culture" narrative.')
-                    ->icon('heroicon-o-sparkles')
+                Forms\Components\Section::make('Detail Pameran')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Exhibition Title')
+                            ->label('Judul Pameran')
                             ->required()
-                            ->placeholder('e.g. Modern Heritage'),
+                            ->placeholder('contoh: Modern Heritage'),
                         Forms\Components\TextInput::make('location')
-                            ->label('Venue / Location')
+                            ->label('Tempat / Lokasi')
                             ->required()
-                            ->placeholder('e.g. London, UK'),
+                            ->placeholder('contoh: London, UK'),
                         Forms\Components\TextInput::make('year')
-                            ->label('Exhibition Year')
+                            ->label('Tahun Pameran')
                             ->placeholder('2024'),
                         Forms\Components\Textarea::make('description')
-                            ->label('Brief Narrative')
-                            ->placeholder('Describe the atmosphere and purpose...')
+                            ->label('Narasi Singkat')
+                            ->placeholder('Jelaskan suasana dan tujuannya...')
                             ->rows(3)
                             ->columnSpanFull(),
                         Forms\Components\FileUpload::make('image')
-                            ->label('Exhibition Visual')
+                            ->label('Visual Pameran')
                             ->image()
                             ->directory('exhibitions')
-                            ->helperText('High-quality landscape visual.')
+                            ->helperText('Visual lanskap kualitas tinggi.')
                             ->columnSpanFull(),
                     ])->columns(2),
             ]);
@@ -73,9 +72,15 @@ class ExhibitionResource extends Resource
                     ->sortable(),
             ])
             ->defaultSort('year', 'desc')
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -91,8 +96,6 @@ class ExhibitionResource extends Resource
     {
         return [
             'index' => Pages\ListExhibitions::route('/'),
-            'create' => Pages\CreateExhibition::route('/create'),
-            'edit' => Pages\EditExhibition::route('/{record}/edit'),
         ];
     }
 }

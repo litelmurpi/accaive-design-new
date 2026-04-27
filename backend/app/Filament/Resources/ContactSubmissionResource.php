@@ -31,30 +31,29 @@ class ContactSubmissionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Split::make([
-                    Forms\Components\Section::make('Message Context')
-                        ->description('Communication details from the studio website.')
-                        ->icon('heroicon-o-envelope')
+                    Forms\Components\Section::make('Konteks Pesan')
+                        ->compact()
                         ->schema([
                             Forms\Components\TextInput::make('name')
-                                ->label('Sender Name'),
+                                ->label('Nama Pengirim'),
                             Forms\Components\TextInput::make('email')
-                                ->label('Email Address')
+                                ->label('Alamat Email')
                                 ->suffixIcon('heroicon-o-envelope'),
                             Forms\Components\TextInput::make('company')
-                                ->label('Organization / Studio'),
+                                ->label('Organisasi / Studio'),
                             Forms\Components\TextInput::make('budget')
-                                ->label('Estimated Budget')
+                                ->label('Estimasi Budget')
                                 ->placeholder('—'),
                             Forms\Components\Placeholder::make('created_at')
-                                ->label('Timestamp')
+                                ->label('Waktu Kirim')
                                 ->content(fn($record) => $record?->created_at?->format('d M Y, H:i') ?? '-'),
                         ])->columns(2),
                     
-                    Forms\Components\Section::make('The Inquiry')
-                        ->icon('heroicon-o-chat-bubble-left-right')
+                    Forms\Components\Section::make('Isi Pesan')
+                        ->compact()
                         ->schema([
                             Forms\Components\Textarea::make('message')
-                                ->label('Message Content')
+                                ->label('Konten Pesan')
                                 ->rows(12)
                                 ->columnSpanFull(),
                         ])->grow(true),
@@ -81,7 +80,7 @@ class ContactSubmissionResource extends Resource
                     ->label('Perusahaan')
                     ->placeholder('—'),
                 Tables\Columns\TextColumn::make('budget')
-                    ->label('Budget')
+                    ->label('Anggaran')
                     ->placeholder('—'),
                 Tables\Columns\TextColumn::make('message')
                     ->label('Pesan')
@@ -93,9 +92,23 @@ class ContactSubmissionResource extends Resource
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
+            ->striped()
             ->actions([
-                Tables\Actions\ViewAction::make()->label('Lihat'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\Action::make('reply')
+                    ->label('Balas')
+                    ->icon('heroicon-o-chat-bubble-left-right')
+                    ->color('success')
+                    ->url(fn (ContactSubmission $record): string => "https://mail.google.com/mail/?view=cm&fs=1&to={$record->email}&su=Balasan: Pesan dari {$record->name}")
+                    ->openUrlInNewTab()
+                    ->iconButton()
+                    ->tooltip('Balas via Gmail'),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton()
+                    ->tooltip('Lihat')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -111,7 +124,6 @@ class ContactSubmissionResource extends Resource
     {
         return [
             'index' => Pages\ListContactSubmissions::route('/'),
-            'view' => Pages\EditContactSubmission::route('/{record}'),
         ];
     }
 }

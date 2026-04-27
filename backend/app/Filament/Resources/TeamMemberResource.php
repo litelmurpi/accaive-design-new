@@ -17,58 +17,59 @@ class TeamMemberResource extends Resource
 {
     protected static ?string $model = TeamMember::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationGroup = 'Company';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationGroup = 'Perusahaan';
+    protected static ?string $navigationLabel = 'Anggota Tim';
+    protected static ?string $modelLabel = 'Anggota Tim';
+    protected static ?string $pluralModelLabel = 'Anggota Tim';
 
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Profile Information')
-                    ->description('Personal details and studio role.')
-                    ->icon('heroicon-o-user')
+                Forms\Components\Section::make('Informasi Profil')
+                    ->compact()
                     ->schema([
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
-                                    ->label('Full Name')
+                                    ->label('Nama Lengkap')
                                     ->required()
-                                    ->placeholder('e.g. Alexander Chen'),
+                                    ->placeholder('contoh: Alexander Chen'),
                                 Forms\Components\TextInput::make('role')
-                                    ->label('Studio Role')
+                                    ->label('Peran Studio')
                                     ->required()
-                                    ->placeholder('e.g. Lead Architect'),
+                                    ->placeholder('contoh: Lead Architect'),
                             ]),
                         Forms\Components\Textarea::make('bio')
-                            ->label('Biography / Narrative')
-                            ->placeholder('Describe the creative journey and expertise...')
+                            ->label('Biografi / Narasi')
+                            ->placeholder('Jelaskan perjalanan kreatif dan keahliannya...')
                             ->rows(4)
                             ->columnSpanFull(),
                     ])->columnSpan(2),
 
                 Forms\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Visual Identity')
-                            ->description('Studio portrait.')
-                            ->icon('heroicon-o-camera')
+                        Forms\Components\Section::make('Identitas Visual')
+                            ->compact()
                             ->schema([
                                 Forms\Components\FileUpload::make('photo')
-                                    ->label('Portrait Photo')
+                                    ->label('Foto Potret')
                                     ->image()
                                     ->directory('team')
-                                    ->helperText('High-quality portrait. Grayscale recommended for brand consistency.'),
+                                    ->helperText('Foto potret berkualitas tinggi. Disarankan grayscale untuk konsistensi brand.'),
                             ]),
 
-                        Forms\Components\Section::make('Management')
+                        Forms\Components\Section::make('Manajemen')
+                            ->compact()
                             ->schema([
                                 Forms\Components\TextInput::make('sort_order')
-                                    ->label('Display Order')
+                                    ->label('Urutan Tampilan')
                                     ->required()
                                     ->numeric()
                                     ->default(0)
-                                    ->helperText('Lower numbers appear first in the team grid.'),
+                                    ->helperText('Angka lebih rendah muncul lebih dulu.'),
                             ]),
                     ])->columnSpan(1),
             ])->columns(3);
@@ -79,29 +80,36 @@ class TeamMemberResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('photo')
-                    ->label('Portrait')
+                    ->label('Foto')
                     ->square(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label('Nama')
                     ->searchable()
                     ->weight('bold'),
                 Tables\Columns\TextColumn::make('role')
-                    ->label('Role')
+                    ->label('Peran')
                     ->searchable()
                     ->badge()
                     ->color('gray'),
-                Tables\Columns\TextColumn::make('sort_order')
-                    ->label('Order')
-                    ->numeric()
+                Tables\Columns\TextInputColumn::make('sort_order')
+                    ->label('Urutan')
+                    ->type('number')
                     ->sortable(),
             ])
             ->defaultSort('sort_order')
             ->reorderable('sort_order')
+            ->striped()
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -121,8 +129,6 @@ class TeamMemberResource extends Resource
     {
         return [
             'index' => Pages\ListTeamMembers::route('/'),
-            'create' => Pages\CreateTeamMember::route('/create'),
-            'edit' => Pages\EditTeamMember::route('/{record}/edit'),
         ];
     }
 }

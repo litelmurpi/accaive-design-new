@@ -16,33 +16,32 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
     protected static ?string $navigationGroup = 'Company';
-    protected static ?string $navigationLabel = 'Expertise';
-    protected static ?string $modelLabel = 'Service';
-    protected static ?string $pluralModelLabel = 'Services';
+    protected static ?string $navigationLabel = 'Keahlian';
+    protected static ?string $modelLabel = 'Layanan';
+    protected static ?string $pluralModelLabel = 'Layanan';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Service Offering')
-                    ->description('Define the studio services shown on the landing page.')
-                    ->icon('heroicon-o-wrench-screwdriver')
+                Forms\Components\Section::make('Penawaran Layanan')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('code')
-                            ->label('Service Code')
-                            ->placeholder('e.g. 01')
-                            ->helperText('Index number shown before the title.'),
+                            ->label('Kode Layanan')
+                            ->placeholder('contoh: 01')
+                            ->helperText('Nomor indeks yang ditampilkan sebelum judul.'),
                         Forms\Components\TextInput::make('title')
-                            ->label('Service Title')
+                            ->label('Judul Layanan')
                             ->required()
-                            ->placeholder('e.g. Spatial Strategy'),
+                            ->placeholder('contoh: Spatial Strategy'),
                         Forms\Components\Textarea::make('description')
-                            ->label('Brief Description')
-                            ->placeholder('Describe this expertise in 1-2 sentences...')
+                            ->label('Deskripsi Singkat')
+                            ->placeholder('Jelaskan keahlian ini dalam 1-2 kalimat...')
                             ->rows(3)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('sort_order')
-                            ->label('Display Order')
+                            ->label('Urutan Tampilan')
                             ->numeric()
                             ->default(0),
                     ])->columns(2),
@@ -65,15 +64,22 @@ class ServiceResource extends Resource
                     ->label('Deskripsi')
                     ->limit(50)
                     ->wrap(),
-                Tables\Columns\TextColumn::make('sort_order')
+                Tables\Columns\TextInputColumn::make('sort_order')
                     ->label('Urutan')
+                    ->type('number')
                     ->sortable(),
             ])
             ->defaultSort('sort_order')
             ->reorderable('sort_order')
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -89,8 +95,6 @@ class ServiceResource extends Resource
     {
         return [
             'index' => Pages\ListServices::route('/'),
-            'create' => Pages\CreateService::route('/create'),
-            'edit' => Pages\EditService::route('/{record}/edit'),
         ];
     }
 }

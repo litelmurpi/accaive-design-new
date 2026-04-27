@@ -16,33 +16,32 @@ class FeaturedStoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
     protected static ?string $navigationGroup = 'Content';
-    protected static ?string $navigationLabel = 'Featured Stories';
-    protected static ?string $modelLabel = 'Featured Story';
-    protected static ?string $pluralModelLabel = 'Featured Stories';
+    protected static ?string $navigationLabel = 'Cerita Unggulan';
+    protected static ?string $modelLabel = 'Cerita Unggulan';
+    protected static ?string $pluralModelLabel = 'Cerita Unggulan';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Story Highlight')
-                    ->description('Curated content for the main navigation highlight.')
-                    ->icon('heroicon-o-star')
+                Forms\Components\Section::make('Sorotan Cerita')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('title')
-                            ->label('Story Title')
+                            ->label('Judul Cerita')
                             ->required()
-                            ->placeholder('e.g. Designing the Future of Work'),
+                            ->placeholder('contoh: Designing the Future of Work'),
                         Forms\Components\TextInput::make('category')
-                            ->label('Content Category')
-                            ->placeholder('e.g. Article, News'),
+                            ->label('Kategori Konten')
+                            ->placeholder('contoh: Artikel, Berita'),
                         Forms\Components\TextInput::make('url')
-                            ->label('Destination Link')
-                            ->placeholder('e.g. /case-studies'),
+                            ->label('Tautan Tujuan')
+                            ->placeholder('contoh: /case-studies'),
                         Forms\Components\FileUpload::make('image')
-                            ->label('Story Thumbnail')
+                            ->label('Thumbnail Cerita')
                             ->image()
                             ->directory('stories')
-                            ->helperText('Visual cue for the navigation menu.')
+                            ->helperText('Petunjuk visual untuk menu navigasi.')
                             ->columnSpanFull(),
                     ])->columns(2),
             ]);
@@ -67,9 +66,15 @@ class FeaturedStoryResource extends Resource
                     ->icon('heroicon-o-link')
                     ->color('info'),
             ])
+            ->striped()
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit')
+                    ->slideOver(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -85,8 +90,6 @@ class FeaturedStoryResource extends Resource
     {
         return [
             'index' => Pages\ListFeaturedStories::route('/'),
-            'create' => Pages\CreateFeaturedStory::route('/create'),
-            'edit' => Pages\EditFeaturedStory::route('/{record}/edit'),
         ];
     }
 }

@@ -4,8 +4,11 @@ import gsap from "gsap";
 import { Send, ArrowLeft, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContact } from "../hooks/useContact";
+import { useSettings } from "../hooks/useSecondary";
 
 const ContactForm = () => {
+  const { settings } = useSettings();
+  const contactEmail = settings?.contact_email || "hello@accaivedesign.com";
   const containerRef = useRef(null);
   const formRef = useRef(null);
   const [formData, setFormData] = useState({
@@ -230,10 +233,10 @@ const ContactForm = () => {
                 Email
               </h3>
               <a
-                href="mailto:acaive.design@gmail.com"
+                href={`mailto:${contactEmail}`}
                 className="text-lg hover:text-gray-400 transition-colors"
               >
-                acaive.design@gmail.com
+                {contactEmail}
               </a>
             </div>
             <div>

@@ -1,11 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSettings } from "../hooks/useSecondary";
 
-const Footer = () => (
-  <footer className="bg-[#1a0f0a] text-white py-20 px-6 md:px-12">
+const Footer = () => {
+  const { settings } = useSettings();
+  const siteTitle = settings?.site_title || "Accaive Design Studio";
+  const brandName = siteTitle.split(" ")[0].toUpperCase();
+
+  return (
+    <footer className="bg-[#1a0f0a] text-white py-20 px-6 md:px-12">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/20 pb-16">
       <div className="col-span-1 lg:col-span-2">
-        <h2 className="text-3xl font-bold tracking-widest mb-6">ACCAIVE</h2>
+        <h2 className="text-3xl font-bold tracking-widest mb-6">{brandName}</h2>
         <div className="max-w-md">
           <h3 className="text-xl font-serif mb-4">Keep up to date</h3>
           <div className="flex border-b border-white/30 pb-2">
@@ -88,13 +94,14 @@ const Footer = () => (
       </div>
     </div>
     <div className="pt-8 flex flex-col md:flex-row justify-between text-xs text-white/40">
-      <p>&copy; 2025 Accaive Design Studio. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} {siteTitle}. All rights reserved.</p>
       <div className="flex gap-6 mt-4 md:mt-0">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Use</a>
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

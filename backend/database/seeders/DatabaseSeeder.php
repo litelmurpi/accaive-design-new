@@ -92,8 +92,12 @@ class DatabaseSeeder extends Seeder
 
         // 9. SITE SETTINGS
         DB::table('site_settings')->insert([
-            ['key' => 'site_title', 'value' => 'Accaive Design \u2014 Architecture & Design Studio'],
+            ['key' => 'site_title', 'value' => 'Accaive Design - Architecture & Design Studio'],
             ['key' => 'contact_email', 'value' => 'hello@accaivedesign.com'],
+        ]);
+
+        DB::table('users')->insert([
+            ['name' => 'Admin Accaive', 'email' => 'admin@accaive.com', 'password' => bcrypt('password')]
         ]);
     }
 }

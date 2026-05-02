@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('year')->nullable();
             $table->text('description')->nullable();
             $table->string('hero_image')->nullable();
-            $table->json('gallery_images')->nullable();
+            $table->jsonb('gallery_images')->nullable();
             $table->string('size')->nullable();
             $table->string('span')->nullable();
             $table->integer('sort_order')->default(0);
@@ -81,7 +81,7 @@ return new class extends Migration
             $table->string('subtitle')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->json('features')->nullable();
+            $table->jsonb('features')->nullable();
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });

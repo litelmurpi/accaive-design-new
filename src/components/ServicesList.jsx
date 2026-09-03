@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import gsap from "gsap";
 import { useServices } from "../hooks/useServices";
 import Skeleton from "./Skeleton";
 

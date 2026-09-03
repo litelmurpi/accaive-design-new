@@ -2,6 +2,8 @@
 logs
 *.log
 logs.*.json
+image*.png
+image *.png
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

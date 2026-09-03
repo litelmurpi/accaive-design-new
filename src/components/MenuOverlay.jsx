@@ -74,17 +74,17 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
       ref={containerRef}
       className="fixed inset-0 menu-overlay z-40 flex flex-col pt-24 px-6 md:px-12 overflow-y-auto text-[#e5e5e5] -translate-y-full"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 min-h-full pb-16">
         {/* Left Side: Navigation */}
-        <div className="flex flex-col justify-between pb-12">
-          <div className="space-y-4">
+        <div className="flex flex-col justify-between">
+          <div className="space-y-2 sm:space-y-4">
             {menuItems.map((item, idx) => (
               <Link
                 key={item.label}
                 to={item.path}
                 onClick={toggleMenu}
                 ref={(el) => (linksRef.current[idx] = el)}
-                className="font-serif block text-5xl md:text-7xl lg:text-8xl hover:text-gray-400 transition-colors leading-tight"
+                className="font-serif block text-4xl sm:text-6xl md:text-7xl lg:text-8xl hover:text-gray-400 transition-colors leading-tight"
               >
                 {item.label}
               </Link>
@@ -93,11 +93,15 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
 
           <div
             ref={secondaryLinksRef}
-            className="mt-12 flex flex-wrap gap-6 text-sm md:text-base font-medium"
+            className="mt-8 sm:mt-12 flex flex-wrap items-center gap-4 sm:gap-6 text-sm md:text-base font-medium"
           >
-            <button className="px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-all">
+            <Link
+              to="/contact"
+              onClick={toggleMenu}
+              className="px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-all text-center"
+            >
               Work with us
-            </button>
+            </Link>
             {secondaryLinks.map((link) => (
               <Link
                 key={link.label}

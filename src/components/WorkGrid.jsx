@@ -1,38 +1,64 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { useProjects } from "../hooks/useProjects";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const WorkGrid = () => {
   const { projects, loading } = useProjects(true); // featured = true
+  const sectionRef = useRef(null);
+
+  useGSAP(
+    () => {
+      if (!loading && projects.length > 0) {
+        gsap.from(".project-card", {
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        });
+      }
+    },
+    { dependencies: [loading, projects], scope: sectionRef },
+  );
 
   if (loading) {
     return (
-      <section className="bg-[#111] text-white py-24 px-4 md:px-12 min-h-screen flex items-center justify-center">
+      <section className="py-24 px-4 md:px-12 min-h-screen flex items-center justify-center">
         <p className="text-2xl font-serif animate-pulse tracking-widest uppercase">Curating Projects...</p>
       </section>
     );
   }
 
   return (
-    <section className="bg-[#111] text-white py-24 px-4 md:px-12 overflow-hidden">
+    <section ref={sectionRef} className="py-24 px-4 md:px-12 overflow-hidden">
       <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div>
           <h2 className="font-serif text-5xl md:text-8xl mb-6">Our Projects</h2>
-          <p className="text-xl font-light text-gray-400 max-w-xl">
+          <p className="text-xl font-light opacity-70 max-w-xl">
             We design structures so compelling, their impact is inevitable.
           </p>
         </div>
         <Link
           to="/case-studies"
-          className="inline-block px-8 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all duration-300 font-medium h-fit mb-2"
+          className="inline-block px-8 py-3 border border-current rounded-full hover:bg-white hover:text-black transition-all duration-300 font-medium h-fit mb-2"
         >
           View All Projects
         </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {projects.map((proj, idx) => (
+        {projects.map((proj) => (
           <div key={proj.slug} className={`${proj.span || 'md:col-span-6'}`}>
             <ProjectCard 
                 title={proj.title}
@@ -40,7 +66,6 @@ const WorkGrid = () => {
                 category={proj.category}
                 img={proj.hero_image}
                 size={proj.size}
-                index={idx} 
             />
           </div>
         ))}
@@ -50,3 +75,4 @@ const WorkGrid = () => {
 };
 
 export default WorkGrid;
+

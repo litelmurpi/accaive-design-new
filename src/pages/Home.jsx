@@ -17,14 +17,20 @@ const Home = () => {
 
     useGSAP(() => {
         // ScrollTrigger to detect when WorkGrid enters viewport
-        ScrollTrigger.create({
+        const st = ScrollTrigger.create({
             trigger: workGridRef.current,
-            start: "top 80%", // Trigger when top of WorkGrid is 80% from top of viewport
-            end: "top 20%",
+            start: "top 60%",
+            endTrigger: "body",
+            end: "bottom bottom",
             onEnter: () => setIsDarkMode(true),
             onLeaveBack: () => setIsDarkMode(false),
         });
-    }, []);
+
+        return () => {
+            st.kill();
+            setIsDarkMode(false); // Clean reset when leaving home page
+        };
+    }, [setIsDarkMode]);
 
     return (
         <>

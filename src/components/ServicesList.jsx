@@ -5,50 +5,45 @@ import gsap from "gsap";
 import { useServices } from "../hooks/useServices";
 import Skeleton from "./Skeleton";
 
-const ServiceItem = ({ service, isActive, onActivate }) => {
-  const contentRef = useRef(null);
+import { getCategoryForService } from "../utils/categoryMapping";
 
-  useEffect(() => {
-    if (isActive) {
-      gsap.to(contentRef.current, {
-        height: "auto",
-        opacity: 1,
-        marginTop: 16,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    } else {
-      gsap.to(contentRef.current, {
-        height: 0,
-        opacity: 0,
-        marginTop: 0,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    }
-  }, [isActive]);
+const ServiceItem = ({ service, isActive, onActivate }) => {
+  const category = getCategoryForService(service.title);
+  const targetUrl = `/case-studies?category=${encodeURIComponent(category)}`;
 
   return (
     <div
-      className={`group py-8 border-b border-gray-200 cursor-pointer transition-all duration-300 ${isActive ? "pl-4" : ""}`}
+      className={`group py-8 border-b border-current/15 transition-all duration-300 ${isActive ? "pl-4" : ""}`}
       onMouseEnter={onActivate}
     >
-      <div className="flex justify-between items-center">
+      <Link
+        to={targetUrl}
+        className="flex justify-between items-center cursor-pointer"
+      >
         <h3
-          className={`text-2xl md:text-4xl font-serif transition-colors ${isActive ? "text-black" : "text-gray-400"}`}
+          className={`text-2xl md:text-4xl font-serif transition-colors duration-300 ${isActive ? "text-current" : "opacity-40 group-hover:opacity-75"}`}
         >
           {service.title}
         </h3>
         <span
-          className={`text-sm transition-opacity ${isActive ? "opacity-100" : "opacity-0"}`}
+          className={`text-sm transition-all duration-300 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
         >
           <ArrowRight size={20} />
         </span>
-      </div>
-      <div ref={contentRef} className="overflow-hidden h-0 opacity-0">
-        <p className="text-gray-600 text-lg font-light max-w-lg">
-          {service.desc}
-        </p>
+      </Link>
+      <div className={`accordion-grid ${isActive ? "is-open" : ""}`}>
+        <div className="accordion-inner">
+          <p className="opacity-70 text-lg font-light max-w-lg pt-4 pb-3">
+            {service.desc}
+          </p>
+          <Link
+            to={targetUrl}
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold opacity-90 hover:opacity-100 underline underline-offset-4 transition-opacity"
+          >
+            <span>View {category} Projects</span>
+            <ArrowRight size={14} />
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -59,10 +54,10 @@ const ServicesList = () => {
   const [activeService, setActiveService] = useState(0);
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-white text-black">
+    <section className="py-24 px-6 md:px-12 transition-colors duration-500">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-4">
-          <h2 className="text-xs uppercase tracking-widest text-gray-500 mb-8">
+          <h2 className="text-xs uppercase tracking-widest opacity-50 mb-8">
             Programs & Services
           </h2>
           <p className="font-serif text-3xl md:text-4xl leading-tight mb-8">
@@ -71,7 +66,7 @@ const ServicesList = () => {
           </p>
           <Link
             to="/programs"
-            className="inline-block px-6 py-3 border bg-black text-white border-black rounded-full transition-all text-sm font-medium hover:scale-105 hover:shadow-lg"
+            className="inline-block px-6 py-3 border border-current bg-black text-white dark:bg-white dark:text-black rounded-full transition-all text-sm font-medium hover:scale-105 hover:shadow-lg"
           >
             Explore Programs
           </Link>

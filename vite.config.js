@@ -8,4 +8,16 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          gsap: ['gsap', '@gsap/react'],
+          lenis: ['lenis']
+        }
+      }
+    }
+  }
 })

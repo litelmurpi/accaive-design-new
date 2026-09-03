@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { fetchApi } from "../lib/api";
 
+import { useSettingsContext } from "../context/SettingsContext";
+
 export const useExhibitions = () => {
   const [exhibitions, setExhibitions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,12 +59,5 @@ export const useCareers = () => {
 };
 
 export const useSettings = () => {
-  const [settings, setSettings] = useState({});
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    fetchApi("/settings")
-      .then(setSettings)
-      .finally(() => setLoading(false));
-  }, []);
-  return { settings, loading };
+  return useSettingsContext();
 };

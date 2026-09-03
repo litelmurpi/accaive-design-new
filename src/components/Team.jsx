@@ -7,17 +7,17 @@ const Team = () => {
   const { team: members, loading } = useTeam();
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-white">
+    <section className="py-24 px-6 md:px-12 transition-colors duration-500">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16">
         <div>
-          <span className="text-xs uppercase tracking-widest text-gray-500 mb-2 block">
+          <span className="text-xs uppercase tracking-widest opacity-50 mb-2 block">
             Team
           </span>
-          <h2 className="font-serif text-5xl md:text-6xl text-gray-900">
+          <h2 className="font-serif text-5xl md:text-6xl">
             Meet the makers.
           </h2>
         </div>
-        <p className="md:w-1/3 text-gray-600 mt-6 md:mt-0 leading-relaxed">
+        <p className="md:w-1/3 opacity-70 mt-6 md:mt-0 leading-relaxed">
           We asked our team to choose a piece of architecture that represents
           them. From brutalist monuments to sustainable dwellings. Different
           backgrounds, same high standards.

@@ -63,7 +63,7 @@ const ProjectDetail = () => {
 
   if (loading) {
     return (
-      <div className="bg-[#f8f8f8] dark:bg-[#0a0a0a] min-h-screen">
+      <div className="bg-[#f8f8f8] dark:bg-[#0a0a0a] text-neutral-900 dark:text-neutral-100 min-h-screen">
         <Skeleton className="w-full h-[60vh] md:h-[80vh]" />
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
@@ -79,7 +79,7 @@ const ProjectDetail = () => {
 
   if (!data)
     return (
-      <div className="min-h-screen flex items-center justify-center font-serif text-3xl">
+      <div className="min-h-screen flex items-center justify-center font-serif text-3xl bg-[#f8f8f8] dark:bg-[#0a0a0a] text-neutral-900 dark:text-neutral-100">
         Project not found.
       </div>
     );
@@ -87,7 +87,7 @@ const ProjectDetail = () => {
   return (
     <div
       ref={containerRef}
-      className="bg-[#f8f8f8] dark:bg-[#0a0a0a] min-h-screen"
+      className="bg-[#f8f8f8] dark:bg-[#0a0a0a] text-neutral-900 dark:text-neutral-100 min-h-screen transition-colors duration-500"
     >
       {/* Hero Section */}
       <div className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
@@ -102,7 +102,7 @@ const ProjectDetail = () => {
         {/* Back Button */}
         <Link
           to="/case-studies"
-          className="absolute top-32 left-6 md:left-12 z-10 inline-flex items-center gap-2 text-white hover:text-white/70 transition-colors bg-black/20 px-4 py-2 rounded-full backdrop-blur-md"
+          className="absolute top-32 left-6 md:left-12 z-10 inline-flex items-center gap-2 text-white hover:text-white/80 transition-all bg-black/40 hover:bg-black/60 px-5 py-2.5 rounded-full backdrop-blur-md border border-white/15 shadow-lg"
         >
           <ArrowLeft size={16} /> Back to Projects
         </Link>
@@ -116,32 +116,32 @@ const ProjectDetail = () => {
         >
           {/* Left Column: Title & Metadata */}
           <div className="col-span-1 md:col-span-4">
-            <div className="text-xs uppercase tracking-widest text-gray-500 mb-4">
+            <div className="text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-4 font-medium">
               {data.category}
             </div>
-            <h1 className="font-serif text-5xl md:text-6xl mb-8 leading-tight">
+            <h1 className="font-serif text-5xl md:text-6xl mb-8 leading-tight text-neutral-900 dark:text-white">
               {data.title}
             </h1>
 
-            <div className="space-y-6 pt-8 border-t border-gray-200 dark:border-gray-800">
+            <div className="space-y-6 pt-8 border-t border-neutral-200 dark:border-neutral-800">
               <div>
-                <span className="block text-xs uppercase tracking-widest text-gray-500 mb-1">
+                <span className="block text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-1 font-medium">
                   Client
                 </span>
-                <span className="font-medium text-lg">{data.client}</span>
+                <span className="font-medium text-lg text-neutral-900 dark:text-white">{data.client}</span>
               </div>
               <div>
-                <span className="block text-xs uppercase tracking-widest text-gray-500 mb-1">
+                <span className="block text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-1 font-medium">
                   Year
                 </span>
-                <span className="font-medium text-lg">{data.year}</span>
+                <span className="font-medium text-lg text-neutral-900 dark:text-white">{data.year}</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: Description */}
           <div className="col-span-1 md:col-span-8 md:pl-12">
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-gray-700 dark:text-gray-300">
+            <p className="text-2xl md:text-3xl font-light leading-relaxed text-neutral-700 dark:text-neutral-200">
               {data.description}
             </p>
           </div>

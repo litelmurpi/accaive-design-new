@@ -63,11 +63,11 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-44 pb-12 bg-[#f8f8f8]"
+      className="min-h-screen flex flex-col justify-center items-center text-center px-4 pt-44 pb-12 transition-colors duration-500"
     >
       <h1
         ref={headingRef}
-        className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight mb-24 max-w-4xl opacity-100"
+        className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight mb-24 max-w-4xl opacity-100"
         dangerouslySetInnerHTML={{ __html: heroHeadline }}
       />
 
@@ -88,7 +88,7 @@ const Hero = () => {
 
       <div
         ref={videoContainerRef}
-        className="mt-20 mb-40 w-full max-w-6xl aspect-video md:aspect-[2.35/1] overflow-hidden rounded-lg shadow-2xl relative opacity-100"
+        className="mt-20 mb-40 w-full max-w-6xl aspect-video md:aspect-[2.35/1] overflow-hidden rounded-lg shadow-2xl relative opacity-100 will-change-transform"
       >
         <video
           autoPlay
@@ -102,6 +102,7 @@ const Hero = () => {
           <source src={videoClip} type="video/mp4" />
           {/* Fallback image */}
           <img
+            loading="lazy"
             src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop"
             className="w-full h-full object-cover"
             alt="Architecture"

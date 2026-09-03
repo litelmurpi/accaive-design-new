@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LayoutGrid, List } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Contact from "../components/Contact";
 import { useProjects } from "../hooks/useProjects";
 import Skeleton from "../components/Skeleton";
@@ -30,22 +30,7 @@ const heights = [
 
 // Shelf View Card Component - Abstract Aesthetic Design
 const ShelfCard = ({ study, index }) => {
-  const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
-
-  useGSAP(() => {
-    gsap.from(cardRef.current, {
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      delay: index * 0.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: cardRef.current,
-        start: "top 90%",
-      },
-    });
-  }, []);
 
   // Generate random geometric pattern based on index
   const patterns = [
@@ -94,8 +79,7 @@ const ShelfCard = ({ study, index }) => {
   return (
     <Link
       to={`/project/${study.slug}`}
-      ref={cardRef}
-      className={`group cursor-pointer overflow-hidden rounded-2xl ${study.height} ${width} transition-all duration-700 relative break-inside-avoid block mb-8 ${abstractMargin} ${rotation} hover:rotate-0 hover:scale-[1.02]`}
+      className={`shelf-card group cursor-pointer overflow-hidden rounded-2xl ${study.height} ${width} transition-all duration-700 relative break-inside-avoid block mb-8 ${abstractMargin} ${rotation} hover:rotate-0 hover:scale-[1.02] will-change-transform`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -186,9 +170,16 @@ const ShelfCard = ({ study, index }) => {
           </h3>
         </div>
 
+        {/* Center Title Backdrop Scrim for readability */}
+        <div
+          className="absolute inset-0 z-35 flex items-center justify-center pointer-events-none"
+        >
+          <div className="w-3/4 h-28 bg-black/40 blur-xl rounded-full opacity-80 group-hover:opacity-95 transition-opacity" />
+        </div>
+
         {/* Brand name - abstract positioning */}
         <div
-          className="absolute z-40 transition-all duration-700 group-hover:tracking-[0.3em]"
+          className="absolute z-40 transition-all duration-700 group-hover:tracking-[0.25em] px-4 text-center max-w-full"
           style={{
             bottom: index % 2 === 0 ? "50%" : "45%",
             left: "50%",
@@ -196,9 +187,8 @@ const ShelfCard = ({ study, index }) => {
           }}
         >
           <span
-            className="text-white text-5xl font-bold tracking-[0.15em] opacity-90 group-hover:opacity-100 transition-all duration-500"
+            className="text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.12em] opacity-95 group-hover:opacity-100 transition-all duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]"
             style={{
-              textShadow: "0 4px 30px rgba(0,0,0,0.5)",
               fontFamily: "serif",
             }}
           >
@@ -208,10 +198,10 @@ const ShelfCard = ({ study, index }) => {
 
         {/* Bottom gradient fade */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-32 z-35 pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 h-36 z-35 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)",
           }}
         />
       </div>
@@ -219,24 +209,8 @@ const ShelfCard = ({ study, index }) => {
   );
 };
 
-// Spines View Card Component - Abstract Aesthetic Design
 const SpineCard = ({ study, index }) => {
-  const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
-
-  useGSAP(() => {
-    gsap.from(cardRef.current, {
-      x: -40,
-      opacity: 0,
-      duration: 0.6,
-      delay: index * 0.08,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: cardRef.current,
-        start: "top 90%",
-      },
-    });
-  }, []);
 
   // Unique accent colors for each card
   const accentColors = [
@@ -252,8 +226,7 @@ const SpineCard = ({ study, index }) => {
   return (
     <Link
       to={`/project/${study.slug}`}
-      ref={cardRef}
-      className="group cursor-pointer block rounded-xl overflow-hidden transition-all duration-500 relative"
+      className="spine-card group cursor-pointer block rounded-xl overflow-hidden transition-all duration-500 relative will-change-transform"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -385,9 +358,36 @@ const SpineCard = ({ study, index }) => {
 
 const CaseStudies = () => {
   const { projects: caseStudies, loading } = useProjects();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCategory = searchParams.get("category") || "All";
   const [viewMode, setViewMode] = useState("shelf"); // 'shelf' or 'spines'
   const containerRef = useRef(null);
   const headingRef = useRef(null);
+
+  // Available unique categories
+  const categories = useMemo(() => {
+    if (!caseStudies || caseStudies.length === 0) return ["All"];
+    const cats = Array.from(new Set(caseStudies.map((p) => p.category).filter(Boolean)));
+    return ["All", ...cats];
+  }, [caseStudies]);
+
+  // Filter projects by active category
+  const filteredStudies = useMemo(() => {
+    if (!caseStudies) return [];
+    if (activeCategory === "All") return caseStudies;
+    return caseStudies.filter(
+      (study) => study.category?.toLowerCase() === activeCategory.toLowerCase(),
+    );
+  }, [caseStudies, activeCategory]);
+
+  const handleCategoryChange = (cat) => {
+    if (cat === "All") {
+      searchParams.delete("category");
+      setSearchParams(searchParams);
+    } else {
+      setSearchParams({ category: cat });
+    }
+  };
 
   useGSAP(
     () => {
@@ -397,16 +397,48 @@ const CaseStudies = () => {
         duration: 1,
         ease: "power3.out",
       });
+
+      // Batch animations for cards based on view mode
+      if (viewMode === "shelf") {
+        gsap.utils.toArray('.shelf-card').forEach((card) => {
+          gsap.from(card, {
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+              once: true,
+            },
+          });
+        });
+      } else {
+        gsap.utils.toArray('.spine-card').forEach((card) => {
+          gsap.from(card, {
+            x: -40,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+              once: true,
+            },
+          });
+        });
+      }
     },
-    { scope: containerRef },
+    { dependencies: [viewMode, loading, activeCategory], scope: containerRef },
   );
 
   return (
     <div ref={containerRef} className="bg-[#0a0a0a] text-white min-h-screen">
       {/* Hero Section */}
       <div className="pt-40 pb-16 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
-        {/* View Toggle */}
-        <div className="flex justify-center mb-16">
+        {/* Controls: View Toggle & Category Filter */}
+        <div className="flex flex-col items-center gap-8 mb-16">
+          {/* View Toggle */}
           <div className="inline-flex items-center bg-[#1a1a1a] rounded-full p-1">
             <button
               onClick={() => setViewMode("shelf")}
@@ -431,12 +463,32 @@ const CaseStudies = () => {
               Spines
             </button>
           </div>
+
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap justify-center items-center gap-2 md:gap-3">
+            {categories.map((cat) => {
+              const isSelected = activeCategory.toLowerCase() === cat.toLowerCase();
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-300 ${
+                    isSelected
+                      ? "bg-white text-black font-semibold shadow-lg scale-105"
+                      : "bg-[#151515] text-white/60 hover:text-white hover:bg-[#202020] border border-white/5"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Header */}
         <div ref={headingRef} className="mb-20">
           <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-6">
-            Case Studies
+            Case Studies {activeCategory !== "All" && `— ${activeCategory}`}
           </p>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.15] max-w-3xl">
             We will make your business so irresistible, its success is
@@ -455,10 +507,22 @@ const CaseStudies = () => {
                 <Skeleton key={i} className="w-full h-64" />
               ))}
           </div>
+        ) : filteredStudies.length === 0 ? (
+          <div className="text-center py-24">
+            <p className="font-serif text-2xl text-white/50 mb-6">
+              No projects found in "{activeCategory}".
+            </p>
+            <button
+              onClick={() => handleCategoryChange("All")}
+              className="px-6 py-3 border border-white/20 rounded-full text-sm hover:bg-white hover:text-black transition-all"
+            >
+              View All Projects
+            </button>
+          </div>
         ) : viewMode === "shelf" ? (
           // Shelf View - Pinterest Masonry Layout
           <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
-            {caseStudies.map((study, idx) => (
+            {filteredStudies.map((study, idx) => (
               <ShelfCard
                 key={study.id}
                 study={{
@@ -473,7 +537,7 @@ const CaseStudies = () => {
         ) : (
           // Spines View - Horizontal cards
           <div className="max-w-5xl mx-auto flex flex-col gap-4">
-            {caseStudies.map((study, idx) => (
+            {filteredStudies.map((study, idx) => (
               <SpineCard
                 key={study.id}
                 study={{

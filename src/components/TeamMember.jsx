@@ -48,8 +48,8 @@ const TeamMember = ({ name, role, img }) => {
           className="w-full h-full object-cover grayscale"
         />
       </div>
-      <h4 className="font-bold text-lg text-gray-900">{name}</h4>
-      <p className="text-sm text-gray-500">{role}</p>
+      <h4 className="font-bold text-lg">{name}</h4>
+      <p className="text-sm opacity-60">{role}</p>
     </div>
   );
 };

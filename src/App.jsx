@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import gsap from "gsap";
@@ -7,23 +7,30 @@ import Navbar from "./components/Navbar";
 import MenuOverlay from "./components/MenuOverlay";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
-import CustomCursor from "./components/CustomCursor";
 import PageTransition from "./components/PageTransition";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useTheme } from "./context/useTheme";
 import { useSettings } from "./hooks/useSecondary";
+import { SettingsProvider } from "./context/SettingsContext";
 
-// Pages
-import Home from "./pages/Home";
-import CaseStudies from "./pages/CaseStudies";
-import Programs from "./pages/Programs";
-import ArtsCulture from "./pages/ArtsCulture";
-import TeamPage from "./pages/TeamPage";
-import Careers from "./pages/Careers";
-import Press from "./pages/Press";
-import ContactForm from "./pages/ContactForm";
-import NotFound from "./pages/NotFound";
-import ProjectDetail from "./pages/ProjectDetail";
+// Lazy-loaded Pages for performance & code-splitting
+const Home = lazy(() => import("./pages/Home"));
+const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const Programs = lazy(() => import("./pages/Programs"));
+const ArtsCulture = lazy(() => import("./pages/ArtsCulture"));
+const TeamPage = lazy(() => import("./pages/TeamPage"));
+const Careers = lazy(() => import("./pages/Careers"));
+const Press = lazy(() => import("./pages/Press"));
+const ContactForm = lazy(() => import("./pages/ContactForm"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Minimal elegant loading fallback
+const PageFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="w-8 h-8 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+  </div>
+);
 
 function AppContent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,16 +60,17 @@ function AppContent() {
     lenis.on("scroll", ScrollTrigger.update);
 
     // Add Lenis to GSAP Ticker
-    gsap.ticker.add((time) => {
+    const rafCallback = (time) => {
       lenis.raf(time * 1000);
-    });
+    };
+    gsap.ticker.add(rafCallback);
 
     // Disable GSAP lag smoothing for better sync
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
+      gsap.ticker.remove(rafCallback);
     };
   }, []);
 
@@ -75,18 +83,22 @@ function AppContent() {
     }
   }, [isMenuOpen]);
 
-  // Scroll to top on route change
+  // Scroll to top and refresh ScrollTrigger on route change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]);
+    // Refresh ScrollTrigger positions with slight debounce for new page DOM
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
 
   return (
     <div
-      className={`relative font-sans theme-wrapper custom-cursor-active ${
-        isDarkMode ? "theme-dark" : "theme-light"
+      className={`relative font-sans theme-wrapper ${
+        isDarkMode ? "theme-dark dark" : "theme-light"
       }`}
     >
-      <CustomCursor />
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
 
       <Navbar toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
@@ -94,18 +106,20 @@ function AppContent() {
 
       <main>
         <PageTransition>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/case-studies" element={<CaseStudies />} />
-            <Route path="/programs" element={<Programs />} />
-            <Route path="/arts-culture" element={<ArtsCulture />} />
-            <Route path="/team" element={<TeamPage />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/press" element={<Press />} />
-            <Route path="/contact" element={<ContactForm />} />
-            <Route path="/project/:slug" element={<ProjectDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<PageFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/programs" element={<Programs />} />
+              <Route path="/arts-culture" element={<ArtsCulture />} />
+              <Route path="/team" element={<TeamPage />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/press" element={<Press />} />
+              <Route path="/contact" element={<ContactForm />} />
+              <Route path="/project/:slug" element={<ProjectDetail />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </PageTransition>
       </main>
 
@@ -116,9 +130,11 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <SettingsProvider>
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
+    </SettingsProvider>
   );
 }
 

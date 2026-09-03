@@ -44,14 +44,14 @@ const Contact = () => {
   return (
     <section
       ref={containerRef}
-      className="py-32 px-6 md:px-12 bg-white text-black flex flex-col items-center text-center"
+      className="py-32 px-6 md:px-12 transition-colors duration-500 flex flex-col items-center text-center"
     >
       <div ref={textRef} className="max-w-4xl mb-12">
         <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-6">
           Have an idea? <br />
-          <span className="italic text-gray-400">Let's build it.</span>
+          <span className="italic opacity-50">Let's build it.</span>
         </h2>
-        <p className="text-xl md:text-2xl text-gray-600 font-light max-w-2xl mx-auto">
+        <p className="text-xl md:text-2xl opacity-70 font-light max-w-2xl mx-auto">
           We collaborate with ambitious brands and people. Let's make something
           great together.
         </p>
@@ -60,7 +60,7 @@ const Contact = () => {
       <Link
         ref={buttonRef}
         to="/contact"
-        className="group relative px-8 py-4 bg-black text-white rounded-full overflow-hidden flex items-center gap-3 text-lg font-medium hover:bg-gray-900 transition-colors"
+        className="group relative px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full overflow-hidden flex items-center gap-3 text-lg font-medium transition-all hover:opacity-90 hover:scale-105 shadow-xl"
       >
         <span className="relative z-10">Start a Project</span>
         <ArrowUpRight className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

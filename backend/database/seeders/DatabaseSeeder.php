@@ -90,10 +90,73 @@ class DatabaseSeeder extends Seeder
             ['title' => 'The Void House Tour', 'category' => 'Project', 'image' => 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop', 'url' => '#'],
         ]);
 
-        // 9. SITE SETTINGS
+        // 9. SITE SETTINGS (Complete CMS Default Content)
         DB::table('site_settings')->insert([
-            ['key' => 'site_title', 'value' => 'Accaive Design - Architecture & Design Studio'],
+            // Homepage: Hero
+            ['key' => 'site_title', 'value' => 'Accaive Design Studio'],
+            ['key' => 'hero_headline', 'value' => "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design."],
+            ['key' => 'hero_award_subtitle', 'value' => '7x Agency of the Year'],
+            ['key' => 'hero_awards', 'value' => '( ArchDaily 2024 ), ( Pritzker Mention 2023 ), ( Dezeen Awards 2024 ), ( AIA Firm of Year 2025 )'],
+            ['key' => 'hero_video_url', 'value' => ''],
+            ['key' => 'hero_video_poster', 'value' => 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop'],
+            
+            // Homepage: Services Section
+            ['key' => 'home_services_label', 'value' => 'Programs & Services'],
+            ['key' => 'home_services_heading', 'value' => 'Eleven ways we help clients build and command their unique environments.'],
+            ['key' => 'home_services_button_text', 'value' => 'Explore Programs'],
+            ['key' => 'home_services_button_url', 'value' => '/programs'],
+
+            // Homepage: Projects Section
+            ['key' => 'home_projects_heading', 'value' => 'Our Projects'],
+            ['key' => 'home_projects_subheading', 'value' => 'We design structures so compelling, their impact is inevitable.'],
+            ['key' => 'home_projects_button_text', 'value' => 'View All Projects'],
+
+            // Homepage: Team Section
+            ['key' => 'home_team_label', 'value' => 'Team'],
+            ['key' => 'home_team_heading', 'value' => 'Meet the makers.'],
+            ['key' => 'home_team_description', 'value' => 'We asked our team to choose a piece of architecture that represents them. From brutalist monuments to sustainable dwellings. Different backgrounds, same high standards.'],
+
+            // Homepage & Global: CTA Section
+            ['key' => 'home_cta_heading', 'value' => "Have an idea? <br /> <span class='italic opacity-50'>Let's build it.</span>"],
+            ['key' => 'home_cta_description', 'value' => "We collaborate with ambitious brands and people. Let's make something great together."],
+            ['key' => 'home_cta_button_text', 'value' => 'Start a Project'],
+
+            // Subpages: Programs
+            ['key' => 'programs_hero_title', 'value' => 'Programs'],
+            ['key' => 'programs_hero_heading', 'value' => 'Eleven ways we help brands find and command their unique premium.'],
+            ['key' => 'programs_impact_title', 'value' => 'Our Programs Deliver Impact'],
+            ['key' => 'programs_impacts', 'value' => "Establish Market Distinction\nCreate Cultural Relevance\nCommand Premium Pricing\nOptimize Portfolios\nAccelerate Growth\nOpen Market Opportunity"],
+
+            // Subpages: Arts & Culture
+            ['key' => 'arts_hero_title', 'value' => 'Arts & Culture'],
+            ['key' => 'arts_hero_description', 'value' => 'Exploring the intersection of design, heritage, and modern artistic expression.'],
+
+            // Subpages: Team
+            ['key' => 'team_page_title', 'value' => 'Our Team'],
+            ['key' => 'team_page_subtitle', 'value' => 'The minds and makers behind Accaive.'],
+            ['key' => 'team_join_title', 'value' => 'Join the Collective'],
+            ['key' => 'team_join_description', 'value' => 'We are always looking for visionary talent to join our multidisciplinary team.'],
+            ['key' => 'team_join_button_text', 'value' => 'View Openings'],
+
+            // Subpages: Careers
+            ['key' => 'careers_hero_title', 'value' => 'Careers'],
+            ['key' => 'careers_hero_description', 'value' => 'Join us in shaping the future of built environments.'],
+
+            // Subpages: Press
+            ['key' => 'press_hero_title', 'value' => 'Press'],
+            ['key' => 'press_hero_description', 'value' => 'Latest news, awards, and features.'],
+
+            // Contact & Socials
             ['key' => 'contact_email', 'value' => 'hello@accaivedesign.com'],
+            ['key' => 'contact_phone', 'value' => '+62 812-3456-7890'],
+            ['key' => 'contact_address', 'value' => 'Jakarta, Indonesia'],
+            ['key' => 'social_instagram', 'value' => 'https://instagram.com/accaivedesign'],
+            ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/accaivedesign'],
+            ['key' => 'social_twitter', 'value' => 'https://x.com/accaivedesign'],
+
+            // Footer
+            ['key' => 'footer_tagline', 'value' => 'Keep up to date'],
+            ['key' => 'footer_copyright', 'value' => 'Accaive Design Studio. All rights reserved.'],
         ]);
 
         DB::table('users')->insert([

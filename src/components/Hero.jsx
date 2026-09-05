@@ -59,6 +59,12 @@ const Hero = () => {
   );
 
   const heroHeadline = settings?.hero_headline || "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design.";
+  const heroAwardSubtitle = settings?.hero_award_subtitle || "7x Agency of the Year";
+  const heroAwards = settings?.hero_awards
+    ? settings.hero_awards.split(",").map((item) => item.trim()).filter(Boolean)
+    : ["( ArchDaily 2024 )", "( Pritzker Mention 2023 )", "( Dezeen Awards 2024 )", "( AIA Firm of Year 2025 )"];
+  const videoSrc = settings?.hero_video_url || videoClip;
+  const posterSrc = settings?.hero_video_poster || "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop";
 
   return (
     <section
@@ -76,13 +82,12 @@ const Hero = () => {
         className="flex flex-col items-center gap-6 mb-20 opacity-100"
       >
         <span className="text-[10px] uppercase tracking-widest text-gray-400">
-          7x Agency of the Year
+          {heroAwardSubtitle}
         </span>
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[10px] md:text-xs font-medium text-gray-500 tracking-wide font-sans">
-          <span>( ArchDaily 2024 )</span>
-          <span>( Pritzker Mention 2023 )</span>
-          <span>( Dezeen Awards 2024 )</span>
-          <span>( AIA Firm of Year 2025 )</span>
+          {heroAwards.map((award, index) => (
+            <span key={index}>{award}</span>
+          ))}
         </div>
       </div>
 
@@ -91,19 +96,20 @@ const Hero = () => {
         className="mt-20 mb-40 w-full max-w-6xl aspect-video md:aspect-[2.35/1] overflow-hidden rounded-lg shadow-2xl relative opacity-100 will-change-transform"
       >
         <video
+          key={videoSrc}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-          poster="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop"
+          poster={posterSrc}
           className="w-full h-full object-cover"
         >
-          <source src={videoClip} type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
           {/* Fallback image */}
           <img
             loading="lazy"
-            src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop"
+            src={posterSrc}
             className="w-full h-full object-cover"
             alt="Architecture"
           />

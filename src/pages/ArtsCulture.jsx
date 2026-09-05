@@ -1,20 +1,25 @@
 import React from "react";
 import Contact from "../components/Contact";
-import { useExhibitions } from "../hooks/useSecondary";
+import { useExhibitions, useSettings } from "../hooks/useSecondary";
 import Skeleton from "../components/Skeleton";
 
 const ArtsCulture = () => {
   const { exhibitions, loading } = useExhibitions();
+  const { settings } = useSettings();
+
+  const artsHeroTitle = settings?.arts_hero_title || "Arts & Culture";
+  const artsHeroDescription =
+    settings?.arts_hero_description ||
+    "Exploring the intersection of design, heritage, and modern artistic expression.";
 
   return (
     <div className="pt-32">
       <div className="px-6 md:px-12 mb-20">
         <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8">
-          Arts & Culture
+          {artsHeroTitle}
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl">
-          Exploring the intersection of design, heritage, and modern artistic
-          expression.
+          {artsHeroDescription}
         </p>
       </div>
 

@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import { useProjects } from "../hooks/useProjects";
+import { useSettings } from "../hooks/useSecondary";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +11,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WorkGrid = () => {
   const { projects, loading } = useProjects(true); // featured = true
+  const { settings } = useSettings();
   const sectionRef = useRef(null);
+
+  const projectsHeading = settings?.home_projects_heading || "Our Projects";
+  const projectsSubheading = settings?.home_projects_subheading || "We design structures so compelling, their impact is inevitable.";
+  const projectsButtonText = settings?.home_projects_button_text || "View All Projects";
 
   useGSAP(
     () => {
@@ -44,16 +50,16 @@ const WorkGrid = () => {
     <section ref={sectionRef} className="py-24 px-4 md:px-12 overflow-hidden">
       <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div>
-          <h2 className="font-serif text-5xl md:text-8xl mb-6">Our Projects</h2>
+          <h2 className="font-serif text-5xl md:text-8xl mb-6">{projectsHeading}</h2>
           <p className="text-xl font-light opacity-70 max-w-xl">
-            We design structures so compelling, their impact is inevitable.
+            {projectsSubheading}
           </p>
         </div>
         <Link
           to="/case-studies"
           className="inline-block px-8 py-3 border border-current rounded-full hover:bg-white hover:text-black transition-all duration-300 font-medium h-fit mb-2"
         >
-          View All Projects
+          {projectsButtonText}
         </Link>
       </div>
 

@@ -1,26 +1,32 @@
 import React from "react";
 import TeamMember from "./TeamMember";
 import { useTeam } from "../hooks/useTeam";
+import { useSettings } from "../hooks/useSecondary";
 import Skeleton from "./Skeleton";
 
 const Team = () => {
   const { team: members, loading } = useTeam();
+  const { settings } = useSettings();
+
+  const teamLabel = settings?.home_team_label || "Team";
+  const teamHeading = settings?.home_team_heading || "Meet the makers.";
+  const teamDescription =
+    settings?.home_team_description ||
+    "We asked our team to choose a piece of architecture that represents them. From brutalist monuments to sustainable dwellings. Different backgrounds, same high standards.";
 
   return (
     <section className="py-24 px-6 md:px-12 transition-colors duration-500">
       <div className="flex flex-col md:flex-row justify-between items-end mb-16">
         <div>
           <span className="text-xs uppercase tracking-widest opacity-50 mb-2 block">
-            Team
+            {teamLabel}
           </span>
           <h2 className="font-serif text-5xl md:text-6xl">
-            Meet the makers.
+            {teamHeading}
           </h2>
         </div>
         <p className="md:w-1/3 opacity-70 mt-6 md:mt-0 leading-relaxed">
-          We asked our team to choose a piece of architecture that represents
-          them. From brutalist monuments to sustainable dwellings. Different
-          backgrounds, same high standards.
+          {teamDescription}
         </p>
       </div>
 

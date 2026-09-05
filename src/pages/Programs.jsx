@@ -4,13 +4,13 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { usePrograms } from "../hooks/useSecondary";
+import { usePrograms, useSettings } from "../hooks/useSecondary";
 import Skeleton from "../components/Skeleton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Mock Data
-const impacts = [
+// Default Mock Data
+const defaultImpacts = [
   "Establish Market Distinction",
   "Create Cultural Relevance",
   "Command Premium Pricing",
@@ -151,6 +151,7 @@ const ProgramItem = ({
 
 const Programs = () => {
   const { programs, loading } = usePrograms();
+  const { settings } = useSettings();
   const [activeProgram, setActiveProgram] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [hoveredImpactIndex, setHoveredImpactIndex] = useState(null);
@@ -158,6 +159,13 @@ const Programs = () => {
   const img1Ref = useRef(null);
   const img2Ref = useRef(null);
   const impactsRef = useRef(null);
+
+  const programsHeroTitle = settings?.programs_hero_title || "Programs";
+  const programsHeroHeading = settings?.programs_hero_heading || "Eleven ways we help brands find and command their unique premium.";
+  const programsImpactTitle = settings?.programs_impact_title || "Our Programs Deliver Impact";
+  const impactsList = settings?.programs_impacts
+    ? settings.programs_impacts.split("\n").map((s) => s.trim()).filter(Boolean)
+    : defaultImpacts;
 
   useGSAP(
     () => {
@@ -198,9 +206,7 @@ const Programs = () => {
         stagger: 0.1,
         scrollTrigger: {
           trigger: impactsRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
+          start: "top 70%",
         },
       });
     },
@@ -244,11 +250,10 @@ const Programs = () => {
         <div className="relative z-20">
           <h1 className="font-serif text-sm font-bold tracking-[0.2em] uppercase mb-16 text-gray-500 flex items-center gap-4">
             <span className="w-12 h-px bg-gray-400"></span>
-            Programs
+            {programsHeroTitle}
           </h1>
           <p className="text-5xl md:text-7xl lg:text-9xl font-serif leading-[0.95] tracking-tight max-w-6xl">
-            Eleven ways we help brands find and command their{" "}
-            <span className="italic text-gray-600">unique premium.</span>
+            {programsHeroHeading}
           </p>
         </div>
       </div>
@@ -258,12 +263,12 @@ const Programs = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4 sticky top-10 h-fit">
             <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wider">
-              Our Programs Deliver Impact
+              {programsImpactTitle}
             </h3>
           </div>
           <div className="lg:col-span-8">
             <div ref={impactsRef} className="grid grid-cols-1 gap-8">
-              {impacts.map((impact, idx) => (
+              {impactsList.map((impact, idx) => (
                 <h4
                   key={idx}
                   onMouseEnter={() => setHoveredImpactIndex(idx)}

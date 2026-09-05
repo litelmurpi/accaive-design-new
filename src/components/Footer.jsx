@@ -6,6 +6,11 @@ const Footer = () => {
   const { settings } = useSettings();
   const siteTitle = settings?.site_title || "Accaive Design Studio";
   const brandName = siteTitle.split(" ")[0].toUpperCase();
+  const footerTagline = settings?.footer_tagline || "Keep up to date";
+  const instagramUrl = settings?.social_instagram || "https://instagram.com";
+  const linkedinUrl = settings?.social_linkedin || "https://linkedin.com";
+  const twitterUrl = settings?.social_twitter || "https://twitter.com";
+  const copyrightText = settings?.footer_copyright || `${siteTitle}. All rights reserved.`;
 
   return (
     <footer className="bg-[#1a0f0a] text-white py-20 px-6 md:px-12">
@@ -13,7 +18,7 @@ const Footer = () => {
       <div className="col-span-1 lg:col-span-2">
         <h2 className="text-3xl font-bold tracking-widest mb-6">{brandName}</h2>
         <div className="max-w-md">
-          <h3 className="text-xl font-serif mb-4">Keep up to date</h3>
+          <h3 className="text-xl font-serif mb-4">{footerTagline}</h3>
           <div className="flex border-b border-white/30 pb-2">
             <input
               type="email"
@@ -62,7 +67,7 @@ const Footer = () => {
         <ul className="space-y-3 text-sm font-light">
           <li>
             <a
-              href="https://instagram.com"
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white/70"
@@ -72,7 +77,7 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href="https://linkedin.com"
+              href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white/70"
@@ -82,7 +87,7 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href="https://twitter.com"
+              href={twitterUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white/70"
@@ -94,7 +99,7 @@ const Footer = () => {
       </div>
     </div>
     <div className="pt-8 flex flex-col md:flex-row justify-between text-xs text-white/40">
-      <p>&copy; {new Date().getFullYear()} {siteTitle}. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} {copyrightText}</p>
       <div className="flex gap-6 mt-4 md:mt-0">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Use</a>

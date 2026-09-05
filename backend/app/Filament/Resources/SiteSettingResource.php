@@ -14,9 +14,10 @@ class SiteSettingResource extends Resource
 {
     protected static ?string $model = SiteSetting::class;
 
+    protected static bool $shouldRegisterNavigation = false;
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
     protected static ?string $navigationGroup = 'Pengaturan';
-    protected static ?string $navigationLabel = 'Pengaturan Website';
+    protected static ?string $navigationLabel = 'Pengaturan Website (Raw)';
     protected static ?string $modelLabel = 'Pengaturan';
     protected static ?string $pluralModelLabel = 'Pengaturan Website';
     protected static ?int $navigationSort = 1;

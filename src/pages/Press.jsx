@@ -1,19 +1,24 @@
 import React from "react";
 import Contact from "../components/Contact";
-import { usePress } from "../hooks/useSecondary";
+import { usePress, useSettings } from "../hooks/useSecondary";
 import Skeleton from "../components/Skeleton";
 
 const Press = () => {
   const { press: articles, loading } = usePress();
+  const { settings } = useSettings();
+
+  const pressHeroTitle = settings?.press_hero_title || "Press";
+  const pressHeroDescription =
+    settings?.press_hero_description || "Latest news, awards, and features.";
 
   return (
     <div className="pt-32">
       <div className="px-6 md:px-12 mb-20">
         <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8">
-          Press
+          {pressHeroTitle}
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl">
-          Latest news, awards, and features.
+          {pressHeroDescription}
         </p>
       </div>
 

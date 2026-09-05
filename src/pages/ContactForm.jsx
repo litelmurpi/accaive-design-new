@@ -244,17 +244,19 @@ const ContactForm = () => {
                 Phone
               </h3>
               <a
-                href="tel:+1234567890"
+                href={`tel:${settings?.contact_phone || "+6281234567890"}`}
                 className="text-lg hover:text-gray-400 transition-colors"
               >
-                +62 812-3456-7890
+                {settings?.contact_phone || "+62 812-3456-7890"}
               </a>
             </div>
             <div>
               <h3 className="text-sm text-gray-500 uppercase tracking-wider mb-3">
                 Location
               </h3>
-              <p className="text-lg text-gray-400">Kotagede, Yogyakarta</p>
+              <p className="text-lg text-gray-400">
+                {settings?.contact_address || "Jakarta, Indonesia"}
+              </p>
             </div>
           </div>
         </div>

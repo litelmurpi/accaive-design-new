@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSettings } from "../hooks/useSecondary";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,15 @@ const Contact = () => {
   const containerRef = useRef(null);
   const textRef = useRef(null);
   const buttonRef = useRef(null);
+  const { settings } = useSettings();
+
+  const ctaHeading =
+    settings?.home_cta_heading ||
+    "Have an idea? <br /> <span class='italic opacity-50'>Let's build it.</span>";
+  const ctaDescription =
+    settings?.home_cta_description ||
+    "We collaborate with ambitious brands and people. Let's make something great together.";
+  const ctaButtonText = settings?.home_cta_button_text || "Start a Project";
 
   useGSAP(
     () => {
@@ -47,13 +57,12 @@ const Contact = () => {
       className="py-32 px-6 md:px-12 transition-colors duration-500 flex flex-col items-center text-center"
     >
       <div ref={textRef} className="max-w-4xl mb-12">
-        <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-6">
-          Have an idea? <br />
-          <span className="italic opacity-50">Let's build it.</span>
-        </h2>
+        <h2
+          className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-6"
+          dangerouslySetInnerHTML={{ __html: ctaHeading }}
+        />
         <p className="text-xl md:text-2xl opacity-70 font-light max-w-2xl mx-auto">
-          We collaborate with ambitious brands and people. Let's make something
-          great together.
+          {ctaDescription}
         </p>
       </div>
 
@@ -62,7 +71,7 @@ const Contact = () => {
         to="/contact"
         className="group relative px-8 py-4 bg-black text-white dark:bg-white dark:text-black rounded-full overflow-hidden flex items-center gap-3 text-lg font-medium transition-all hover:opacity-90 hover:scale-105 shadow-xl"
       >
-        <span className="relative z-10">Start a Project</span>
+        <span className="relative z-10">{ctaButtonText}</span>
         <ArrowUpRight className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
       </Link>
     </section>

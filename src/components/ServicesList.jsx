@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useServices } from "../hooks/useServices";
+import { useSettings } from "../hooks/useSecondary";
 import Skeleton from "./Skeleton";
 
 import { getCategoryForService } from "../utils/categoryMapping";
@@ -50,24 +51,29 @@ const ServiceItem = ({ service, isActive, onActivate }) => {
 
 const ServicesList = () => {
   const { services, loading } = useServices();
+  const { settings } = useSettings();
   const [activeService, setActiveService] = useState(0);
+
+  const servicesLabel = settings?.home_services_label || "Programs & Services";
+  const servicesHeading = settings?.home_services_heading || "Eleven ways we help clients build and command their unique environments.";
+  const servicesButtonText = settings?.home_services_button_text || "Explore Programs";
+  const servicesButtonUrl = settings?.home_services_button_url || "/programs";
 
   return (
     <section className="py-24 px-6 md:px-12 transition-colors duration-500">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-4">
           <h2 className="text-xs uppercase tracking-widest opacity-50 mb-8">
-            Programs & Services
+            {servicesLabel}
           </h2>
           <p className="font-serif text-3xl md:text-4xl leading-tight mb-8">
-            Eleven ways we help clients build and command their unique
-            environments.
+            {servicesHeading}
           </p>
           <Link
-            to="/programs"
+            to={servicesButtonUrl}
             className="inline-block px-6 py-3 border border-current bg-black text-white dark:bg-white dark:text-black rounded-full transition-all text-sm font-medium hover:scale-105 hover:shadow-lg"
           >
-            Explore Programs
+            {servicesButtonText}
           </Link>
         </div>
 

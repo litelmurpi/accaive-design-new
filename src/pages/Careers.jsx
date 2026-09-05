@@ -1,17 +1,25 @@
 import React from 'react';
 import Contact from '../components/Contact';
-import { useCareers } from '../hooks/useSecondary';
+import { useCareers, useSettings } from '../hooks/useSecondary';
 import Skeleton from '../components/Skeleton';
 
 const Careers = () => {
     const { careers: openings, loading } = useCareers();
+    const { settings } = useSettings();
+
+    const careersHeroTitle = settings?.careers_hero_title || "Careers";
+    const careersHeroDescription =
+        settings?.careers_hero_description ||
+        "Join us in shaping the future of built environments.";
 
     return (
         <div className="pt-32">
             <div className="px-6 md:px-12 mb-20">
-                <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8">Careers</h1>
+                <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8">
+                    {careersHeroTitle}
+                </h1>
                 <p className="text-xl text-gray-600 max-w-2xl">
-                    Join us in shaping the future of built environments.
+                    {careersHeroDescription}
                 </p>
             </div>
             

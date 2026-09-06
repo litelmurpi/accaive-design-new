@@ -58,11 +58,12 @@ const ServicesList = () => {
   const servicesHeading = settings?.home_services_heading || "Eleven ways we help clients build and command their unique environments.";
   const servicesButtonText = settings?.home_services_button_text || "Explore Programs";
   const servicesButtonUrl = settings?.home_services_button_url || "/programs";
+  const layout = settings?.home_services_layout || "split";
 
   return (
     <section className="py-24 px-6 md:px-12 transition-colors duration-500">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <div className="lg:col-span-4">
+      <div className={layout === "stacked" ? "flex flex-col gap-12" : "grid grid-cols-1 lg:grid-cols-12 gap-12"}>
+        <div className={layout === "stacked" ? "max-w-3xl mb-4" : "lg:col-span-4"}>
           <h2 className="text-xs uppercase tracking-widest opacity-50 mb-8">
             {servicesLabel}
           </h2>
@@ -77,7 +78,7 @@ const ServicesList = () => {
           </Link>
         </div>
 
-        <div className="lg:col-span-8">
+        <div className={layout === "stacked" ? "w-full" : "lg:col-span-8"}>
           <div className="flex flex-col">
             {loading ? (
               <div className="space-y-4">

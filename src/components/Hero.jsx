@@ -58,11 +58,35 @@ const Hero = () => {
     { scope: containerRef },
   );
 
-  const heroHeadline = settings?.hero_headline || "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design.";
+  let heroHeadline = settings?.hero_headline;
+  if (settings?.hero_title_prefix || settings?.hero_title_accent || settings?.hero_title_suffix) {
+    const prefix = settings?.hero_title_prefix || "a creation that";
+    const accent = settings?.hero_title_accent || "craves";
+    const suffix = settings?.hero_title_suffix || "creative design.";
+    heroHeadline = `${prefix} <br /> <span class='italic'>${accent}</span> <br /> <span class='italic'>${suffix}</span>`;
+  }
+  if (!heroHeadline) {
+    heroHeadline = "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design.";
+  }
+
   const heroAwardSubtitle = settings?.hero_award_subtitle || "7x Agency of the Year";
-  const heroAwards = settings?.hero_awards
-    ? settings.hero_awards.split(",").map((item) => item.trim()).filter(Boolean)
-    : ["( ArchDaily 2024 )", "( Pritzker Mention 2023 )", "( Dezeen Awards 2024 )", "( AIA Firm of Year 2025 )"];
+
+  let heroAwards = ["( ArchDaily 2024 )", "( Pritzker Mention 2023 )", "( Dezeen Awards 2024 )", "( AIA Firm of Year 2025 )"];
+  if (settings?.hero_awards) {
+    if (Array.isArray(settings.hero_awards)) {
+      heroAwards = settings.hero_awards;
+    } else if (typeof settings.hero_awards === "string") {
+      try {
+        const parsed = JSON.parse(settings.hero_awards);
+        if (Array.isArray(parsed)) heroAwards = parsed;
+        else heroAwards = settings.hero_awards.split(",").map((item) => item.trim()).filter(Boolean);
+      } catch {
+        heroAwards = settings.hero_awards.split(",").map((item) => item.trim()).filter(Boolean);
+      }
+    }
+  }
+  heroAwards = heroAwards.map((a) => (a.startsWith("(") ? a : `( ${a} )`));
+
   const videoSrc = settings?.hero_video_url || videoClip;
   const posterSrc = settings?.hero_video_poster || "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop";
 

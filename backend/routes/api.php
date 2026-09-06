@@ -30,9 +30,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 $ttl = 300;
 
 // Helper to return cached response with headers
-function cachedResponse($data) {
-    return response()->json(['data' => $data])
-        ->header('Cache-Control', 'public, max-age=300');
+if (!function_exists('cachedResponse')) {
+    function cachedResponse($data) {
+        return response()->json(['data' => $data])
+            ->header('Cache-Control', 'public, max-age=300');
+    }
 }
 
 // PROJECTS
@@ -41,7 +43,7 @@ Route::get('/projects', function (Request $request) use ($ttl) {
     $cacheKey = 'projects_list_' . ($isFeatured ? 'featured' : 'all');
     
     $projects = Cache::remember($cacheKey, $ttl, function () use ($isFeatured) {
-        $query = Project::select('id', 'title', 'slug', 'category', 'hero_image', 'size', 'span', 'is_featured', 'sort_order');
+        $query = Project::select('id', 'title', 'slug', 'category', 'description', 'client', 'hero_image', 'size', 'span', 'is_featured', 'sort_order');
         if ($isFeatured) {
             $query->where('is_featured', true);
         }

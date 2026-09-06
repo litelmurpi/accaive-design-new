@@ -14,9 +14,16 @@ const Contact = () => {
   const buttonRef = useRef(null);
   const { settings } = useSettings();
 
-  const ctaHeading =
-    settings?.home_cta_heading ||
-    "Have an idea? <br /> <span class='italic opacity-50'>Let's build it.</span>";
+  let ctaHeading = settings?.home_cta_heading;
+  if (settings?.home_cta_title || settings?.home_cta_accent) {
+    const title = settings?.home_cta_title || "Have an idea?";
+    const accent = settings?.home_cta_accent || "Let's build it.";
+    ctaHeading = `${title} <br /> <span class='italic opacity-50'>${accent}</span>`;
+  }
+  if (!ctaHeading) {
+    ctaHeading = "Have an idea? <br /> <span class='italic opacity-50'>Let's build it.</span>";
+  }
+
   const ctaDescription =
     settings?.home_cta_description ||
     "We collaborate with ambitious brands and people. Let's make something great together.";

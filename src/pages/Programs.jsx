@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePrograms, useSettings } from "../hooks/useSecondary";
 import Skeleton from "../components/Skeleton";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,6 +151,12 @@ const ProgramItem = ({
 };
 
 const Programs = () => {
+  usePageSEO({
+    title: "Programs & Specialized Services",
+    description: "Discover the architectural, urban, and strategic programs delivered by Accaive Design Studio.",
+    path: "/programs",
+  });
+
   const { programs, loading } = usePrograms();
   const { settings } = useSettings();
   const [activeProgram, setActiveProgram] = useState(null);

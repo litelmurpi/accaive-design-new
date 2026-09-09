@@ -7,6 +7,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Contact from "../components/Contact";
 import { useProjects } from "../hooks/useProjects";
 import Skeleton from "../components/Skeleton";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -357,6 +358,12 @@ const SpineCard = ({ study, index }) => {
 };
 
 const CaseStudies = () => {
+  usePageSEO({
+    title: "Projects & Selected Case Studies",
+    description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.",
+    path: "/case-studies",
+  });
+
   const { projects: caseStudies, loading } = useProjects();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get("category") || "All";

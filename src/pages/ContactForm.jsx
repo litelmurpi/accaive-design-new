@@ -5,8 +5,15 @@ import { Send, ArrowLeft, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContact } from "../hooks/useContact";
 import { useSettings } from "../hooks/useSecondary";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 const ContactForm = () => {
+  usePageSEO({
+    title: "Contact & Project Inquiries",
+    description: "Start a conversation with Accaive Design Studio. Reach out to collaborate on visionary architecture and built environments.",
+    path: "/contact",
+  });
+
   const { settings } = useSettings();
   const contactEmail = settings?.contact_email || "hello@accaivedesign.com";
   const containerRef = useRef(null);

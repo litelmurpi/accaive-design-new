@@ -17,6 +17,19 @@ const WorkGrid = () => {
   const projectsHeading = settings?.home_projects_heading || "Our Projects";
   const projectsSubheading = settings?.home_projects_subheading || "We design structures so compelling, their impact is inevitable.";
   const projectsButtonText = settings?.home_projects_button_text || "View All Projects";
+  const layout = settings?.home_projects_layout || "asymmetric";
+
+  const getCardSpan = (proj) => {
+    if (layout === "grid2") return "md:col-span-6";
+    if (layout === "grid3") return "md:col-span-4";
+    return proj.span || "md:col-span-6";
+  };
+
+  const getCardSize = (proj) => {
+    if (layout === "grid2") return "large";
+    if (layout === "grid3") return "small";
+    return proj.size || "small";
+  };
 
   useGSAP(
     () => {
@@ -35,7 +48,7 @@ const WorkGrid = () => {
         });
       }
     },
-    { dependencies: [loading, projects], scope: sectionRef },
+    { dependencies: [loading, projects, layout], scope: sectionRef },
   );
 
   if (loading) {
@@ -65,13 +78,13 @@ const WorkGrid = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {projects.map((proj) => (
-          <div key={proj.slug} className={`${proj.span || 'md:col-span-6'}`}>
+          <div key={proj.slug} className={getCardSpan(proj)}>
             <ProjectCard 
                 title={proj.title}
                 slug={proj.slug}
                 category={proj.category}
                 img={proj.hero_image}
-                size={proj.size}
+                size={getCardSize(proj)}
             />
           </div>
         ))}

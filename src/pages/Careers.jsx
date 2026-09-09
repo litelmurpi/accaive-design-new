@@ -2,6 +2,7 @@ import React from 'react';
 import Contact from '../components/Contact';
 import { useCareers, useSettings } from '../hooks/useSecondary';
 import Skeleton from '../components/Skeleton';
+import { usePageSEO } from '../hooks/usePageSEO';
 
 const Careers = () => {
     const { careers: openings, loading } = useCareers();
@@ -11,6 +12,12 @@ const Careers = () => {
     const careersHeroDescription =
         settings?.careers_hero_description ||
         "Join us in shaping the future of built environments.";
+
+    usePageSEO({
+        title: careersHeroTitle,
+        description: careersHeroDescription,
+        path: '/careers',
+    });
 
     return (
         <div className="pt-32">

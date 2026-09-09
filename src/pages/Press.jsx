@@ -2,6 +2,7 @@ import React from "react";
 import Contact from "../components/Contact";
 import { usePress, useSettings } from "../hooks/useSecondary";
 import Skeleton from "../components/Skeleton";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 const Press = () => {
   const { press: articles, loading } = usePress();
@@ -10,6 +11,12 @@ const Press = () => {
   const pressHeroTitle = settings?.press_hero_title || "Press";
   const pressHeroDescription =
     settings?.press_hero_description || "Latest news, awards, and features.";
+
+  usePageSEO({
+    title: pressHeroTitle,
+    description: pressHeroDescription,
+    path: "/press",
+  });
 
   return (
     <div className="pt-32">

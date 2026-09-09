@@ -23,6 +23,14 @@ export const SettingsProvider = ({ children }) => {
     };
 
     loadSettings();
+
+    const handleMessage = (event) => {
+      if (event.data?.type === "ACCAIVE_SETTINGS_UPDATE" && event.data.payload) {
+        setSettings((prev) => ({ ...prev, ...event.data.payload }));
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
   }, []);
 
   return (
@@ -32,6 +40,7 @@ export const SettingsProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useSettingsContext = () => {
   const context = useContext(SettingsContext);
   if (!context) {

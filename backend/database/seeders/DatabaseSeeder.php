@@ -90,13 +90,27 @@ class DatabaseSeeder extends Seeder
             ['title' => 'The Void House Tour', 'category' => 'Project', 'image' => 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop', 'url' => '#'],
         ]);
 
-        // 9. SITE SETTINGS (Complete CMS Default Content)
+        // 9. SITE SETTINGS (Complete CMS Default Content & Visual UI Editor)
         DB::table('site_settings')->insert([
+            // Homepage: Layout & Structure
+            ['key' => 'home_sections', 'value' => json_encode([
+                ['id' => 'hero', 'is_visible' => true],
+                ['id' => 'projects', 'is_visible' => true],
+                ['id' => 'services', 'is_visible' => true],
+                ['id' => 'team', 'is_visible' => true],
+                ['id' => 'cta', 'is_visible' => true],
+            ])],
+            ['key' => 'home_projects_layout', 'value' => 'asymmetric'],
+            ['key' => 'home_services_layout', 'value' => 'split'],
+
             // Homepage: Hero
             ['key' => 'site_title', 'value' => 'Accaive Design Studio'],
+            ['key' => 'hero_title_prefix', 'value' => 'a creation that'],
+            ['key' => 'hero_title_accent', 'value' => 'craves'],
+            ['key' => 'hero_title_suffix', 'value' => 'creative design.'],
             ['key' => 'hero_headline', 'value' => "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design."],
             ['key' => 'hero_award_subtitle', 'value' => '7x Agency of the Year'],
-            ['key' => 'hero_awards', 'value' => '( ArchDaily 2024 ), ( Pritzker Mention 2023 ), ( Dezeen Awards 2024 ), ( AIA Firm of Year 2025 )'],
+            ['key' => 'hero_awards', 'value' => json_encode(['ArchDaily 2024', 'Pritzker Mention 2023', 'Dezeen Awards 2024', 'AIA Firm of Year 2025'])],
             ['key' => 'hero_video_url', 'value' => ''],
             ['key' => 'hero_video_poster', 'value' => 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop'],
             
@@ -117,6 +131,8 @@ class DatabaseSeeder extends Seeder
             ['key' => 'home_team_description', 'value' => 'We asked our team to choose a piece of architecture that represents them. From brutalist monuments to sustainable dwellings. Different backgrounds, same high standards.'],
 
             // Homepage & Global: CTA Section
+            ['key' => 'home_cta_title', 'value' => 'Have an idea?'],
+            ['key' => 'home_cta_accent', 'value' => "Let's build it."],
             ['key' => 'home_cta_heading', 'value' => "Have an idea? <br /> <span class='italic opacity-50'>Let's build it.</span>"],
             ['key' => 'home_cta_description', 'value' => "We collaborate with ambitious brands and people. Let's make something great together."],
             ['key' => 'home_cta_button_text', 'value' => 'Start a Project'],
@@ -125,7 +141,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'programs_hero_title', 'value' => 'Programs'],
             ['key' => 'programs_hero_heading', 'value' => 'Eleven ways we help brands find and command their unique premium.'],
             ['key' => 'programs_impact_title', 'value' => 'Our Programs Deliver Impact'],
-            ['key' => 'programs_impacts', 'value' => "Establish Market Distinction\nCreate Cultural Relevance\nCommand Premium Pricing\nOptimize Portfolios\nAccelerate Growth\nOpen Market Opportunity"],
+            ['key' => 'programs_impacts', 'value' => json_encode(['Establish Market Distinction', 'Create Cultural Relevance', 'Command Premium Pricing', 'Optimize Portfolios', 'Accelerate Growth', 'Open Market Opportunity'])],
 
             // Subpages: Arts & Culture
             ['key' => 'arts_hero_title', 'value' => 'Arts & Culture'],
@@ -157,6 +173,12 @@ class DatabaseSeeder extends Seeder
             // Footer
             ['key' => 'footer_tagline', 'value' => 'Keep up to date'],
             ['key' => 'footer_copyright', 'value' => 'Accaive Design Studio. All rights reserved.'],
+
+            // Search Engine Optimization (SEO)
+            ['key' => 'seo_meta_title', 'value' => 'Accaive Design — Architecture & Built Environments Studio'],
+            ['key' => 'seo_meta_description', 'value' => 'Accaive Design Studio (accaivedesign.id) adalah biro arsitektur, interior, dan tata lingkungan visioner berbasis di Kotagede, Yogyakarta & Jakarta. We design structures so compelling, their impact is inevitable.'],
+            ['key' => 'seo_keywords', 'value' => json_encode(['Accaive', 'Accaive Design', 'Accaive Studio', 'Accaive Std', 'Studio Arsitek Yogyakarta', 'Arsitek Kotagede', 'Biro Arsitek Jakarta', 'Luxury Architecture Indonesia'])],
+            ['key' => 'seo_google_verification', 'value' => ''],
         ]);
 
         DB::table('users')->insert([

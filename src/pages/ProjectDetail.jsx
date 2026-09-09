@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft } from "lucide-react";
 import { useProject } from "../hooks/useProjects";
 import Skeleton from "../components/Skeleton";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +17,13 @@ const ProjectDetail = () => {
   const heroRef = useRef(null);
   const textRef = useRef(null);
   const galleryRef = useRef(null);
+
+  usePageSEO({
+    title: data?.title ? `${data.title} (${data.category || 'Architecture'})` : 'Project Portfolio',
+    description: data?.description ? data.description.slice(0, 160) : 'Accaive Design Studio architecture project portfolio.',
+    image: data?.hero_image,
+    path: `/project/${slug}`,
+  });
 
   useGSAP(
     () => {

@@ -9,6 +9,7 @@ import Team from '../components/Team';
 import Contact from '../components/Contact';
 import { useTheme } from '../context/useTheme';
 import { useSettings } from '../hooks/useSecondary';
+import { usePageSEO } from '../hooks/usePageSEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,6 +25,13 @@ const Home = () => {
     const workGridRef = useRef(null);
     const { setIsDarkMode } = useTheme();
     const { settings } = useSettings();
+
+    usePageSEO({
+        title: settings?.seo_meta_title || '',
+        description: settings?.seo_meta_description || '',
+        path: '/',
+        googleVerification: settings?.seo_google_verification || '',
+    });
 
     const sections = useMemo(() => {
         if (!settings?.home_sections) return DEFAULT_SECTIONS;

@@ -113,6 +113,18 @@ class ManageSiteContent extends Page implements HasForms
             ];
         }
 
+        // 4. Default SEO Keywords parsing for TagsInput
+        if (!empty($settings['seo_keywords'])) {
+            $parsedKeywords = json_decode($settings['seo_keywords'], true);
+            if (is_array($parsedKeywords)) {
+                $settings['seo_keywords'] = $parsedKeywords;
+            } else {
+                $settings['seo_keywords'] = array_filter(array_map('trim', explode(',', $settings['seo_keywords'])));
+            }
+        } else {
+            $settings['seo_keywords'] = ['Accaive', 'Accaive Design', 'Accaive Studio', 'Accaive Std', 'Studio Arsitek Yogyakarta', 'Biro Arsitek Jakarta'];
+        }
+
         // Defaults for layout presets if empty
         $settings['home_projects_layout'] = $settings['home_projects_layout'] ?? 'asymmetric';
         $settings['home_services_layout'] = $settings['home_services_layout'] ?? 'split';
@@ -413,6 +425,32 @@ class ManageSiteContent extends Page implements HasForms
                                             ->placeholder('Accaive Design Studio. All rights reserved.')
                                             ->columnSpanFull(),
                                     ])->columns(2),
+
+                                Section::make('Search Engine Optimization (SEO Google)')
+                                    ->description('Pengaturan agar website muncul di peringkat #1 pencarian Google untuk kata kunci Accaive & Accaive Design.')
+                                    ->schema([
+                                        TextInput::make('seo_meta_title')
+                                            ->label('Judul di Hasil Pencarian Google (Meta Title)')
+                                            ->helperText('Tampil sebagai judul link biru di hasil pencarian Google.')
+                                            ->placeholder('Accaive Design — Architecture & Built Environments Studio')
+                                            ->columnSpanFull(),
+                                        Textarea::make('seo_meta_description')
+                                            ->label('Deskripsi Cuplikan di Google (Meta Description)')
+                                            ->helperText('Cuplikan ringkas di bawah judul pada hasil Google (Ideal: 140–160 karakter).')
+                                            ->placeholder('Accaive Design Studio (accaivedesign.id) adalah biro arsitektur, interior, dan tata lingkungan visioner berbasis di Kotagede, Yogyakarta & Jakarta.')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                        TagsInput::make('seo_keywords')
+                                            ->label('Kata Kunci Target (Keywords)')
+                                            ->helperText('Ketik kata kunci lalu tekan Enter (contoh: accaive, accaive design, studio arsitek yogyakarta).')
+                                            ->placeholder('Tambah kata kunci target...')
+                                            ->columnSpanFull(),
+                                        TextInput::make('seo_google_verification')
+                                            ->label('Kode Tag Verifikasi Google Search Console')
+                                            ->helperText('Kode tag meta verifikasi kepemilikan dari Google Search Console.')
+                                            ->placeholder('google-site-verification-token')
+                                            ->columnSpanFull(),
+                                    ]),
                             ]),
                     ])
             ])
@@ -463,6 +501,11 @@ class ManageSiteContent extends Page implements HasForms
         // 3. Encode programs_impacts
         if (isset($state['programs_impacts']) && is_array($state['programs_impacts'])) {
             $state['programs_impacts'] = json_encode($state['programs_impacts']);
+        }
+
+        // 4. Encode seo_keywords
+        if (isset($state['seo_keywords']) && is_array($state['seo_keywords'])) {
+            $state['seo_keywords'] = json_encode($state['seo_keywords']);
         }
 
         foreach ($state as $key => $value) {

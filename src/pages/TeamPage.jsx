@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Team from "../components/Team";
 import Contact from "../components/Contact";
 import { useSettings } from "../hooks/useSecondary";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 const TeamPage = () => {
   const { settings } = useSettings();
@@ -10,6 +11,12 @@ const TeamPage = () => {
   const teamPageTitle = settings?.team_page_title || "Our Team";
   const teamPageSubtitle =
     settings?.team_page_subtitle || "The minds and makers behind Accaive.";
+
+  usePageSEO({
+    title: teamPageTitle,
+    description: teamPageSubtitle,
+    path: "/team",
+  });
   const teamJoinTitle = settings?.team_join_title || "Join the Collective";
   const teamJoinDescription =
     settings?.team_join_description ||

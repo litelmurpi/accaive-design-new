@@ -173,6 +173,12 @@ class DatabaseSeeder extends Seeder
             // Footer
             ['key' => 'footer_tagline', 'value' => 'Keep up to date'],
             ['key' => 'footer_copyright', 'value' => 'Accaive Design Studio. All rights reserved.'],
+
+            // Search Engine Optimization (SEO)
+            ['key' => 'seo_meta_title', 'value' => 'Accaive Design — Architecture & Built Environments Studio'],
+            ['key' => 'seo_meta_description', 'value' => 'Accaive Design Studio (accaivedesign.id) adalah biro arsitektur, interior, dan tata lingkungan visioner berbasis di Kotagede, Yogyakarta & Jakarta. We design structures so compelling, their impact is inevitable.'],
+            ['key' => 'seo_keywords', 'value' => json_encode(['Accaive', 'Accaive Design', 'Accaive Studio', 'Accaive Std', 'Studio Arsitek Yogyakarta', 'Arsitek Kotagede', 'Biro Arsitek Jakarta', 'Luxury Architecture Indonesia'])],
+            ['key' => 'seo_google_verification', 'value' => ''],
         ]);
 
         DB::table('users')->insert([

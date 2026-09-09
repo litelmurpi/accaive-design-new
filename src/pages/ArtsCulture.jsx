@@ -2,6 +2,7 @@ import React from "react";
 import Contact from "../components/Contact";
 import { useExhibitions, useSettings } from "../hooks/useSecondary";
 import Skeleton from "../components/Skeleton";
+import { usePageSEO } from "../hooks/usePageSEO";
 
 const ArtsCulture = () => {
   const { exhibitions, loading } = useExhibitions();
@@ -11,6 +12,12 @@ const ArtsCulture = () => {
   const artsHeroDescription =
     settings?.arts_hero_description ||
     "Exploring the intersection of design, heritage, and modern artistic expression.";
+
+  usePageSEO({
+    title: artsHeroTitle,
+    description: artsHeroDescription,
+    path: "/arts-culture",
+  });
 
   return (
     <div className="pt-32">

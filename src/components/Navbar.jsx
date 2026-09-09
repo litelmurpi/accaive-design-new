@@ -1,14 +1,18 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTheme } from '../context/useTheme';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = ({ toggleMenu, isMenuOpen }) => {
     const navRef = useRef(null);
+    const { isDarkMode } = useTheme();
+
+    const isDark = isDarkMode || isMenuOpen;
 
     useGSAP(() => {
         const showAnim = gsap.from(navRef.current, { 
@@ -34,21 +38,26 @@ const Navbar = ({ toggleMenu, isMenuOpen }) => {
     return (
         <nav 
             ref={navRef}
-            className={`fixed top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 lg:px-20 z-50 flex justify-between items-center transition-colors duration-300 ${isMenuOpen ? 'text-white' : 'text-white mix-blend-difference'}`}
+            className={`fixed top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 lg:px-20 z-50 flex justify-between items-center transition-colors duration-300 ${isDark ? 'text-white' : 'text-black'}`}
         >
-            <Link to="/" className="z-50">
-                <img src="/logo-nav.png" alt="Accaive Logo" className="w-32 md:w-40" />
+            <Link to="/" className="z-50 focus:outline-none">
+                <img 
+                    src="/logo-nav.png" 
+                    alt="Accaive Logo" 
+                    className={`w-32 md:w-40 transition-all duration-300 ${isDark ? 'brightness-100' : 'invert'}`} 
+                />
             </Link>
             <button
                 onClick={toggleMenu}
-                className="z-50 hover:opacity-70 transition-opacity"
+                className="z-50 hover:opacity-70 transition-opacity p-2 -mr-2 focus:outline-none cursor-pointer"
+                aria-label={isMenuOpen ? "Tutup menu" : "Buka menu"}
             >
                 {isMenuOpen ? (
-                    <X size={24} strokeWidth={1} />
+                    <X size={24} strokeWidth={1.5} className="text-white" />
                 ) : (
-                    <div className="flex flex-col gap-1 w-8 items-end">
-                        <span className="w-full h-px bg-current block"></span>
-                        <span className="w-full h-px bg-current block"></span>
+                    <div className="flex flex-col gap-1.5 w-8 items-end">
+                        <span className={`w-full h-px block transition-colors duration-300 ${isDark ? 'bg-white' : 'bg-black'}`}></span>
+                        <span className={`w-full h-px block transition-colors duration-300 ${isDark ? 'bg-white' : 'bg-black'}`}></span>
                     </div>
                 )}
             </button>

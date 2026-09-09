@@ -13,7 +13,7 @@ const Footer = () => {
   const copyrightText = settings?.footer_copyright || `${siteTitle}. All rights reserved.`;
 
   return (
-    <footer className="bg-[#1a0f0a] text-white py-20 px-6 md:px-12">
+    <footer className="bg-[#0a0a0a] text-white py-20 px-6 md:px-12 border-t border-white/10">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 border-b border-white/20 pb-16">
       <div className="col-span-1 lg:col-span-2">
         <h2 className="text-3xl font-bold tracking-widest mb-6">{brandName}</h2>

@@ -72,7 +72,7 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 menu-overlay z-40 flex flex-col pt-24 px-6 md:px-12 overflow-y-auto text-[#e5e5e5] -translate-y-full"
+      className="fixed inset-0 menu-overlay bg-[#0a0a0a] z-40 flex flex-col pt-24 px-6 md:px-12 overflow-y-auto text-[#e5e5e5] -translate-y-full"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 min-h-full pb-16">
         {/* Left Side: Navigation */}

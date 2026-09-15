@@ -129,6 +129,22 @@ class ManageSiteContent extends Page implements HasForms
         $settings['home_projects_layout'] = $settings['home_projects_layout'] ?? 'asymmetric';
         $settings['home_services_layout'] = $settings['home_services_layout'] ?? 'split';
 
+        // 5. Defaults for Hamburger Navigation
+        $settings['menu_item_1_label'] = $settings['menu_item_1_label'] ?? 'Projects';
+        $settings['menu_item_1_path'] = $settings['menu_item_1_path'] ?? '/projects';
+        $settings['menu_item_2_label'] = $settings['menu_item_2_label'] ?? 'About';
+        $settings['menu_item_2_path'] = $settings['menu_item_2_path'] ?? '/about';
+        $settings['menu_item_3_label'] = $settings['menu_item_3_label'] ?? 'Arts & Culture';
+        $settings['menu_item_3_path'] = $settings['menu_item_3_path'] ?? '/arts-culture';
+        $settings['menu_cta_label'] = $settings['menu_cta_label'] ?? 'Work with us';
+        $settings['menu_cta_path'] = $settings['menu_cta_path'] ?? '/contact';
+        $settings['menu_team_label'] = $settings['menu_team_label'] ?? 'Team';
+        $settings['menu_team_path'] = $settings['menu_team_path'] ?? '/team';
+        $settings['menu_careers_label'] = $settings['menu_careers_label'] ?? 'Careers';
+        $settings['menu_careers_path'] = $settings['menu_careers_path'] ?? '/careers';
+        $settings['menu_press_label'] = $settings['menu_press_label'] ?? 'Press';
+        $settings['menu_press_path'] = $settings['menu_press_path'] ?? '/press';
+
         $this->form->fill($settings);
     }
 
@@ -295,7 +311,76 @@ class ManageSiteContent extends Page implements HasForms
                                     ])->columns(2),
                             ]),
 
-                        // TAB 3: SUB-HALAMAN
+                        // TAB 3: NAVIGASI & MENU HAMBURGER
+                        Tabs\Tab::make('Navigasi & Menu Hamburger')
+                            ->icon('heroicon-o-bars-3')
+                            ->badge('Menu')
+                            ->schema([
+                                Section::make('Tautan Menu Utama (Teks Monumental)')
+                                    ->description('Pengaturan 3 menu utama berukuran besar yang tampil saat menu overlay hamburger dibuka.')
+                                    ->schema([
+                                        TextInput::make('menu_item_1_label')
+                                            ->label('Label Menu 1')
+                                            ->placeholder('Projects')
+                                            ->required(),
+                                        TextInput::make('menu_item_1_path')
+                                            ->label('Tautan / URL Menu 1')
+                                            ->placeholder('/projects')
+                                            ->required(),
+
+                                        TextInput::make('menu_item_2_label')
+                                            ->label('Label Menu 2')
+                                            ->placeholder('About')
+                                            ->required(),
+                                        TextInput::make('menu_item_2_path')
+                                            ->label('Tautan / URL Menu 2')
+                                            ->placeholder('/about')
+                                            ->required(),
+
+                                        TextInput::make('menu_item_3_label')
+                                            ->label('Label Menu 3')
+                                            ->placeholder('Arts & Culture')
+                                            ->required(),
+                                        TextInput::make('menu_item_3_path')
+                                            ->label('Tautan / URL Menu 3')
+                                            ->placeholder('/arts-culture')
+                                            ->required(),
+                                    ])->columns(2),
+
+                                Section::make('Tombol Ajakan & Tautan Sekunder (Bagian Bawah)')
+                                    ->description('Tombol aksi (Work with us) dan baris tautan kecil di bawah menu utama.')
+                                    ->schema([
+                                        TextInput::make('menu_cta_label')
+                                            ->label('Teks Tombol Aksi Utama')
+                                            ->placeholder('Work with us'),
+                                        TextInput::make('menu_cta_path')
+                                            ->label('Tautan Tombol Aksi')
+                                            ->placeholder('/contact'),
+
+                                        TextInput::make('menu_team_label')
+                                            ->label('Label Link Team')
+                                            ->placeholder('Team'),
+                                        TextInput::make('menu_team_path')
+                                            ->label('Tautan Link Team')
+                                            ->placeholder('/team'),
+
+                                        TextInput::make('menu_careers_label')
+                                            ->label('Label Link Careers')
+                                            ->placeholder('Careers'),
+                                        TextInput::make('menu_careers_path')
+                                            ->label('Tautan Link Careers')
+                                            ->placeholder('/careers'),
+
+                                        TextInput::make('menu_press_label')
+                                            ->label('Label Link Press')
+                                            ->placeholder('Press'),
+                                        TextInput::make('menu_press_path')
+                                            ->label('Tautan Link Press')
+                                            ->placeholder('/press'),
+                                    ])->columns(2),
+                            ]),
+
+                        // TAB 4: SUB-HALAMAN
                         Tabs\Tab::make('Sub-Halaman')
                             ->icon('heroicon-o-document-duplicate')
                             ->schema([

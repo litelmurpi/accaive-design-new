@@ -15,6 +15,7 @@ import { SettingsProvider } from "./context/SettingsContext";
 // Lazy-loaded Pages for performance & code-splitting
 const Home = lazy(() => import("./pages/Home"));
 const CaseStudies = lazy(() => import("./pages/CaseStudies"));
+const About = lazy(() => import("./pages/About"));
 const Programs = lazy(() => import("./pages/Programs"));
 const ArtsCulture = lazy(() => import("./pages/ArtsCulture"));
 const TeamPage = lazy(() => import("./pages/TeamPage"));
@@ -101,7 +102,9 @@ function AppContent() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/programs" element={<Programs />} />
+              <Route path="/projects" element={<CaseStudies />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/programs" element={<About />} />
               <Route path="/arts-culture" element={<ArtsCulture />} />
               <Route path="/team" element={<TeamPage />} />
               <Route path="/careers" element={<Careers />} />

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -11,8 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 const Navbar = ({ toggleMenu, isMenuOpen }) => {
     const navRef = useRef(null);
     const { isDarkMode } = useTheme();
+    const location = useLocation();
 
-    const isDark = isDarkMode || isMenuOpen;
+    // Dark-themed pages require white logo and white hamburger
+    const isDarkPage = location.pathname.startsWith('/projects') || 
+                       location.pathname.startsWith('/case-studies');
+
+    const isDark = isDarkMode || isMenuOpen || isDarkPage;
 
     useGSAP(() => {
         const showAnim = gsap.from(navRef.current, { 

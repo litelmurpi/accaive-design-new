@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,6 +8,7 @@ import Contact from "../components/Contact";
 import { useProjects } from "../hooks/useProjects";
 import Skeleton from "../components/Skeleton";
 import { usePageSEO } from "../hooks/usePageSEO";
+import { useTheme } from "../context/useTheme";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -169,32 +170,6 @@ const ShelfCard = ({ study, index }) => {
           <h3 className="text-white text-lg font-light tracking-wide">
             {study.title}
           </h3>
-        </div>
-
-        {/* Center Title Backdrop Scrim for readability */}
-        <div
-          className="absolute inset-0 z-35 flex items-center justify-center pointer-events-none"
-        >
-          <div className="w-3/4 h-28 bg-black/40 blur-xl rounded-full opacity-80 group-hover:opacity-95 transition-opacity" />
-        </div>
-
-        {/* Brand name - abstract positioning */}
-        <div
-          className="absolute z-40 transition-all duration-700 group-hover:tracking-[0.25em] px-4 text-center max-w-full"
-          style={{
-            bottom: index % 2 === 0 ? "50%" : "45%",
-            left: "50%",
-            transform: "translate(-50%, 50%)",
-          }}
-        >
-          <span
-            className="text-white text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.12em] opacity-95 group-hover:opacity-100 transition-all duration-500 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]"
-            style={{
-              fontFamily: "serif",
-            }}
-          >
-            {study.title}
-          </span>
         </div>
 
         {/* Bottom gradient fade */}
@@ -359,10 +334,17 @@ const SpineCard = ({ study, index }) => {
 
 const CaseStudies = () => {
   usePageSEO({
-    title: "Projects & Selected Case Studies",
+    title: "Projects",
     description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.",
-    path: "/case-studies",
+    path: "/projects",
   });
+
+  const { setIsDarkMode } = useTheme();
+
+  useEffect(() => {
+    setIsDarkMode(true);
+    return () => setIsDarkMode(false);
+  }, [setIsDarkMode]);
 
   const { projects: caseStudies, loading } = useProjects();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -494,10 +476,11 @@ const CaseStudies = () => {
 
         {/* Header */}
         <div ref={headingRef} className="mb-20">
-          <p className="text-white/50 text-sm font-medium tracking-widest uppercase mb-6">
-            Case Studies {activeCategory !== "All" && `— ${activeCategory}`}
+          <p className="text-white/80 text-sm font-medium tracking-widest uppercase mb-6 flex items-center gap-3">
+            <span className="w-8 h-px bg-white/40"></span>
+            Projects {activeCategory !== "All" && `— ${activeCategory}`}
           </p>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.15] max-w-3xl">
+          <h1 className="font-serif text-white text-4xl md:text-5xl lg:text-6xl leading-[1.15] max-w-3xl drop-shadow-sm font-normal">
             We will make your business so irresistible, its success is
             inevitable.
           </h1>

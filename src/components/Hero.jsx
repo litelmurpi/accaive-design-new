@@ -10,7 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const containerRef = useRef(null);
   const headingRef = useRef(null);
-  const awardsRef = useRef(null);
   const videoContainerRef = useRef(null);
   const { settings } = useSettings();
 
@@ -24,25 +23,15 @@ const Hero = () => {
         opacity: 0,
         duration: 1,
         ease: "power3.out",
-      })
-        .from(
-          awardsRef.current,
-          {
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=0.5",
-        )
-        .from(
-          videoContainerRef.current,
-          {
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=0.5",
-        );
+      }).from(
+        videoContainerRef.current,
+        {
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=0.5",
+      );
 
       // Scroll Animation for Video
       gsap.to(videoContainerRef.current, {
@@ -69,26 +58,8 @@ const Hero = () => {
     heroHeadline = "a creation that <br /> <span class='italic'>craves</span> <br /> <span class='italic'>creative</span> design.";
   }
 
-  const heroAwardSubtitle = settings?.hero_award_subtitle || "7x Agency of the Year";
-
-  let heroAwards = ["( ArchDaily 2024 )", "( Pritzker Mention 2023 )", "( Dezeen Awards 2024 )", "( AIA Firm of Year 2025 )"];
-  if (settings?.hero_awards) {
-    if (Array.isArray(settings.hero_awards)) {
-      heroAwards = settings.hero_awards;
-    } else if (typeof settings.hero_awards === "string") {
-      try {
-        const parsed = JSON.parse(settings.hero_awards);
-        if (Array.isArray(parsed)) heroAwards = parsed;
-        else heroAwards = settings.hero_awards.split(",").map((item) => item.trim()).filter(Boolean);
-      } catch {
-        heroAwards = settings.hero_awards.split(",").map((item) => item.trim()).filter(Boolean);
-      }
-    }
-  }
-  heroAwards = heroAwards.map((a) => (a.startsWith("(") ? a : `( ${a} )`));
-
   const videoSrc = settings?.hero_video_url || videoClip;
-  const posterSrc = settings?.hero_video_poster || "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop";
+  const posterSrc = settings?.hero_video_poster || "/hero-poster.webp";
 
   return (
     <section
@@ -100,20 +71,6 @@ const Hero = () => {
         className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight mb-24 max-w-4xl opacity-100"
         dangerouslySetInnerHTML={{ __html: heroHeadline }}
       />
-
-      <div
-        ref={awardsRef}
-        className="flex flex-col items-center gap-6 mb-20 opacity-100"
-      >
-        <span className="text-[10px] uppercase tracking-widest text-gray-400">
-          {heroAwardSubtitle}
-        </span>
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[10px] md:text-xs font-medium text-gray-500 tracking-wide font-sans">
-          {heroAwards.map((award, index) => (
-            <span key={index}>{award}</span>
-          ))}
-        </div>
-      </div>
 
       <div
         ref={videoContainerRef}
@@ -132,10 +89,10 @@ const Hero = () => {
           <source src={videoSrc} type="video/mp4" />
           {/* Fallback image */}
           <img
-            loading="lazy"
+            fetchPriority="high"
             src={posterSrc}
             className="w-full h-full object-cover"
-            alt="Architecture"
+            alt="Accaive Architecture"
           />
         </video>
         <div className="absolute inset-0 bg-black/10"></div>

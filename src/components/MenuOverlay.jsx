@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight } from "lucide-react";
-import { useFeaturedStories } from "../hooks/useSecondary";
+import { useFeaturedStories, useSettings } from "../hooks/useSecondary";
 
 const MenuOverlay = ({ isOpen, toggleMenu }) => {
   const containerRef = useRef(null);
@@ -11,6 +11,7 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
   const secondaryLinksRef = useRef(null);
   const featuredRef = useRef(null);
   const { stories, loading } = useFeaturedStories();
+  const { settings } = useSettings();
 
   useGSAP(
     () => {
@@ -58,15 +59,36 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
   );
 
   const menuItems = [
-    { label: "Case Studies", path: "/case-studies" },
-    { label: "Programs", path: "/programs" },
-    { label: "Arts & Culture", path: "/arts-culture" },
+    {
+      label: settings?.menu_item_1_label || "Projects",
+      path: settings?.menu_item_1_path || "/projects",
+    },
+    {
+      label: settings?.menu_item_2_label || "About",
+      path: settings?.menu_item_2_path || "/about",
+    },
+    {
+      label: settings?.menu_item_3_label || "Arts & Culture",
+      path: settings?.menu_item_3_path || "/arts-culture",
+    },
   ];
 
+  const ctaLabel = settings?.menu_cta_label || "Work with us";
+  const ctaPath = settings?.menu_cta_path || "/contact";
+
   const secondaryLinks = [
-    { label: "Team", path: "/team" },
-    { label: "Careers", path: "/careers" },
-    { label: "Press", path: "/press" },
+    {
+      label: settings?.menu_team_label || "Team",
+      path: settings?.menu_team_path || "/team",
+    },
+    {
+      label: settings?.menu_careers_label || "Careers",
+      path: settings?.menu_careers_path || "/careers",
+    },
+    {
+      label: settings?.menu_press_label || "Press",
+      path: settings?.menu_press_path || "/press",
+    },
   ];
 
   return (
@@ -96,11 +118,11 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
             className="mt-8 sm:mt-12 flex flex-wrap items-center gap-4 sm:gap-6 text-sm md:text-base font-medium"
           >
             <Link
-              to="/contact"
+              to={ctaPath}
               onClick={toggleMenu}
               className="px-6 py-3 border border-white rounded-full hover:bg-white hover:text-black transition-all text-center"
             >
-              Work with us
+              {ctaLabel}
             </Link>
             {secondaryLinks.map((link) => (
               <Link

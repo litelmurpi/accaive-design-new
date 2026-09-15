@@ -56,8 +56,8 @@ const ServicesList = () => {
 
   const servicesLabel = settings?.home_services_label || "Programs & Services";
   const servicesHeading = settings?.home_services_heading || "Eleven ways we help clients build and command their unique environments.";
-  const servicesButtonText = settings?.home_services_button_text || "Explore Programs";
-  const servicesButtonUrl = settings?.home_services_button_url || "/programs";
+  const servicesButtonText = settings?.home_services_button_text || "About Accaive";
+  const servicesButtonUrl = settings?.home_services_button_url || "/about";
   const layout = settings?.home_services_layout || "split";
 
   return (

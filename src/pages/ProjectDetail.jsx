@@ -17,6 +17,7 @@ const ProjectDetail = () => {
   const heroRef = useRef(null);
   const textRef = useRef(null);
   const galleryRef = useRef(null);
+  const [heroError, setHeroError] = React.useState(false);
 
   usePageSEO({
     title: data?.title ? `${data.title} (${data.category || 'Architecture'})` : 'Project Portfolio',
@@ -98,14 +99,27 @@ const ProjectDetail = () => {
       className="bg-[#f8f8f8] dark:bg-[#0a0a0a] text-neutral-900 dark:text-neutral-100 min-h-screen transition-colors duration-500"
     >
       {/* Hero Section */}
-      <div className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
-        <img
-          ref={heroRef}
-          src={data.hero_image}
-          alt={data.title}
-          className="absolute w-full h-[120%] object-cover top-[-10%]"
-        />
-        <div className="absolute inset-0 bg-black/30"></div>
+      <div className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-neutral-900">
+        {data.hero_image && !heroError ? (
+          <img
+            ref={heroRef}
+            src={data.hero_image}
+            alt={data.title}
+            onError={() => setHeroError(true)}
+            className="absolute w-full h-[120%] object-cover top-[-10%]"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-linear-to-b from-neutral-800 to-neutral-950 flex flex-col items-center justify-center p-6 text-center">
+            <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mb-4 text-white/30">
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <span className="font-serif text-3xl md:text-5xl text-white/50 tracking-wide block mb-2">{data.title}</span>
+            <span className="text-xs uppercase tracking-widest text-white/40 font-mono">{data.category || "Architecture"}</span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-black/30 pointer-events-none"></div>
 
         {/* Back Button */}
         <Link
@@ -162,20 +176,28 @@ const ProjectDetail = () => {
         >
           {data.gallery_images &&
             data.gallery_images.map((imgSrc, index) => (
-              <div
-                key={index}
-                className={`gallery-img overflow-hidden rounded-xl ${index === 2 ? "md:col-span-2" : ""}`}
-              >
-                <img
-                  src={imgSrc}
-                  alt={`Gallery item ${index + 1}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover aspect-4/3 md:aspect-auto hover:scale-105 transition-transform duration-700"
-                />
-              </div>
+              <GalleryItem key={index} imgSrc={imgSrc} index={index} />
             ))}
         </div>
       </div>
+    </div>
+  );
+};
+
+const GalleryItem = ({ imgSrc, index }) => {
+  const [error, setError] = React.useState(false);
+  if (error || !imgSrc) return null;
+  return (
+    <div
+      className={`gallery-img overflow-hidden rounded-xl ${index === 2 ? "md:col-span-2" : ""}`}
+    >
+      <img
+        src={imgSrc}
+        alt={`Gallery item ${index + 1}`}
+        loading="lazy"
+        onError={() => setError(true)}
+        className="w-full h-full object-cover aspect-4/3 md:aspect-auto hover:scale-105 transition-transform duration-700"
+      />
     </div>
   );
 };

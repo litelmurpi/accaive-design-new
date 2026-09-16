@@ -33,6 +33,7 @@ const heights = [
 // Shelf View Card Component - Abstract Aesthetic Design
 const ShelfCard = ({ study, index }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   // Generate random geometric pattern based on index
   const patterns = [
@@ -110,12 +111,25 @@ const ShelfCard = ({ study, index }) => {
 
         {/* Background image with advanced effects */}
         <div className="absolute inset-0 transition-all duration-700 group-hover:scale-110">
-          <img
-            src={study.hero_image}
-            alt={study.title}
-            loading="lazy"
-            className="w-full h-full object-cover transition-all duration-700 filter group-hover:brightness-75 group-hover:saturate-150"
-          />
+          {study.hero_image && !imgError ? (
+            <img
+              src={study.hero_image}
+              alt={study.title}
+              loading="lazy"
+              onError={() => setImgError(true)}
+              className="w-full h-full object-cover transition-all duration-700 filter group-hover:brightness-75 group-hover:saturate-150"
+            />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center bg-linear-to-br from-neutral-800 via-neutral-900 to-[#0d0d0d] p-8 text-center relative">
+              <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
+              <div className="w-14 h-14 rounded-2xl border border-white/10 flex items-center justify-center mb-4 text-white/30 group-hover:border-white/20 transition-colors">
+                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <span className="text-white/40 text-xs tracking-widest uppercase font-mono">{study.category || "Architecture"}</span>
+            </div>
+          )}
         </div>
 
         {/* Abstract gradient mesh overlay */}

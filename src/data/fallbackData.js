@@ -231,7 +231,13 @@ export const FALLBACK_SETTINGS = {
   seo_meta_description: "Accaive Design Studio is an architectural practice archiving human stories towards timeless design for space and memory.",
   seo_keywords: "[\"Accaive\",\"Accaive Design\",\"Accaive Studio\",\"Studio Arsitek Yogyakarta\",\"Biro Arsitek Jakarta\"]",
   seo_google_verification: "1j51iBGuKl6bryoUAnicmShrueA_6hIRa4S0licCJF0",
-  home_sections: "[{\"id\":\"hero\",\"is_visible\":true},{\"id\":\"services\",\"is_visible\":true},{\"id\":\"projects\",\"is_visible\":true},{\"id\":\"team\",\"is_visible\":true},{\"id\":\"cta\",\"is_visible\":true}]"
+  home_sections: "[{\"id\":\"hero\",\"is_visible\":true},{\"id\":\"services\",\"is_visible\":true},{\"id\":\"projects\",\"is_visible\":true},{\"id\":\"team\",\"is_visible\":true},{\"id\":\"cta\",\"is_visible\":true}]",
+  projects_hero_badge: "Projects",
+  projects_hero_heading: "We will make your business so irresistible, its success is inevitable.",
+  projects_hero_subheading: "",
+  projects_default_view: "shelf",
+  projects_seo_title: "Projects — Accaive Design Studio",
+  projects_seo_description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures."
 };
 
 export const FALLBACK_PROGRAMS = [

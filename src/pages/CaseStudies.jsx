@@ -9,6 +9,7 @@ import { useProjects } from "../hooks/useProjects";
 import Skeleton from "../components/Skeleton";
 import { usePageSEO } from "../hooks/usePageSEO";
 import { useTheme } from "../context/useTheme";
+import { useSettings } from "../hooks/useSecondary";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -347,9 +348,18 @@ const SpineCard = ({ study, index }) => {
 };
 
 const CaseStudies = () => {
+  const { settings } = useSettings();
+  const heroBadge = settings?.projects_hero_badge || "Projects";
+  const heroHeading =
+    settings?.projects_hero_heading ||
+    "We will make your business so irresistible, its success is inevitable.";
+  const heroSubheading = settings?.projects_hero_subheading || "";
+
   usePageSEO({
-    title: "Projects",
-    description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.",
+    title: settings?.projects_seo_title || `${heroBadge} — Accaive Design Studio`,
+    description:
+      settings?.projects_seo_description ||
+      "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.",
     path: "/projects",
   });
 
@@ -363,7 +373,9 @@ const CaseStudies = () => {
   const { projects: caseStudies, loading } = useProjects();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get("category") || "All";
-  const [viewMode, setViewMode] = useState("shelf"); // 'shelf' or 'spines'
+  const [userViewMode, setUserViewMode] = useState(null);
+  const viewMode = userViewMode || settings?.projects_default_view || "shelf";
+
   const containerRef = useRef(null);
   const headingRef = useRef(null);
 
@@ -468,7 +480,7 @@ const CaseStudies = () => {
           {/* View Toggle */}
           <div className="inline-flex items-center bg-[#1a1a1a] rounded-full p-1">
             <button
-              onClick={() => setViewMode("shelf")}
+              onClick={() => setUserViewMode("shelf")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 viewMode === "shelf"
                   ? "bg-white text-black"
@@ -479,7 +491,7 @@ const CaseStudies = () => {
               Shelf
             </button>
             <button
-              onClick={() => setViewMode("spines")}
+              onClick={() => setUserViewMode("spines")}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 viewMode === "spines"
                   ? "bg-white text-black"
@@ -516,12 +528,16 @@ const CaseStudies = () => {
         <div ref={headingRef} className="mb-20 text-white">
           <p className="text-white/80 text-sm font-medium tracking-widest uppercase mb-6 flex items-center gap-3">
             <span className="w-8 h-px bg-white/40"></span>
-            Projects {activeCategory !== "All" && `— ${activeCategory}`}
+            {heroBadge} {activeCategory !== "All" && `— ${activeCategory}`}
           </p>
           <h1 className="font-serif text-white text-4xl md:text-5xl lg:text-6xl leading-[1.15] max-w-3xl drop-shadow-sm font-normal">
-            We will make your business so irresistible, its success is
-            inevitable.
+            {heroHeading}
           </h1>
+          {heroSubheading && (
+            <p className="mt-6 text-white/70 text-base md:text-lg max-w-2xl font-light leading-relaxed">
+              {heroSubheading}
+            </p>
+          )}
         </div>
       </div>
 

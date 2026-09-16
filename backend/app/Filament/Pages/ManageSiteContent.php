@@ -145,6 +145,14 @@ class ManageSiteContent extends Page implements HasForms
         $settings['menu_press_label'] = $settings['menu_press_label'] ?? 'Press';
         $settings['menu_press_path'] = $settings['menu_press_path'] ?? '/press';
 
+        // 6. Defaults for Projects Page
+        $settings['projects_hero_badge'] = $settings['projects_hero_badge'] ?? 'Projects';
+        $settings['projects_hero_heading'] = $settings['projects_hero_heading'] ?? 'We will make your business so irresistible, its success is inevitable.';
+        $settings['projects_hero_subheading'] = $settings['projects_hero_subheading'] ?? '';
+        $settings['projects_default_view'] = $settings['projects_default_view'] ?? 'shelf';
+        $settings['projects_seo_title'] = $settings['projects_seo_title'] ?? 'Projects — Accaive Design Studio';
+        $settings['projects_seo_description'] = $settings['projects_seo_description'] ?? 'Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.';
+
         $this->form->fill($settings);
     }
 
@@ -384,6 +392,38 @@ class ManageSiteContent extends Page implements HasForms
                         Tabs\Tab::make('Sub-Halaman')
                             ->icon('heroicon-o-document-duplicate')
                             ->schema([
+                                Section::make('Halaman Proyek & Portofolio (/projects & /case-studies)')
+                                    ->schema([
+                                        TextInput::make('projects_hero_badge')
+                                            ->label('Label Kecil (Badge)')
+                                            ->placeholder('Projects'),
+                                        Select::make('projects_default_view')
+                                            ->label('Tampilan Default Galeri')
+                                            ->options([
+                                                'shelf' => 'Shelf (Kartu Grid Sinematik)',
+                                                'spines' => 'Spines (Daftar Akordeon Garis Horisontal)',
+                                            ])
+                                            ->default('shelf')
+                                            ->native(false),
+                                        TextInput::make('projects_hero_heading')
+                                            ->label('Headline Utama')
+                                            ->placeholder('We will make your business so irresistible, its success is inevitable.')
+                                            ->columnSpanFull(),
+                                        Textarea::make('projects_hero_subheading')
+                                            ->label('Deskripsi / Narasi Kurasi (Opsional)')
+                                            ->placeholder('Tulis deskripsi atau pengantar kurasi portofolio di sini...')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+                                        TextInput::make('projects_seo_title')
+                                            ->label('Judul Tab Browser (SEO Title)')
+                                            ->placeholder('Projects — Accaive Design Studio'),
+                                        Textarea::make('projects_seo_description')
+                                            ->label('Deskripsi Meta SEO')
+                                            ->placeholder('Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+                                    ])->columns(2),
+
                                 Section::make('Halaman Programs (/programs)')
                                     ->schema([
                                         TextInput::make('programs_hero_title')

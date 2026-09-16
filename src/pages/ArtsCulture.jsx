@@ -53,13 +53,33 @@ const ArtsCulture = () => {
                 className="group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
               >
                 <div
-                  className={`overflow-hidden rounded-lg ${idx % 2 === 1 ? "lg:order-2" : ""}`}
+                  className={`overflow-hidden rounded-lg bg-neutral-900 aspect-video relative flex items-center justify-center ${idx % 2 === 1 ? "lg:order-2" : ""}`}
                 >
-                  <img
-                    src={exhibit.img || exhibit.image}
-                    alt={exhibit.title}
-                    className="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {(exhibit.img || exhibit.image) ? (
+                    <img
+                      src={exhibit.img || exhibit.image}
+                      alt={exhibit.title}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = "flex";
+                        }
+                      }}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : null}
+                  <div
+                    style={{ display: (exhibit.img || exhibit.image) ? "none" : "flex" }}
+                    className="w-full h-full flex-col items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950 p-6 text-center"
+                  >
+                    <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-3 text-white/30">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
+                    <span className="text-white/40 text-xs tracking-widest uppercase font-mono">{exhibit.location || "Exhibition"}</span>
+                  </div>
                 </div>
                 <div className={idx % 2 === 1 ? "lg:order-1" : ""}>
                   <div className="flex items-center gap-4 mb-4 text-sm uppercase tracking-widest text-gray-400">

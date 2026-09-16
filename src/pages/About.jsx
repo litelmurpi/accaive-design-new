@@ -530,23 +530,55 @@ const About = () => {
                       <Skeleton className="w-1/2 h-3" />
                     </div>
                   ))
-              : members.slice(0, 6).map((member, idx) => (
-                  <div key={member.id || idx} className="group flex flex-col">
-                    <div className="aspect-[3/4] overflow-hidden rounded-sm bg-neutral-200 mb-3 relative">
-                      <img
-                        src={member.photo}
-                        alt={member.name}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out"
-                      />
+              : members.slice(0, 6).map((member, idx) => {
+                  const initials = member.name
+                    ? member.name
+                        .split(" ")
+                        .filter(Boolean)
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join("")
+                        .toUpperCase()
+                    : "AD";
+
+                  return (
+                    <div key={member.id || idx} className="group flex flex-col">
+                      <div className="aspect-[3/4] overflow-hidden rounded-sm bg-neutral-900 mb-3 relative flex items-center justify-center">
+                        {member.photo ? (
+                          <img
+                            src={member.photo}
+                            alt={member.name}
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                              if (e.currentTarget.nextElementSibling) {
+                                e.currentTarget.nextElementSibling.style.display = "flex";
+                              }
+                            }}
+                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out"
+                          />
+                        ) : null}
+                        <div
+                          style={{ display: member.photo ? "none" : "flex" }}
+                          className="w-full h-full flex-col items-center justify-center bg-gradient-to-b from-neutral-800 to-neutral-900 border border-black/5 relative overflow-hidden group-hover:scale-105 transition-all duration-500"
+                        >
+                          <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:12px_12px] opacity-40 pointer-events-none" />
+                          <span className="font-serif text-2xl md:text-3xl text-white/40 tracking-widest font-light select-none">
+                            {initials}
+                          </span>
+                          <span className="text-[9px] tracking-[0.2em] text-white/30 uppercase mt-1.5 font-mono select-none">
+                            Accaive
+                          </span>
+                        </div>
+                      </div>
+                      <h4 className="font-serif text-base text-black font-medium group-hover:underline">
+                        {member.name}
+                      </h4>
+                      <p className="text-xs text-black/60 font-mono mt-0.5">
+                        {member.role}
+                      </p>
                     </div>
-                    <h4 className="font-serif text-base text-black font-medium group-hover:underline">
-                      {member.name}
-                    </h4>
-                    <p className="text-xs text-black/60 font-mono mt-0.5">
-                      {member.role}
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
           </div>
         </div>
       </section>

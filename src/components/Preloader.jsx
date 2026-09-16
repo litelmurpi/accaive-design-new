@@ -41,7 +41,7 @@ const Preloader = ({ onComplete }) => {
     return (
         <div 
             ref={containerRef} 
-            className="fixed inset-0 z-9999 bg-[#1a0f0a] flex justify-center items-center text-white"
+            className="fixed inset-0 z-9999 bg-[#0a0a0a] flex justify-center items-center text-white"
         >
             <div ref={textRef} className="text-center">
                 <div className="text-9xl font-serif font-bold mb-4">

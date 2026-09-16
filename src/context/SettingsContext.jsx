@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { fetchApi } from "../lib/api";
+import { getFallbackSettings } from "../data/fallbackData";
 
 const SettingsContext = createContext(null);
 
 export const SettingsProvider = ({ children }) => {
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState(() => getFallbackSettings());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,9 +14,14 @@ export const SettingsProvider = ({ children }) => {
       try {
         setLoading(true);
         const data = await fetchApi("/settings");
-        setSettings(data);
+        if (data && Object.keys(data).length > 0) {
+          setSettings({ ...getFallbackSettings(), ...data });
+        } else {
+          setSettings(getFallbackSettings());
+        }
       } catch (err) {
-        console.error("Failed to fetch settings:", err);
+        console.warn("API unavailable, using offline fallback settings:", err?.message || err);
+        setSettings(getFallbackSettings());
         setError(err);
       } finally {
         setLoading(false);

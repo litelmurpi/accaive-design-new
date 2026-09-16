@@ -392,43 +392,67 @@ const CaseStudies = () => {
     }
   };
 
+  // 1. Entrance animation for static heading (runs once on page mount with guaranteed clearProps)
   useGSAP(
     () => {
-      gsap.from(headingRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-      });
+      if (!headingRef.current) return;
+      gsap.fromTo(
+        headingRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          clearProps: "all",
+        },
+      );
+    },
+    { scope: containerRef },
+  );
 
-      // Batch animations for cards based on view mode
+  // 2. Batch animations for cards based on view mode (runs when data loads or view/category toggles)
+  useGSAP(
+    () => {
+      if (loading) return;
+
       if (viewMode === "shelf") {
         gsap.utils.toArray('.shelf-card').forEach((card) => {
-          gsap.from(card, {
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 90%",
-              once: true,
+          gsap.fromTo(
+            card,
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: "power3.out",
+              clearProps: "all",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                once: true,
+              },
             },
-          });
+          );
         });
       } else {
         gsap.utils.toArray('.spine-card').forEach((card) => {
-          gsap.from(card, {
-            x: -40,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 90%",
-              once: true,
+          gsap.fromTo(
+            card,
+            { x: -40, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: "power2.out",
+              clearProps: "all",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                once: true,
+              },
             },
-          });
+          );
         });
       }
     },
@@ -489,7 +513,7 @@ const CaseStudies = () => {
         </div>
 
         {/* Header */}
-        <div ref={headingRef} className="mb-20">
+        <div ref={headingRef} className="mb-20 text-white">
           <p className="text-white/80 text-sm font-medium tracking-widest uppercase mb-6 flex items-center gap-3">
             <span className="w-8 h-px bg-white/40"></span>
             Projects {activeCategory !== "All" && `— ${activeCategory}`}

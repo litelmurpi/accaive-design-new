@@ -158,13 +158,27 @@ const MenuOverlay = ({ isOpen, toggleMenu }) => {
                 href={story.url}
                 className="group flex gap-6 items-center cursor-pointer"
               >
-                <div className="w-32 h-24 overflow-hidden rounded-md">
-                  <img
-                    src={story.image}
-                    alt={story.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                <div className="w-32 h-24 overflow-hidden rounded-md bg-neutral-900 shrink-0 relative flex items-center justify-center">
+                  {story.image ? (
+                    <img
+                      src={story.image}
+                      alt={story.title}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = "flex";
+                        }
+                      }}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : null}
+                  <div
+                    style={{ display: story.image ? "none" : "flex" }}
+                    className="w-full h-full flex-col items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-950 p-2 text-center"
+                  >
+                    <span className="text-white/40 text-[10px] tracking-widest uppercase font-mono">Accaive</span>
+                  </div>
                 </div>
                 <div>
                   <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">

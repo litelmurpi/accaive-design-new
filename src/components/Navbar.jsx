@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
@@ -13,11 +13,56 @@ const Navbar = ({ toggleMenu, isMenuOpen }) => {
     const { isDarkMode } = useTheme();
     const location = useLocation();
 
+    // Determine if current route is a project detail page
+    const isProjectDetail = location.pathname.startsWith('/project/');
+
+    // Track whether user has scrolled past the dark hero section on project detail page
+    const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+    const [prevPath, setPrevPath] = useState(location.pathname);
+
+    // Reset scrolled state synchronously when route changes
+    if (prevPath !== location.pathname) {
+        setPrevPath(location.pathname);
+        if (isScrolledPastHero) {
+            setIsScrolledPastHero(false);
+        }
+    }
+
+    // Dynamically track hero position to transition navbar colors smoothly
+    useEffect(() => {
+        if (!isProjectDetail) return;
+
+        const checkHeroPosition = () => {
+            const heroEl = document.getElementById('project-hero');
+            if (heroEl) {
+                const rect = heroEl.getBoundingClientRect();
+                // When bottom of hero is above navbar threshold (~80px), scrolled into light content
+                setIsScrolledPastHero(rect.bottom <= 80);
+            } else {
+                const threshold = window.innerHeight * 0.65;
+                setIsScrolledPastHero(window.scrollY >= threshold);
+            }
+        };
+
+        checkHeroPosition();
+
+        window.addEventListener('scroll', checkHeroPosition, { passive: true });
+        window.addEventListener('resize', checkHeroPosition, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', checkHeroPosition);
+            window.removeEventListener('resize', checkHeroPosition);
+        };
+    }, [location.pathname, isProjectDetail]);
+
     // Dark-themed pages require white logo and white hamburger
     const isDarkPage = location.pathname.startsWith('/projects') || 
                        location.pathname.startsWith('/case-studies');
 
-    const isDark = isDarkMode || isMenuOpen || isDarkPage;
+    // On project detail, navbar is white when over dark hero, then adapts to theme when over light content
+    const isDarkHero = isProjectDetail && !isScrolledPastHero;
+
+    const isDark = isDarkMode || isMenuOpen || isDarkPage || isDarkHero;
 
     useGSAP(() => {
         const showAnim = gsap.from(navRef.current, { 

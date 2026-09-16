@@ -47,6 +47,22 @@ class ProjectResource extends Resource
                                     ->placeholder('contoh: Residensial'),
                                 Forms\Components\Grid::make(2)
                                     ->schema([
+                                        Forms\Components\TextInput::make('location')
+                                            ->label('Lokasi Proyek')
+                                            ->placeholder('contoh: Kotagede, Yogyakarta atau Banggai, Sulteng'),
+                                        Forms\Components\Select::make('status')
+                                            ->label('Status Pengerjaan')
+                                            ->options([
+                                                'Completed' => 'Completed (Selesai)',
+                                                'In Progress' => 'In Progress (Sedang Dikerjakan)',
+                                                'Under Construction' => 'Under Construction (Konstruksi)',
+                                                'Concept' => 'Concept / Planning (Konsep)',
+                                            ])
+                                            ->default('Completed')
+                                            ->required(),
+                                    ]),
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
                                         Forms\Components\TextInput::make('client')
                                             ->label('Nama Klien')
                                             ->placeholder('Klien Pribadi'),
@@ -54,6 +70,11 @@ class ProjectResource extends Resource
                                             ->label('Tahun Selesai')
                                             ->placeholder('2025'),
                                     ]),
+                                Forms\Components\TagsInput::make('team_in_charge')
+                                    ->label('Team in Charge (Arsitek & Tim Bertanggung Jawab)')
+                                    ->placeholder('Ketik nama arsitek & tekan Enter')
+                                    ->helperText('Daftar nama arsitek/tim yang mengerjakan proyek ini. Ketik nama lalu tekan Enter.')
+                                    ->separator(','),
                                 Forms\Components\Textarea::make('description')
                                     ->label('Deskripsi Proyek')
                                     ->placeholder('Ceritakan kisah di balik arsitektur ini...')
@@ -70,7 +91,7 @@ class ProjectResource extends Resource
                                             ->image()
                                             ->directory('projects/hero')
                                             ->required()
-                                            ->helperText('Visual lanskap resolusi tinggi (disarankan 16:9).'),
+                                            ->helperText('Visual lanskap resolusi tinggi (disarankan 16:9). Unggah file langsung dari perangkat Anda.'),
                                     ]),
 
                                 Forms\Components\Section::make('Grid & Kurasi')
@@ -102,12 +123,15 @@ class ProjectResource extends Resource
 
                 Forms\Components\Section::make('Koleksi Galeri')
                     ->compact()
-                    ->collapsed()
                     ->schema([
-                        Forms\Components\Textarea::make('gallery_images')
-                            ->label('Data Galeri (JSON)')
-                            ->placeholder('["url1", "url2"]')
-                            ->helperText('Masukkan array URL gambar atau ID.'),
+                        Forms\Components\FileUpload::make('gallery_images')
+                            ->label('Unggah Foto Galeri Proyek')
+                            ->image()
+                            ->multiple()
+                            ->reorderable()
+                            ->appendFiles()
+                            ->directory('projects/gallery')
+                            ->helperText('Pilih satu atau banyak foto langsung dari komputer Anda. Anda dapat mengatur ulang urutan foto dengan drag & drop.'),
                     ]),
             ]);
     }
@@ -127,6 +151,20 @@ class ProjectResource extends Resource
                     ->label('Kategori')
                     ->badge()
                     ->color('gray'),
+                Tables\Columns\TextColumn::make('location')
+                    ->label('Lokasi')
+                    ->searchable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (?string $state): string => match ($state) {
+                        'Completed' => 'success',
+                        'In Progress' => 'warning',
+                        'Under Construction' => 'info',
+                        default => 'gray',
+                    })
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('year')
                     ->label('Tahun'),
                 Tables\Columns\TextInputColumn::make('sort_order')

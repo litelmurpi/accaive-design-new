@@ -71,14 +71,22 @@ class ProductionDataSeeder extends Seeder
                         $heroImage = $parts[1] ?? $heroImage;
                     }
 
+                    $team = $item['team_in_charge'] ?? null;
+                    if (is_array($team)) {
+                        $team = json_encode($team);
+                    }
+
                     DB::table('projects')->insert([
                         'id' => $item['id'],
                         'title' => $item['title'] ?? '',
                         'slug' => $item['slug'] ?? '',
                         'category' => $item['category'] ?? '',
+                        'location' => $item['location'] ?? null,
+                        'status' => $item['status'] ?? 'Completed',
                         'client' => $item['client'] ?? null,
                         'year' => $item['year'] ?? null,
                         'description' => $item['description'] ?? '',
+                        'team_in_charge' => $team,
                         'hero_image' => $heroImage,
                         'size' => $item['size'] ?? 'small',
                         'span' => $item['span'] ?? null,

@@ -59,7 +59,7 @@ Route::get('/projects', function (Request $request) use ($ttl) {
     $cacheKey = 'projects_list_' . ($isFeatured ? 'featured' : 'all');
     
     $projects = Cache::remember($cacheKey, $ttl, function () use ($isFeatured) {
-        $query = Project::select('id', 'title', 'slug', 'category', 'description', 'client', 'hero_image', 'size', 'span', 'is_featured', 'sort_order');
+        $query = Project::select('id', 'title', 'slug', 'category', 'location', 'status', 'description', 'client', 'year', 'hero_image', 'size', 'span', 'is_featured', 'sort_order');
         if ($isFeatured) {
             $query->where('is_featured', true);
         }
@@ -76,10 +76,22 @@ Route::get('/projects/{slug}', function ($slug) use ($ttl) {
     
     $project = Cache::remember($cacheKey, $ttl, function () use ($slug) {
         $p = Project::where('slug', $slug)->firstOrFail();
-        $gallery = json_decode($p->gallery_images) ?? [];
-        $p->gallery_images = array_map(function ($img) {
+        
+        // Handle gallery images: can be array (from casts) or JSON string
+        $gallery = is_array($p->gallery_images)
+            ? $p->gallery_images
+            : (json_decode($p->gallery_images, true) ?? []);
+
+        $p->gallery_images = array_values(array_filter(array_map(function ($img) {
             return resolveMediaUrl($img);
-        }, $gallery);
+        }, $gallery)));
+
+        // Handle team in charge: ensure clean array
+        if (is_string($p->team_in_charge)) {
+            $p->team_in_charge = json_decode($p->team_in_charge, true)
+                ?? array_values(array_filter(array_map('trim', explode(',', $p->team_in_charge))));
+        }
+
         if ($p->hero_image) $p->hero_image = resolveMediaUrl($p->hero_image);
         return $p;
     });

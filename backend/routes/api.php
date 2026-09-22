@@ -101,7 +101,10 @@ Route::get('/projects/{slug}', function ($slug) use ($ttl) {
 // SERVICES
 Route::get('/services', function () use ($ttl) {
     $services = Cache::remember('services_list', $ttl, function () {
-        return Service::orderBy('sort_order')->get();
+        return Service::orderBy('sort_order')->get()->map(function ($service) {
+            if ($service->image) $service->image = resolveMediaUrl($service->image);
+            return $service;
+        });
     });
     return cachedResponse($services);
 });
@@ -170,7 +173,14 @@ Route::get('/featured-stories', function () use ($ttl) {
 // SETTINGS
 Route::get('/settings', function () use ($ttl) {
     $settings = Cache::remember('site_settings', $ttl, function () {
-        return SiteSetting::all()->pluck('value', 'key');
+        $all = SiteSetting::all()->pluck('value', 'key')->toArray();
+        $mediaKeys = ['about_hero_image', 'about_hub1_image', 'about_hub2_image'];
+        foreach ($mediaKeys as $mk) {
+            if (!empty($all[$mk])) {
+                $all[$mk] = resolveMediaUrl($all[$mk]);
+            }
+        }
+        return $all;
     });
     return cachedResponse($settings);
 });

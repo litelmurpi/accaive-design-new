@@ -113,9 +113,19 @@ const About = () => {
     settings?.about_manifesto_p2 ||
     "Our approach is uncompromisingly tactile. Rather than covering surfaces with ephemeral veneers, we sculpt spaces from monolithic concrete, local andesite stone, repurposed teak, and floor-to-ceiling glass. The result is an architecture that does not shout for attention, but commands an enduring, contemplative presence.";
 
+  const heroImage = settings?.about_hero_image || "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop";
+  const heroImageCaption = settings?.about_hero_image_caption || "The Void House — Monolithic Form & Light";
+  const hub1Title = settings?.about_hub1_title || "Kotagede Atelier";
+  const hub1Sub = settings?.about_hub1_sub || "Yogyakarta, Indonesia — Material & Heritage Lab";
+  const hub1Image = settings?.about_hub1_image || "https://images.unsplash.com/photo-1518998053901-5348d3969105?q=80&w=1200&auto=format&fit=crop";
+  const hub2Title = settings?.about_hub2_title || "Jakarta Strategic Lab";
+  const hub2Sub = settings?.about_hub2_sub || "SCBD, Jakarta — Urban Scale & Masterplanning";
+  const hub2Image = settings?.about_hub2_image || "https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=1200&auto=format&fit=crop";
+  const seoDescription = settings?.about_seo_description || "Learn about Accaive Design Studio: our dual roots in Kotagede & Jakarta, brutalist luxury philosophy, core architectural pillars, and multidisciplinary practice.";
+
   usePageSEO({
     title: pageTitle,
-    description: "Learn about Accaive Design Studio: our dual roots in Kotagede & Jakarta, brutalist luxury philosophy, core architectural pillars, and multidisciplinary practice.",
+    description: seoDescription,
     path: "/about",
   });
 
@@ -225,14 +235,16 @@ const About = () => {
         <div className="mt-16 md:mt-24 relative overflow-hidden rounded-sm aspect-[16/9] md:aspect-[21/9] bg-neutral-100 shadow-2xl">
           <img
             ref={heroImageRef}
-            src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop"
+            src={heroImage}
             alt="Accaive Design Studio Architecture"
             onLoad={() => ScrollTrigger.refresh()}
             className="w-full h-[120%] -top-[10%] relative object-cover filter contrast-[1.03] grayscale hover:grayscale-0 transition-all duration-1000 ease-out"
           />
-          <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 bg-black/80 backdrop-blur-md text-white text-xs font-mono uppercase tracking-wider px-4 py-2 border border-white/10 rounded-sm">
-            The Void House — Monolithic Form & Light
-          </div>
+          {heroImageCaption && (
+            <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 bg-black/80 backdrop-blur-md text-white text-xs font-mono uppercase tracking-wider px-4 py-2 border border-white/10 rounded-sm">
+              {heroImageCaption}
+            </div>
+          )}
         </div>
       </section>
 
@@ -261,18 +273,18 @@ const About = () => {
             <div className="pt-8 border-t border-black/10 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <h4 className="font-serif text-xl font-medium text-black mb-1">
-                  Kotagede Atelier
+                  {hub1Title}
                 </h4>
                 <p className="text-xs text-black/60 font-mono">
-                  Yogyakarta, Indonesia — Material & Heritage Lab
+                  {hub1Sub}
                 </p>
               </div>
               <div>
                 <h4 className="font-serif text-xl font-medium text-black mb-1">
-                  Jakarta Strategic Lab
+                  {hub2Title}
                 </h4>
                 <p className="text-xs text-black/60 font-mono">
-                  SCBD, Jakarta — Urban Scale & Masterplanning
+                  {hub2Sub}
                 </p>
               </div>
             </div>
@@ -436,7 +448,7 @@ const About = () => {
           <div className="border border-black/10 rounded-sm overflow-hidden group bg-neutral-50 flex flex-col justify-between">
             <div className="aspect-[16/10] overflow-hidden relative">
               <img
-                src="https://images.unsplash.com/photo-1518998053901-5348d3969105?q=80&w=1200&auto=format&fit=crop"
+                src={hub1Image}
                 alt="Kotagede Yogyakarta Studio"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
@@ -467,7 +479,7 @@ const About = () => {
           <div className="border border-black/10 rounded-sm overflow-hidden group bg-neutral-50 flex flex-col justify-between">
             <div className="aspect-[16/10] overflow-hidden relative">
               <img
-                src="https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=1200&auto=format&fit=crop"
+                src={hub2Image}
                 alt="Jakarta Urban Studio"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />

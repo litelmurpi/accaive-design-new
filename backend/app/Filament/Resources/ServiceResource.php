@@ -40,6 +40,13 @@ class ServiceResource extends Resource
                             ->placeholder('Jelaskan keahlian ini dalam 1-2 kalimat...')
                             ->rows(3)
                             ->columnSpanFull(),
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Foto Visual Hover (Preview di Beranda)')
+                            ->image()
+                            ->directory('services')
+                            ->imageEditor()
+                            ->helperText('Unggah foto arsitektur yang akan muncul di sisi kiri ketika pengunjung mengarahkan kursor (hover) ke layanan ini pada halaman Beranda.')
+                            ->columnSpanFull(),
                         Forms\Components\TextInput::make('sort_order')
                             ->label('Urutan Tampilan')
                             ->numeric()
@@ -52,6 +59,10 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Foto Hover')
+                    ->circular()
+                    ->defaultImageUrl(url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=200&auto=format&fit=crop')),
                 Tables\Columns\TextColumn::make('code')
                     ->label('Kode')
                     ->fontFamily('mono')

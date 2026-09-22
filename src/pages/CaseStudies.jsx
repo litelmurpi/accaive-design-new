@@ -31,94 +31,26 @@ const heights = [
   "h-[380px]",
 ];
 
-// Shelf View Card Component - Abstract Aesthetic Design
+// Shelf View Card Component - Clean Architectural Design
 const ShelfCard = ({ study, index }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
-
-  // Generate random geometric pattern based on index
-  const patterns = [
-    { clipPath: "polygon(0 0, 100% 0, 100% 70%, 0 100%)" },
-    { clipPath: "polygon(0 30%, 100% 0, 100% 100%, 0 100%)" },
-    { clipPath: "polygon(50% 0, 100% 50%, 50% 100%, 0 50%)" },
-    { clipPath: "polygon(0 0, 80% 0, 100% 100%, 0 100%)" },
-    { clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0 100%)" },
-    { clipPath: "polygon(0 0, 100% 20%, 100% 80%, 0 100%)" },
-  ];
-  const pattern = patterns[index % patterns.length];
-
-  // Varied margins for abstract effect - more dramatic
-  const abstractMargins = [
-    "mt-0",
-    "md:mt-32",
-    "md:-mt-12",
-    "md:mt-48",
-    "md:mt-16",
-    "md:mt-40",
-  ];
-  const abstractMargin = abstractMargins[index % abstractMargins.length];
-
-  // Subtle rotations for abstract feel
-  const rotations = [
-    "rotate-0",
-    "md:rotate-1",
-    "md:-rotate-1",
-    "md:rotate-2",
-    "md:-rotate-2",
-    "rotate-0",
-  ];
-  const rotation = rotations[index % rotations.length];
-
-  // Varied widths for more chaos
-  const widths = [
-    "w-full",
-    "md:w-[95%]",
-    "md:w-[90%]",
-    "w-full",
-    "md:w-[85%]",
-    "md:w-[92%]",
-  ];
-  const width = widths[index % widths.length];
 
   return (
     <Link
       to={`/project/${study.slug}`}
-      className={`shelf-card group cursor-pointer overflow-hidden rounded-2xl ${study.height} ${width} transition-all duration-700 relative break-inside-avoid block mb-8 ${abstractMargin} ${rotation} hover:rotate-0 hover:scale-[1.02] will-change-transform`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="shelf-card group cursor-pointer overflow-hidden rounded-2xl transition-all duration-500 relative break-inside-avoid block mb-6 hover:-translate-y-1.5 will-change-transform"
     >
-      {/* Animated border glow effect */}
-      <div
-        className="absolute -inset-[2px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
-        style={{
-          background:
-            "linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dfe6e9, #ff6b6b)",
-          backgroundSize: "400% 400%",
-          animation: isHovered ? "gradientShift 3s ease infinite" : "none",
-        }}
-      />
-
       {/* Main card container */}
-      <div className="relative w-full h-full overflow-hidden rounded-2xl bg-[#0f0f0f] z-10">
-        {/* Abstract geometric shape overlay */}
-        <div
-          className="absolute inset-0 z-20 transition-all duration-700 group-hover:scale-110"
-          style={{
-            ...pattern,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 100%)",
-          }}
-        />
-
-        {/* Background image with advanced effects */}
-        <div className="absolute inset-0 transition-all duration-700 group-hover:scale-110">
+      <div className={`relative w-full ${study.height || "h-[420px]"} overflow-hidden rounded-2xl bg-[#121212] border border-white/10 group-hover:border-white/25 transition-all duration-500 shadow-xl`}>
+        {/* Background image */}
+        <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105">
           {study.hero_image && !imgError ? (
             <img
               src={study.hero_image}
               alt={study.title}
               loading="lazy"
               onError={() => setImgError(true)}
-              className="w-full h-full object-cover transition-all duration-700 filter group-hover:brightness-75 group-hover:saturate-150"
+              className="w-full h-full object-cover transition-all duration-700 brightness-[0.85] group-hover:brightness-100"
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center bg-linear-to-br from-neutral-800 via-neutral-900 to-[#0d0d0d] p-8 text-center relative">
@@ -133,68 +65,21 @@ const ShelfCard = ({ study, index }) => {
           )}
         </div>
 
-        {/* Abstract gradient mesh overlay */}
-        <div
-          className="absolute inset-0 z-30 opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-          style={{
-            background: `
-                            radial-gradient(ellipse at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                            radial-gradient(ellipse at 80% 20%, rgba(255, 119, 115, 0.2) 0%, transparent 50%),
-                            radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.4) 0%, transparent 70%)
-                        `,
-          }}
-        />
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-300 pointer-events-none" />
 
-        {/* Diagonal abstract line */}
-        <div
-          className="absolute z-30 bg-white/10 group-hover:bg-white/20 transition-all duration-500 group-hover:translate-x-2 group-hover:-translate-y-2"
-          style={{
-            width: "150%",
-            height: "1px",
-            top: "40%",
-            left: "-25%",
-            transform: "rotate(-35deg)",
-          }}
-        />
-
-        {/* Floating geometric accent */}
-        <div
-          className="absolute top-4 right-4 w-12 h-12 z-40 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-45"
-          style={{
-            border: "1px solid rgba(255,255,255,0.3)",
-            borderRadius: "4px",
-          }}
-        />
-
-        {/* Circle accent */}
-        <div
-          className="absolute bottom-20 right-8 w-24 h-24 rounded-full z-30 opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:scale-110"
-          style={{
-            border: "1px solid rgba(255,255,255,0.15)",
-          }}
-        />
-
-        {/* Content overlay - slides up on hover */}
-        <div className="absolute bottom-0 left-0 right-0 z-40 p-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+        {/* Content overlay - readable and elegant */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 p-6 flex flex-col justify-end">
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-8 h-px bg-white/50" />
-            <p className="text-white/60 text-xs uppercase tracking-[0.2em]">
+            <span className="w-6 h-px bg-white/60 group-hover:w-10 transition-all duration-300" />
+            <p className="text-white/70 text-xs uppercase tracking-[0.2em] font-medium">
               {study.category}
             </p>
           </div>
-          <h3 className="text-white text-lg font-light tracking-wide">
+          <h3 className="text-white text-xl md:text-2xl font-serif tracking-wide leading-snug transform group-hover:translate-x-1 transition-transform duration-300">
             {study.title}
           </h3>
         </div>
-
-        {/* Bottom gradient fade */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-36 z-35 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)",
-          }}
-        />
       </div>
     </Link>
   );

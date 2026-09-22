@@ -153,6 +153,24 @@ class ManageSiteContent extends Page implements HasForms
         $settings['projects_seo_title'] = $settings['projects_seo_title'] ?? 'Projects — Accaive Design Studio';
         $settings['projects_seo_description'] = $settings['projects_seo_description'] ?? 'Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.';
 
+        // 7. Defaults for About Page
+        $settings['about_page_title'] = $settings['about_page_title'] ?? 'About Accaive — Architecture & Built Environments';
+        $settings['about_hero_badge'] = $settings['about_hero_badge'] ?? 'Accaive Design Studio — Est. Yogyakarta & Jakarta';
+        $settings['about_hero_heading'] = $settings['about_hero_heading'] ?? 'Architecture as a dialogue between tectonic permanence and poetic restraint.';
+        $settings['about_hero_description'] = $settings['about_hero_description'] ?? 'We are an interdisciplinary studio exploring the thresholds between brutalist structural honesty, tropical climate consciousness, and contemporary understated luxury.';
+        $settings['about_hero_image'] = $settings['about_hero_image'] ?? 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2727&auto=format&fit=crop';
+        $settings['about_hero_image_caption'] = $settings['about_hero_image_caption'] ?? 'The Void House — Monolithic Form & Light';
+        $settings['about_manifesto_quote'] = $settings['about_manifesto_quote'] ?? 'We do not build to decorate landscapes; we build to frame human existence with spatial truth and quiet dignity.';
+        $settings['about_manifesto_p1'] = $settings['about_manifesto_p1'] ?? 'Founded with dual hearts in Kotagede (Yogyakarta) and Jakarta, Accaive navigates the continuous friction between timeless craftsmanship and high-density urban acceleration. In Kotagede, we study the longevity of ancient stone, hand-wrought silver, and traditional Javanese spatial hierarchy. In Jakarta, we test these principles against modern structural scale and forward-thinking sustainability.';
+        $settings['about_manifesto_p2'] = $settings['about_manifesto_p2'] ?? 'Our approach is uncompromisingly tactile. Rather than covering surfaces with ephemeral veneers, we sculpt spaces from monolithic concrete, local andesite stone, repurposed teak, and floor-to-ceiling glass. The result is an architecture that does not shout for attention, but commands an enduring, contemplative presence.';
+        $settings['about_hub1_title'] = $settings['about_hub1_title'] ?? 'Kotagede Atelier';
+        $settings['about_hub1_sub'] = $settings['about_hub1_sub'] ?? 'Yogyakarta, Indonesia — Material & Heritage Lab';
+        $settings['about_hub1_image'] = $settings['about_hub1_image'] ?? 'https://images.unsplash.com/photo-1518998053901-5348d3969105?q=80&w=1200&auto=format&fit=crop';
+        $settings['about_hub2_title'] = $settings['about_hub2_title'] ?? 'Jakarta Strategic Lab';
+        $settings['about_hub2_sub'] = $settings['about_hub2_sub'] ?? 'SCBD, Jakarta — Urban Scale & Masterplanning';
+        $settings['about_hub2_image'] = $settings['about_hub2_image'] ?? 'https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=1200&auto=format&fit=crop';
+        $settings['about_seo_description'] = $settings['about_seo_description'] ?? 'Learn about Accaive Design Studio: our dual roots in Kotagede & Jakarta, brutalist luxury philosophy, core architectural pillars, and multidisciplinary practice.';
+
         $this->form->fill($settings);
     }
 
@@ -420,6 +438,74 @@ class ManageSiteContent extends Page implements HasForms
                                         Textarea::make('projects_seo_description')
                                             ->label('Deskripsi Meta SEO')
                                             ->placeholder('Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+                                    ])->columns(2),
+
+                                Section::make('Halaman About Studio (/about)')
+                                    ->description('Pengaturan narasi filosofi, manifesto arsitektur, foto visual monumen, dan lokasi studio.')
+                                    ->schema([
+                                        TextInput::make('about_hero_badge')
+                                            ->label('Label Kecil Hero (Badge)')
+                                            ->placeholder('Accaive Design Studio — Est. Yogyakarta & Jakarta'),
+                                        TextInput::make('about_hero_image_caption')
+                                            ->label('Keterangan Gambar Hero')
+                                            ->placeholder('The Void House — Monolithic Form & Light'),
+                                        TextInput::make('about_hero_heading')
+                                            ->label('Headline Utama Hero')
+                                            ->placeholder('Architecture as a dialogue between tectonic permanence and poetic restraint.')
+                                            ->columnSpanFull(),
+                                        Textarea::make('about_hero_description')
+                                            ->label('Deskripsi / Pengantar Hero')
+                                            ->placeholder('We are an interdisciplinary studio exploring the thresholds between brutalist structural honesty...')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                        TextInput::make('about_hero_image')
+                                            ->label('URL Foto Hero Monumen')
+                                            ->helperText('Masukkan tautan gambar arsitektur resolusi tinggi (Unsplash / CDN).')
+                                            ->placeholder('https://images.unsplash.com/photo-1600607686527-6fb886090705?...')
+                                            ->columnSpanFull(),
+                                        Textarea::make('about_manifesto_quote')
+                                            ->label('Kutipan Utama Manifesto')
+                                            ->placeholder('We do not build to decorate landscapes; we build to frame human existence with spatial truth and quiet dignity.')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+                                        Textarea::make('about_manifesto_p1')
+                                            ->label('Manifesto Paragraf 1 (Dualisme Studio)')
+                                            ->placeholder('Founded with dual hearts in Kotagede (Yogyakarta) and Jakarta...')
+                                            ->rows(4)
+                                            ->columnSpanFull(),
+                                        Textarea::make('about_manifesto_p2')
+                                            ->label('Manifesto Paragraf 2 (Taktil & Materialitas)')
+                                            ->placeholder('Our approach is uncompromisingly tactile. Rather than covering surfaces...')
+                                            ->rows(4)
+                                            ->columnSpanFull(),
+                                        TextInput::make('about_hub1_title')
+                                            ->label('Nama Studio Hub 1')
+                                            ->placeholder('Kotagede Atelier'),
+                                        TextInput::make('about_hub1_sub')
+                                            ->label('Keterangan Hub 1')
+                                            ->placeholder('Yogyakarta, Indonesia — Material & Heritage Lab'),
+                                        TextInput::make('about_hub1_image')
+                                            ->label('URL Foto Studio Hub 1 (Kotagede)')
+                                            ->placeholder('https://images.unsplash.com/photo-1518998053901-5348d3969105...')
+                                            ->columnSpanFull(),
+                                        TextInput::make('about_hub2_title')
+                                            ->label('Nama Studio Hub 2')
+                                            ->placeholder('Jakarta Strategic Lab'),
+                                        TextInput::make('about_hub2_sub')
+                                            ->label('Keterangan Hub 2')
+                                            ->placeholder('SCBD, Jakarta — Urban Scale & Masterplanning'),
+                                        TextInput::make('about_hub2_image')
+                                            ->label('URL Foto Studio Hub 2 (Jakarta)')
+                                            ->placeholder('https://images.unsplash.com/photo-1486718448742-163732cd1544...')
+                                            ->columnSpanFull(),
+                                        TextInput::make('about_page_title')
+                                            ->label('Judul Tab Browser (SEO Title)')
+                                            ->placeholder('About Accaive — Architecture & Built Environments'),
+                                        Textarea::make('about_seo_description')
+                                            ->label('Deskripsi Meta SEO')
+                                            ->placeholder('Learn about Accaive Design Studio: our dual roots in Kotagede & Jakarta...')
                                             ->rows(2)
                                             ->columnSpanFull(),
                                     ])->columns(2),

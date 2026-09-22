@@ -52,12 +52,35 @@ class ProjectResource extends Resource
                                             ->placeholder('contoh: Kotagede, Yogyakarta atau Banggai, Sulteng'),
                                         Forms\Components\Select::make('status')
                                             ->label('Status Pengerjaan')
-                                            ->options([
-                                                'Completed' => 'Completed (Selesai)',
-                                                'In Progress' => 'In Progress (Sedang Dikerjakan)',
-                                                'Under Construction' => 'Under Construction (Konstruksi)',
-                                                'Concept' => 'Concept / Planning (Konsep)',
+                                            ->options(function () {
+                                                $defaults = [
+                                                    'Completed' => 'Completed (Selesai)',
+                                                    'In Progress' => 'In Progress (Sedang Dikerjakan)',
+                                                    'Under Construction' => 'Under Construction (Konstruksi)',
+                                                    'Concept' => 'Concept / Planning (Konsep)',
+                                                ];
+                                                $existing = \App\Models\Project::query()
+                                                    ->whereNotNull('status')
+                                                    ->distinct()
+                                                    ->pluck('status', 'status')
+                                                    ->toArray();
+                                                return array_merge($defaults, $existing);
+                                            })
+                                            ->searchable()
+                                            ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
+                                                $action
+                                                    ->modalHeading('Ketik Status Pengerjaan Mandiri')
+                                                    ->modalButton('Gunakan Status')
+                                                    ->modalWidth('md')
+                                            )
+                                            ->createOptionForm([
+                                                Forms\Components\TextInput::make('custom_status')
+                                                    ->label('Ketik Status Mandiri / Kustom')
+                                                    ->placeholder('contoh: Sayembara 2026, Renovasi Tahap 2, dsb.')
+                                                    ->required(),
                                             ])
+                                            ->createOptionUsing(fn (array $data): string => trim($data['custom_status']))
+                                            ->helperText('Pilih status dari daftar atau klik ikon (+) untuk mengetik status kustom mandiri.')
                                             ->default('Completed')
                                             ->required(),
                                     ]),

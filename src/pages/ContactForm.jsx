@@ -21,6 +21,7 @@ const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    location: "",
     company: "",
     budget: "",
     message: "",
@@ -45,7 +46,12 @@ const ContactForm = () => {
   );
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "location") {
+      setFormData({ ...formData, location: value, company: value });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -131,7 +137,7 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 className="w-full bg-transparent border-b-2 border-gray-700 py-4 text-xl focus:border-white transition-colors outline-none placeholder-gray-600"
-                placeholder="John Doe"
+                placeholder="Wiwin Winarko"
               />
             </div>
             <div className="group">
@@ -150,19 +156,19 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* Company & Budget Row */}
+          {/* Location & Budget Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="group">
               <label className="block text-sm text-gray-500 mb-2 uppercase tracking-wider">
-                Company
+                Location
               </label>
               <input
                 type="text"
-                name="company"
-                value={formData.company}
+                name="location"
+                value={formData.location}
                 onChange={handleChange}
                 className="w-full bg-transparent border-b-2 border-gray-700 py-4 text-xl focus:border-white transition-colors outline-none placeholder-gray-600"
-                placeholder="Your Company"
+                placeholder="Yogyakarta / Jakarta"
               />
             </div>
             <div className="group">
@@ -178,17 +184,17 @@ const ContactForm = () => {
                 <option value="" className="bg-[#0a0a0a]">
                   Select a range
                 </option>
-                <option value="5k-10k" className="bg-[#0a0a0a]">
-                  $5,000 - $10,000
+                <option value="100-300_juta" className="bg-[#0a0a0a]">
+                  Rp 100 - 300 Juta
                 </option>
-                <option value="10k-25k" className="bg-[#0a0a0a]">
-                  $10,000 - $25,000
+                <option value="300-500_juta" className="bg-[#0a0a0a]">
+                  Rp 300 - 500 Juta
                 </option>
-                <option value="25k-50k" className="bg-[#0a0a0a]">
-                  $25,000 - $50,000
+                <option value="500-800_juta" className="bg-[#0a0a0a]">
+                  Rp 500 - 800 Juta
                 </option>
-                <option value="50k+" className="bg-[#0a0a0a]">
-                  $50,000+
+                <option value="800+_juta" className="bg-[#0a0a0a]">
+                  Rp 800+ Juta
                 </option>
               </select>
             </div>
@@ -251,10 +257,10 @@ const ContactForm = () => {
                 Phone
               </h3>
               <a
-                href={`tel:${settings?.contact_phone || "+6281234567890"}`}
+                href={`tel:${settings?.contact_phone || "+6285161387045"}`}
                 className="text-lg hover:text-gray-400 transition-colors"
               >
-                {settings?.contact_phone || "+62 812-3456-7890"}
+                {settings?.contact_phone || "(+62) 851-6138-7045"}
               </a>
             </div>
             <div>

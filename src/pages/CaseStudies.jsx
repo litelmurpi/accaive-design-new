@@ -32,7 +32,7 @@ const heights = [
 ];
 
 // Shelf View Card Component - Clean Architectural Design
-const ShelfCard = ({ study, index }) => {
+const ShelfCard = ({ study }) => {
   const [imgError, setImgError] = useState(false);
 
   return (

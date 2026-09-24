@@ -224,10 +224,10 @@ export const FALLBACK_SETTINGS = {
   home_cta_accent: "Let's build yours.",
   home_cta_description: "We collaborate with people who believe every space deserves to be remembered.",
   contact_email: "accaive.design@gmail.com",
-  contact_phone: "+6285161387045",
+  contact_phone: "(+62) 851-6138-7045",
   contact_address: "Rejowinangun, Kota Yogyakarta, Daerah Istimewa Yogyakarta",
   social_instagram: "https://www.instagram.com/accaive.studio/",
-  seo_meta_title: "Accaive Design Studio — Architecture & Spatial Narratives",
+  seo_meta_title: "Accaive Studio | Architecture",
   seo_meta_description: "Accaive Design Studio is an architectural practice archiving human stories towards timeless design for space and memory.",
   seo_keywords: "[\"Accaive\",\"Accaive Design\",\"Accaive Studio\",\"Studio Arsitek Yogyakarta\",\"Biro Arsitek Jakarta\"]",
   seo_google_verification: "1j51iBGuKl6bryoUAnicmShrueA_6hIRa4S0licCJF0",
@@ -236,7 +236,7 @@ export const FALLBACK_SETTINGS = {
   projects_hero_heading: "We will make your business so irresistible, its success is inevitable.",
   projects_hero_subheading: "",
   projects_default_view: "shelf",
-  projects_seo_title: "Projects — Accaive Design Studio",
+  projects_seo_title: "Projects | Accaive Studio",
   projects_seo_description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures."
 };
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const DEFAULT_TITLE = 'Accaive Design — Architecture & Built Environments Studio';
+const DEFAULT_TITLE = 'Accaive Studio | Architecture & Built Environments';
 const DEFAULT_DESC = 'Accaive Design Studio (accaivedesign.id) adalah biro arsitektur, interior, dan tata lingkungan visioner berbasis di Kotagede, Yogyakarta & Jakarta.';
 const BASE_URL = 'https://accaivedesign.id';
 
@@ -12,10 +12,15 @@ export const usePageSEO = ({
   googleVerification,
 } = {}) => {
   useEffect(() => {
-    // 1. Update Document Title
-    const formattedTitle = title
-      ? `${title} — Accaive Design Studio`
-      : DEFAULT_TITLE;
+    // 1. Update Document Title cleanly
+    let formattedTitle = DEFAULT_TITLE;
+    if (title) {
+      if (title.toLowerCase().includes('accaive')) {
+        formattedTitle = title;
+      } else {
+        formattedTitle = `${title} | Accaive Studio`;
+      }
+    }
     document.title = formattedTitle;
 
     // Helper to safely update or create meta tag

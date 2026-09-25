@@ -137,7 +137,7 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 className="w-full bg-transparent border-b-2 border-gray-700 py-4 text-xl focus:border-white transition-colors outline-none placeholder-gray-600"
-                placeholder="Wiwin Winarko"
+                placeholder="Budi Santoso"
               />
             </div>
             <div className="group">
@@ -151,7 +151,7 @@ const ContactForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full bg-transparent border-b-2 border-gray-700 py-4 text-xl focus:border-white transition-colors outline-none placeholder-gray-600"
-                placeholder="john@company.com"
+                placeholder="budi@perusahaan.com"
               />
             </div>
           </div>

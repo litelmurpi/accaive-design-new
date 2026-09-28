@@ -201,5 +201,17 @@ class ProductionDataSeeder extends Seeder
                 $this->command?->info('✓ Seeded ' . count($data) . ' site settings from Railway production.');
             }
         }
+
+        // 8. ADMIN USER
+        if (DB::table('users')->where('email', 'admin@accaive.com')->doesntExist()) {
+            DB::table('users')->insert([
+                'name' => 'Admin Accaive',
+                'email' => 'admin@accaive.com',
+                'password' => bcrypt('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $this->command?->info('✓ Created default admin user: admin@accaive.com / password');
+        }
     }
 }

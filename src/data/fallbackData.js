@@ -237,7 +237,16 @@ export const FALLBACK_SETTINGS = {
   projects_hero_subheading: "",
   projects_default_view: "shelf",
   projects_seo_title: "Projects | Accaive Studio",
-  projects_seo_description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures."
+  projects_seo_description: "Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.",
+  project_detail_spec_badge: "Project Specification",
+  project_detail_spec_title: "Information & Credits",
+  project_detail_location_label: "Location",
+  project_detail_status_label: "Project Status",
+  project_detail_year_label: "Year",
+  project_detail_client_label: "Client",
+  project_detail_typology_label: "Typology",
+  project_detail_team_label: "Team in Charge",
+  project_detail_back_button_text: "Back to Projects"
 };
 
 export const FALLBACK_PROGRAMS = [

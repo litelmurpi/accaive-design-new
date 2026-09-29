@@ -153,6 +153,17 @@ class ManageSiteContent extends Page implements HasForms
         $settings['projects_seo_title'] = $settings['projects_seo_title'] ?? 'Projects — Accaive Design Studio';
         $settings['projects_seo_description'] = $settings['projects_seo_description'] ?? 'Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.';
 
+        // 6b. Defaults for Project Detail Page
+        $settings['project_detail_spec_badge'] = $settings['project_detail_spec_badge'] ?? 'Project Specification';
+        $settings['project_detail_spec_title'] = $settings['project_detail_spec_title'] ?? 'Information & Credits';
+        $settings['project_detail_location_label'] = $settings['project_detail_location_label'] ?? 'Location';
+        $settings['project_detail_status_label'] = $settings['project_detail_status_label'] ?? 'Project Status';
+        $settings['project_detail_year_label'] = $settings['project_detail_year_label'] ?? 'Year';
+        $settings['project_detail_client_label'] = $settings['project_detail_client_label'] ?? 'Client';
+        $settings['project_detail_typology_label'] = $settings['project_detail_typology_label'] ?? 'Typology';
+        $settings['project_detail_team_label'] = $settings['project_detail_team_label'] ?? 'Team in Charge';
+        $settings['project_detail_back_button_text'] = $settings['project_detail_back_button_text'] ?? 'Back to Projects';
+
         // 7. Defaults for About Page
         $settings['about_page_title'] = $settings['about_page_title'] ?? 'About Accaive — Architecture & Built Environments';
         $settings['about_hero_badge'] = $settings['about_hero_badge'] ?? 'Accaive Design Studio — Est. Yogyakarta & Jakarta';
@@ -439,6 +450,39 @@ class ManageSiteContent extends Page implements HasForms
                                             ->label('Deskripsi Meta SEO')
                                             ->placeholder('Explore our portfolio of visionary architectural designs, commercial buildings, and luxury residential structures.')
                                             ->rows(2)
+                                            ->columnSpanFull(),
+                                    ])->columns(2),
+
+                                Section::make('Halaman Detail Proyek (/project/{slug})')
+                                    ->description('Pengaturan judul dan label kartu spesifikasi proyek ("Information & Credits").')
+                                    ->schema([
+                                        TextInput::make('project_detail_spec_badge')
+                                            ->label('Label Kecil Spesifikasi (Badge)')
+                                            ->placeholder('Project Specification'),
+                                        TextInput::make('project_detail_spec_title')
+                                            ->label('Judul Kartu Spesifikasi')
+                                            ->placeholder('Information & Credits'),
+                                        TextInput::make('project_detail_location_label')
+                                            ->label('Label Kolom Lokasi')
+                                            ->placeholder('Location'),
+                                        TextInput::make('project_detail_status_label')
+                                            ->label('Label Kolom Status')
+                                            ->placeholder('Project Status'),
+                                        TextInput::make('project_detail_year_label')
+                                            ->label('Label Kolom Tahun')
+                                            ->placeholder('Year'),
+                                        TextInput::make('project_detail_client_label')
+                                            ->label('Label Kolom Klien')
+                                            ->placeholder('Client'),
+                                        TextInput::make('project_detail_typology_label')
+                                            ->label('Label Kolom Tipologi / Kategori')
+                                            ->placeholder('Typology'),
+                                        TextInput::make('project_detail_team_label')
+                                            ->label('Label Kolom Tim')
+                                            ->placeholder('Team in Charge'),
+                                        TextInput::make('project_detail_back_button_text')
+                                            ->label('Teks Tombol Kembali')
+                                            ->placeholder('Back to Projects')
                                             ->columnSpanFull(),
                                     ])->columns(2),
 

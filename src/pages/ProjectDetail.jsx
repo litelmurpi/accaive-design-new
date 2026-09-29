@@ -16,6 +16,7 @@ import {
 import { useProject, useProjects } from "../hooks/useProjects";
 import Skeleton from "../components/Skeleton";
 import { usePageSEO } from "../hooks/usePageSEO";
+import { useSettings } from "../hooks/useSecondary";
 import Contact from "../components/Contact";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -24,11 +25,22 @@ const ProjectDetail = () => {
   const { slug } = useParams();
   const { project: data, loading } = useProject(slug);
   const { projects: allProjects } = useProjects();
+  const { settings } = useSettings();
   const containerRef = useRef(null);
   const heroRef = useRef(null);
   const textRef = useRef(null);
   const galleryRef = useRef(null);
   const [heroError, setHeroError] = React.useState(false);
+
+  const specBadge = settings?.project_detail_spec_badge || "Project Specification";
+  const specTitle = settings?.project_detail_spec_title || "Information & Credits";
+  const locationLabel = settings?.project_detail_location_label || "Location";
+  const statusLabel = settings?.project_detail_status_label || "Project Status";
+  const yearLabel = settings?.project_detail_year_label || "Year";
+  const clientLabel = settings?.project_detail_client_label || "Client";
+  const typologyLabel = settings?.project_detail_typology_label || "Typology";
+  const teamLabel = settings?.project_detail_team_label || "Team in Charge";
+  const backButtonText = settings?.project_detail_back_button_text || "Back to Projects";
 
   usePageSEO({
     title: data?.title ? `${data.title} (${data.category || 'Architecture'})` : 'Project Portfolio',
@@ -245,7 +257,7 @@ const ProjectDetail = () => {
           to="/case-studies"
           className="absolute top-28 left-6 md:left-12 z-20 inline-flex items-center gap-2 text-white/90 hover:text-white transition-all bg-black/40 hover:bg-black/70 px-4 py-2 rounded-full backdrop-blur-md border border-white/15 shadow-lg text-xs font-mono uppercase tracking-widest"
         >
-          <ArrowLeft size={14} /> Back to Projects
+          <ArrowLeft size={14} /> {backButtonText}
         </Link>
 
         {/* Hero Bottom Banner */}
@@ -265,7 +277,7 @@ const ProjectDetail = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <div>
-                <span className="text-[9px] font-mono uppercase tracking-widest text-white/50 block leading-none mb-1">Status</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-white/50 block leading-none mb-1">{statusLabel}</span>
                 <span className="text-xs md:text-sm font-medium text-white tracking-wide">
                   {status}
                 </span>
@@ -285,10 +297,10 @@ const ProjectDetail = () => {
           <aside className="lg:col-span-4 lg:sticky lg:top-32 space-y-8 bg-neutral-50 dark:bg-[#111111] p-6 sm:p-8 rounded-sm border border-black/5 dark:border-white/5">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-2">
-                Project Specification
+                {specBadge}
               </span>
               <h2 className="font-serif text-xl md:text-2xl text-neutral-900 dark:text-white font-medium">
-                Information & Credits
+                {specTitle}
               </h2>
             </div>
 
@@ -299,7 +311,7 @@ const ProjectDetail = () => {
                   <MapPin className="w-4 h-4 text-neutral-400 dark:text-neutral-500 mt-0.5 shrink-0" />
                   <div>
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                      Location
+                      {locationLabel}
                     </span>
                     <span className="font-medium text-neutral-900 dark:text-white text-sm">
                       {location}
@@ -314,7 +326,7 @@ const ProjectDetail = () => {
                   <Activity className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
                   <div>
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                      Project Status
+                      {statusLabel}
                     </span>
                     <span className="font-medium text-neutral-900 dark:text-white text-sm">
                       {status}
@@ -329,7 +341,7 @@ const ProjectDetail = () => {
                   <Calendar className="w-4 h-4 text-neutral-400 dark:text-neutral-500 mt-0.5 shrink-0" />
                   <div>
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                      Year
+                      {yearLabel}
                     </span>
                     <span className="font-medium text-neutral-900 dark:text-white text-sm">
                       {data.year}
@@ -344,7 +356,7 @@ const ProjectDetail = () => {
                   <Building2 className="w-4 h-4 text-neutral-400 dark:text-neutral-500 mt-0.5 shrink-0" />
                   <div>
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                      Client
+                      {clientLabel}
                     </span>
                     <span className="font-medium text-neutral-900 dark:text-white text-sm">
                       {data.client}
@@ -359,7 +371,7 @@ const ProjectDetail = () => {
                   <FolderDot className="w-4 h-4 text-neutral-400 dark:text-neutral-500 mt-0.5 shrink-0" />
                   <div>
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                      Typology
+                      {typologyLabel}
                     </span>
                     <span className="font-medium text-neutral-900 dark:text-white text-sm">
                       {data.category}
@@ -374,7 +386,7 @@ const ProjectDetail = () => {
                   <div className="flex items-center gap-2 mb-3">
                     <Users className="w-4 h-4 text-neutral-400 dark:text-neutral-500 shrink-0" />
                     <span className="block text-[11px] font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                      Team in Charge
+                      {teamLabel}
                     </span>
                   </div>
                   <ul className="space-y-1.5 pl-6 border-l border-black/10 dark:border-white/10">

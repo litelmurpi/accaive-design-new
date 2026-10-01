@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Send, ArrowLeft, Loader2 } from "lucide-react";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useContact } from "../hooks/useContact";
 import { useSettings } from "../hooks/useSecondary";
 import { usePageSEO } from "../hooks/usePageSEO";
+import { useTheme } from "../context/useTheme";
 
 const ContactForm = () => {
   usePageSEO({
@@ -13,6 +14,13 @@ const ContactForm = () => {
     description: "Start a conversation with Accaive Design Studio. Reach out to collaborate on visionary architecture and built environments.",
     path: "/contact",
   });
+
+  const { setIsDarkMode } = useTheme();
+
+  useEffect(() => {
+    setIsDarkMode(true);
+    return () => setIsDarkMode(false);
+  }, [setIsDarkMode]);
 
   const { settings } = useSettings();
   const contactEmail = settings?.contact_email || "hello@accaivedesign.com";

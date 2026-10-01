@@ -57,7 +57,8 @@ const Navbar = ({ toggleMenu, isMenuOpen }) => {
 
     // Dark-themed pages require white logo and white hamburger
     const isDarkPage = location.pathname.startsWith('/projects') || 
-                       location.pathname.startsWith('/case-studies');
+                       location.pathname.startsWith('/case-studies') ||
+                       location.pathname.startsWith('/contact');
 
     // On project detail, navbar is white when over dark hero, then adapts to theme when over light content
     const isDarkHero = isProjectDetail && !isScrolledPastHero;

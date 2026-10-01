@@ -41,15 +41,83 @@ class ProjectResource extends Resource
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->placeholder('the-void-house'),
-                                Forms\Components\TextInput::make('category')
-                                    ->label('Kategori')
-                                    ->required()
-                                    ->placeholder('contoh: Residensial'),
+                                Forms\Components\Select::make('category')
+                                    ->label('Tipologi / Kategori (Typology)')
+                                    ->options(function () {
+                                        $defaults = [
+                                            'Residential' => 'Residential (Residensial / Hunian)',
+                                            'Commercial' => 'Commercial (Komersial)',
+                                            'Cultural' => 'Cultural (Budaya / Galeri)',
+                                            'Public' => 'Public (Fasilitas Publik / Komunitas)',
+                                            'Workplace' => 'Workplace (Perkantoran / Studio)',
+                                            'Competition' => 'Competition (Sayembara / Kompetisi)',
+                                            'Hospitality' => 'Hospitality (Resort / Hotel / Villa)',
+                                            'Interior' => 'Interior (Tata Ruang Dalam)',
+                                            'Urban Design' => 'Urban Design & Masterplanning',
+                                            'Research' => 'Research & Spatial Study',
+                                        ];
+                                        $existing = \App\Models\Project::query()
+                                            ->whereNotNull('category')
+                                            ->distinct()
+                                            ->pluck('category', 'category')
+                                            ->toArray();
+                                        return array_merge($defaults, $existing);
+                                    })
+                                    ->searchable()
+                                    ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
+                                        $action
+                                            ->modalHeading('Ketik Tipologi / Kategori Baru')
+                                            ->modalButton('Gunakan Tipologi')
+                                            ->modalWidth('md')
+                                    )
+                                    ->createOptionForm([
+                                        Forms\Components\TextInput::make('custom_category')
+                                            ->label('Ketik Tipologi Baru')
+                                            ->placeholder('contoh: Religious Architecture, Paviliun, dll.')
+                                            ->required(),
+                                    ])
+                                    ->createOptionUsing(fn (array $data): string => trim($data['custom_category']))
+                                    ->helperText('Pilih tipologi dari daftar atau klik ikon (+) untuk mengetik tipologi kustom.')
+                                    ->required(),
                                 Forms\Components\Grid::make(2)
                                     ->schema([
-                                        Forms\Components\TextInput::make('location')
-                                            ->label('Lokasi Proyek')
-                                            ->placeholder('contoh: Kotagede, Yogyakarta atau Banggai, Sulteng'),
+                                        Forms\Components\Select::make('location')
+                                            ->label('Lokasi Proyek (Location)')
+                                            ->options(function () {
+                                                $defaults = [
+                                                    'Banggai, Sulawesi Tengah' => 'Banggai, Sulawesi Tengah',
+                                                    'Kotagede, Yogyakarta' => 'Kotagede, Yogyakarta',
+                                                    'Yogyakarta, Indonesia' => 'Yogyakarta, Indonesia',
+                                                    'Jakarta, Indonesia' => 'Jakarta, Indonesia',
+                                                    'Bali, Indonesia' => 'Bali, Indonesia',
+                                                    'Bandung, Jawa Barat' => 'Bandung, Jawa Barat',
+                                                    'Surabaya, Jawa Timur' => 'Surabaya, Jawa Timur',
+                                                    'London, UK' => 'London, UK',
+                                                    'Tokyo, Japan' => 'Tokyo, Japan',
+                                                    'Berlin, Germany' => 'Berlin, Germany',
+                                                ];
+                                                $existing = \App\Models\Project::query()
+                                                    ->whereNotNull('location')
+                                                    ->distinct()
+                                                    ->pluck('location', 'location')
+                                                    ->toArray();
+                                                return array_merge($defaults, $existing);
+                                            })
+                                            ->searchable()
+                                            ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
+                                                $action
+                                                    ->modalHeading('Ketik Lokasi Proyek Baru')
+                                                    ->modalButton('Gunakan Lokasi')
+                                                    ->modalWidth('md')
+                                            )
+                                            ->createOptionForm([
+                                                Forms\Components\TextInput::make('custom_location')
+                                                    ->label('Ketik Lokasi Baru')
+                                                    ->placeholder('contoh: Banggai, Sulawesi Tengah')
+                                                    ->required(),
+                                            ])
+                                            ->createOptionUsing(fn (array $data): string => trim($data['custom_location']))
+                                            ->helperText('Pilih lokasi atau klik ikon (+) untuk mengetik lokasi baru.'),
                                         Forms\Components\Select::make('status')
                                             ->label('Status Pengerjaan')
                                             ->options(function () {
@@ -86,16 +154,74 @@ class ProjectResource extends Resource
                                     ]),
                                 Forms\Components\Grid::make(2)
                                     ->schema([
-                                        Forms\Components\TextInput::make('client')
-                                            ->label('Nama Klien')
-                                            ->placeholder('Klien Pribadi'),
-                                        Forms\Components\TextInput::make('year')
-                                            ->label('Tahun Selesai')
-                                            ->placeholder('2025'),
+                                        Forms\Components\Select::make('client')
+                                            ->label('Nama Klien (Client)')
+                                            ->options(function () {
+                                                $defaults = [
+                                                    'Private Client' => 'Private Client (Klien Pribadi)',
+                                                    'Bajo Tribe Community' => 'Bajo Tribe Community',
+                                                    'City Council' => 'City Council (Pemerintah Kota)',
+                                                    'Global Corp' => 'Global Corp',
+                                                    'University Foundation' => 'University Foundation',
+                                                    'Apex Corp' => 'Apex Corp',
+                                                ];
+                                                $existing = \App\Models\Project::query()
+                                                    ->whereNotNull('client')
+                                                    ->distinct()
+                                                    ->pluck('client', 'client')
+                                                    ->toArray();
+                                                return array_merge($defaults, $existing);
+                                            })
+                                            ->searchable()
+                                            ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
+                                                $action
+                                                    ->modalHeading('Ketik Nama Klien Baru')
+                                                    ->modalButton('Gunakan Nama Klien')
+                                                    ->modalWidth('md')
+                                            )
+                                            ->createOptionForm([
+                                                Forms\Components\TextInput::make('custom_client')
+                                                    ->label('Nama Klien')
+                                                    ->placeholder('contoh: Bajo Tribe Community atau Klien Pribadi')
+                                                    ->required(),
+                                            ])
+                                            ->createOptionUsing(fn (array $data): string => trim($data['custom_client']))
+                                            ->helperText('Pilih klien atau klik ikon (+) untuk mengetik klien baru.'),
+                                        Forms\Components\Select::make('year')
+                                            ->label('Tahun Selesai (Year)')
+                                            ->options(function () {
+                                                $currentYear = (int) date('Y');
+                                                $years = [];
+                                                for ($y = $currentYear + 2; $y >= 2018; $y--) {
+                                                    $years[(string)$y] = (string)$y;
+                                                }
+                                                $existing = \App\Models\Project::query()
+                                                    ->whereNotNull('year')
+                                                    ->distinct()
+                                                    ->pluck('year', 'year')
+                                                    ->toArray();
+                                                return array_merge($years, $existing);
+                                            })
+                                            ->searchable()
+                                            ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
+                                                $action
+                                                    ->modalHeading('Ketik Tahun Selesai')
+                                                    ->modalButton('Gunakan Tahun')
+                                                    ->modalWidth('sm')
+                                            )
+                                            ->createOptionForm([
+                                                Forms\Components\TextInput::make('custom_year')
+                                                    ->label('Ketik Tahun')
+                                                    ->placeholder('contoh: 2026')
+                                                    ->required(),
+                                            ])
+                                            ->createOptionUsing(fn (array $data): string => trim($data['custom_year']))
+                                            ->helperText('Pilih tahun atau klik ikon (+) untuk input bebas.'),
                                     ]),
                                 Forms\Components\TagsInput::make('team_in_charge')
                                     ->label('Team in Charge (Arsitek & Tim Bertanggung Jawab)')
                                     ->placeholder('Ketik nama arsitek & tekan Enter')
+                                    ->suggestions(\App\Models\TeamMember::pluck('name')->toArray())
                                     ->helperText('Daftar nama arsitek/tim yang mengerjakan proyek ini. Ketik nama lalu tekan Enter.')
                                     ->separator(','),
                                 Forms\Components\Textarea::make('description')

@@ -37,6 +37,40 @@ Route::get('/ping', function () {
     ]);
 });
 
+Route::get('/debug-team', function () {
+    try {
+        $count = TeamMember::count();
+        $items = TeamMember::orderBy('sort_order')->get();
+        return response()->json([
+            'count' => $count,
+            'items' => $items,
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'error' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ], 500);
+    }
+});
+
+Route::get('/debug-projects', function () {
+    try {
+        $count = Project::count();
+        $items = Project::all();
+        return response()->json([
+            'count' => $count,
+            'items' => $items,
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'error' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ], 500);
+    }
+});
+
 // Cache TTL in seconds (5 minutes)
 $ttl = 300;
 

@@ -14,8 +14,21 @@ export const SettingsProvider = ({ children }) => {
       try {
         setLoading(true);
         const data = await fetchApi("/settings");
-        if (data && Object.keys(data).length > 0) {
-          setSettings({ ...getFallbackSettings(), ...data });
+        if (data && typeof data === "object" && Object.keys(data).length > 0) {
+          const cleanData = {};
+          for (const [key, value] of Object.entries(data)) {
+            if (
+              value !== null &&
+              value !== undefined &&
+              value !== "" &&
+              value !== "null" &&
+              value !== "undefined" &&
+              value !== "NULL"
+            ) {
+              cleanData[key] = value;
+            }
+          }
+          setSettings({ ...getFallbackSettings(), ...cleanData });
         } else {
           setSettings(getFallbackSettings());
         }

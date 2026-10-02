@@ -160,13 +160,21 @@ Route::get('/featured-stories', function () use ($ttl) {
 Route::get('/settings', function () use ($ttl) {
     $settings = ApiHelper::cacheRemember('site_settings', $ttl, function () {
         $all = SiteSetting::all()->pluck('value', 'key')->toArray();
-        $mediaKeys = ['about_hero_image', 'about_hub1_image', 'about_hub2_image'];
-        foreach ($mediaKeys as $mk) {
-            if (!empty($all[$mk])) {
-                $all[$mk] = ApiHelper::resolveMediaUrl($all[$mk]);
+        $cleaned = [];
+        foreach ($all as $key => $val) {
+            if ($val === 'null' || $val === 'undefined' || $val === 'NULL' || $val === '') {
+                $cleaned[$key] = null;
+            } else {
+                $cleaned[$key] = $val;
             }
         }
-        return $all;
+        $mediaKeys = ['about_hero_image', 'about_hub1_image', 'about_hub2_image'];
+        foreach ($mediaKeys as $mk) {
+            if (!empty($cleaned[$mk])) {
+                $cleaned[$mk] = ApiHelper::resolveMediaUrl($cleaned[$mk]);
+            }
+        }
+        return $cleaned;
     });
     return ApiHelper::cachedResponse($settings);
 });

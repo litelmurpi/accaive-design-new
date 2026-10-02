@@ -14,7 +14,7 @@ export const usePageSEO = ({
   useEffect(() => {
     // 1. Update Document Title cleanly
     let formattedTitle = DEFAULT_TITLE;
-    if (title) {
+    if (title && title !== "null" && title !== "undefined" && title !== "NULL") {
       if (title.toLowerCase().includes('accaive')) {
         formattedTitle = title;
       } else {

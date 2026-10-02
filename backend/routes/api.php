@@ -27,6 +27,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Health & Diagnostic Ping
+Route::get('/ping', function () {
+    return response()->json([
+        'status' => 'pong',
+        'app_url' => config('app.url'),
+        'cache_driver' => config('cache.default'),
+        'timestamp' => now()->toIso8601String(),
+    ]);
+});
+
 // Cache TTL in seconds (5 minutes)
 $ttl = 300;
 

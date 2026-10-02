@@ -1,5 +1,5 @@
 export const API_BASE =
-  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+  import.meta.env.VITE_API_URL || "https://accaive-design-new-production-5bb7.up.railway.app/api";
 
 const cache = new Map();
 const activeRequests = new Map();

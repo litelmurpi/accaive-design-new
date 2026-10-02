@@ -38,6 +38,18 @@ if (!function_exists('cachedResponse')) {
     }
 }
 
+// Safe Cache Wrapper
+if (!function_exists('safeCacheRemember')) {
+    function safeCacheRemember($key, $ttl, $callback) {
+        try {
+            return Cache::remember($key, $ttl, $callback);
+        } catch (\Throwable $e) {
+            \Log::warning("Cache failed for key {$key}: " . $e->getMessage());
+            return $callback();
+        }
+    }
+}
+
 // Universal media URL resolver (supports local storage, public disk, and S3 / Cloudflare R2)
 if (!function_exists('resolveMediaUrl')) {
     function resolveMediaUrl($path) {
@@ -58,7 +70,7 @@ Route::get('/projects', function (Request $request) use ($ttl) {
     $isFeatured = $request->boolean('featured');
     $cacheKey = 'projects_list_' . ($isFeatured ? 'featured' : 'all');
     
-    $projects = Cache::remember($cacheKey, $ttl, function () use ($isFeatured) {
+    $projects = safeCacheRemember($cacheKey, $ttl, function () use ($isFeatured) {
         $query = Project::select('id', 'title', 'slug', 'category', 'location', 'status', 'description', 'client', 'year', 'hero_image', 'size', 'span', 'is_featured', 'sort_order');
         if ($isFeatured) {
             $query->where('is_featured', true);
@@ -74,7 +86,7 @@ Route::get('/projects', function (Request $request) use ($ttl) {
 Route::get('/projects/{slug}', function ($slug) use ($ttl) {
     $cacheKey = 'project_detail_' . $slug;
     
-    $project = Cache::remember($cacheKey, $ttl, function () use ($slug) {
+    $project = safeCacheRemember($cacheKey, $ttl, function () use ($slug) {
         $p = Project::where('slug', $slug)->firstOrFail();
         
         // Handle gallery images: can be array (from casts) or JSON string
@@ -100,7 +112,7 @@ Route::get('/projects/{slug}', function ($slug) use ($ttl) {
 
 // SERVICES
 Route::get('/services', function () use ($ttl) {
-    $services = Cache::remember('services_list', $ttl, function () {
+    $services = safeCacheRemember($cacheKey = 'services_list', $ttl, function () {
         return Service::orderBy('sort_order')->get()->map(function ($service) {
             if ($service->image) $service->image = resolveMediaUrl($service->image);
             return $service;
@@ -111,7 +123,7 @@ Route::get('/services', function () use ($ttl) {
 
 // TEAM
 Route::get('/team', function () use ($ttl) {
-    $team = Cache::remember('team_list', $ttl, function () {
+    $team = safeCacheRemember('team_list', $ttl, function () {
         return TeamMember::orderBy('sort_order')->get()->map(function ($member) {
             if ($member->photo) $member->photo = resolveMediaUrl($member->photo);
             return $member;
@@ -122,7 +134,7 @@ Route::get('/team', function () use ($ttl) {
 
 // EXHIBITIONS
 Route::get('/exhibitions', function () use ($ttl) {
-    $exhibitions = Cache::remember('exhibitions_list', $ttl, function () {
+    $exhibitions = safeCacheRemember('exhibitions_list', $ttl, function () {
         return Exhibition::orderBy('sort_order')->get()->map(function ($item) {
             if ($item->image) $item->image = resolveMediaUrl($item->image);
             return $item;
@@ -133,7 +145,7 @@ Route::get('/exhibitions', function () use ($ttl) {
 
 // PRESS ARTICLES
 Route::get('/press', function () use ($ttl) {
-    $press = Cache::remember('press_list', $ttl, function () {
+    $press = safeCacheRemember('press_list', $ttl, function () {
         return PressArticle::orderBy('published_at', 'desc')->get();
     });
     return cachedResponse($press);
@@ -141,7 +153,7 @@ Route::get('/press', function () use ($ttl) {
 
 // CAREERS (Job Openings)
 Route::get('/careers', function () use ($ttl) {
-    $careers = Cache::remember('careers_list', $ttl, function () {
+    $careers = safeCacheRemember('careers_list', $ttl, function () {
         return JobOpening::where('is_active', true)->get();
     });
     return cachedResponse($careers);
@@ -149,7 +161,7 @@ Route::get('/careers', function () use ($ttl) {
 
 // PROGRAMS
 Route::get('/programs', function () use ($ttl) {
-    $programs = Cache::remember('programs_list', $ttl, function () {
+    $programs = safeCacheRemember('programs_list', $ttl, function () {
         return Program::orderBy('sort_order')->get()->map(function ($prog) {
             $prog->features = json_decode($prog->features);
             if ($prog->image) $prog->image = resolveMediaUrl($prog->image);
@@ -161,7 +173,7 @@ Route::get('/programs', function () use ($ttl) {
 
 // FEATURED STORIES
 Route::get('/featured-stories', function () use ($ttl) {
-    $stories = Cache::remember('featured_stories_list', $ttl, function () {
+    $stories = safeCacheRemember('featured_stories_list', $ttl, function () {
         return FeaturedStory::orderBy('sort_order')->get()->map(function ($story) {
             if ($story->image) $story->image = resolveMediaUrl($story->image);
             return $story;
@@ -172,7 +184,7 @@ Route::get('/featured-stories', function () use ($ttl) {
 
 // SETTINGS
 Route::get('/settings', function () use ($ttl) {
-    $settings = Cache::remember('site_settings', $ttl, function () {
+    $settings = safeCacheRemember('site_settings', $ttl, function () {
         $all = SiteSetting::all()->pluck('value', 'key')->toArray();
         $mediaKeys = ['about_hero_image', 'about_hub1_image', 'about_hub2_image'];
         foreach ($mediaKeys as $mk) {

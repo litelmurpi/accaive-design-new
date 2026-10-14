@@ -22,6 +22,10 @@ dist-ssr
 scraped_data/
 scripts/
 
+# Internal planning/audit docs (not part of the app)
+CLOUDFLARE_DNS_MIGRATION.md
+CMS_AUDIT_REPORT.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

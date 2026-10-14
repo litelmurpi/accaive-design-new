@@ -61,7 +61,7 @@ class ProjectResource extends Resource
                                             ->distinct()
                                             ->pluck('category', 'category')
                                             ->toArray();
-                                        return array_merge($defaults, $existing);
+                                        return $defaults + $existing;
                                     })
                                     ->searchable()
                                     ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
@@ -101,7 +101,7 @@ class ProjectResource extends Resource
                                                     ->distinct()
                                                     ->pluck('location', 'location')
                                                     ->toArray();
-                                                return array_merge($defaults, $existing);
+                                                return $defaults + $existing;
                                             })
                                             ->searchable()
                                             ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
@@ -132,7 +132,7 @@ class ProjectResource extends Resource
                                                     ->distinct()
                                                     ->pluck('status', 'status')
                                                     ->toArray();
-                                                return array_merge($defaults, $existing);
+                                                return $defaults + $existing;
                                             })
                                             ->searchable()
                                             ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
@@ -170,7 +170,7 @@ class ProjectResource extends Resource
                                                     ->distinct()
                                                     ->pluck('client', 'client')
                                                     ->toArray();
-                                                return array_merge($defaults, $existing);
+                                                return $defaults + $existing;
                                             })
                                             ->searchable()
                                             ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>
@@ -199,8 +199,9 @@ class ProjectResource extends Resource
                                                     ->whereNotNull('year')
                                                     ->distinct()
                                                     ->pluck('year', 'year')
+                                                    ->filter(fn ($val) => is_numeric($val) && strlen((string)$val) === 4)
                                                     ->toArray();
-                                                return array_merge($years, $existing);
+                                                return $years + $existing;
                                             })
                                             ->searchable()
                                             ->createOptionAction(fn (Forms\Components\Actions\Action $action) =>

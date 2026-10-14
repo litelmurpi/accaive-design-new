@@ -44,6 +44,7 @@ class ServiceResource extends Resource
                             ->label('Foto Visual Hover (Preview di Beranda)')
                             ->image()
                             ->directory('services')
+                            ->visibility('public')
                             ->imageEditor()
                             ->helperText('Unggah foto arsitektur yang akan muncul di sisi kiri ketika pengunjung mengarahkan kursor (hover) ke layanan ini pada halaman Beranda.')
                             ->columnSpanFull(),

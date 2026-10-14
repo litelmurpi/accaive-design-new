@@ -50,6 +50,7 @@ class ProgramResource extends Resource
                             ->label('Gambar Program')
                             ->image()
                             ->directory('programs')
+                            ->visibility('public')
                             ->helperText('Gambar yang merepresentasikan program ini.')
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('features')

@@ -91,6 +91,7 @@ class ManageAboutPage extends Page implements HasForms
                                             ->label('Unggah Foto Hero Monumen')
                                             ->image()
                                             ->directory('about')
+                                            ->visibility('public')
                                             ->imageEditor()
                                             ->helperText('Unggah foto arsitektur resolusi tinggi (disarankan 21:9 atau 16:9).')
                                             ->columnSpanFull(),
@@ -134,6 +135,7 @@ class ManageAboutPage extends Page implements HasForms
                                             ->label('Foto Studio Kotagede')
                                             ->image()
                                             ->directory('about')
+                                            ->visibility('public')
                                             ->imageEditor()
                                             ->columnSpanFull(),
                                     ])->columns(2),
@@ -148,6 +150,7 @@ class ManageAboutPage extends Page implements HasForms
                                             ->label('Foto Studio Jakarta')
                                             ->image()
                                             ->directory('about')
+                                            ->visibility('public')
                                             ->imageEditor()
                                             ->columnSpanFull(),
                                     ])->columns(2),

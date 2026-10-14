@@ -41,6 +41,7 @@ class FeaturedStoryResource extends Resource
                             ->label('Thumbnail Cerita')
                             ->image()
                             ->directory('stories')
+                            ->visibility('public')
                             ->helperText('Petunjuk visual untuk menu navigasi.')
                             ->columnSpanFull(),
                     ])->columns(2),

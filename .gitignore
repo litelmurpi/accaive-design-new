@@ -18,6 +18,10 @@ dist
 dist-ssr
 *.local
 
+# Local backup/scraping artifacts (not part of the app)
+scraped_data/
+scripts/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

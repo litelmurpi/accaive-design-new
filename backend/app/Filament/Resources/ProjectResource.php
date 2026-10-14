@@ -239,6 +239,7 @@ class ProjectResource extends Resource
                                             ->label('Gambar Utama (Hero)')
                                             ->image()
                                             ->directory('projects/hero')
+                                            ->visibility('public')
                                             ->required()
                                             ->helperText('Visual lanskap resolusi tinggi (disarankan 16:9). Unggah file langsung dari perangkat Anda.'),
                                     ]),
@@ -280,6 +281,7 @@ class ProjectResource extends Resource
                             ->reorderable()
                             ->appendFiles()
                             ->directory('projects/gallery')
+                            ->visibility('public')
                             ->helperText('Pilih satu atau banyak foto langsung dari komputer Anda. Anda dapat mengatur ulang urutan foto dengan drag & drop.'),
                     ]),
             ]);

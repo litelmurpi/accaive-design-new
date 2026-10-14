@@ -21,7 +21,7 @@ class ApiHelper
             return $path;
         }
 
-        $disk = config('filesystems.default', 'public');
+        $disk = config('filesystems.default', 'local');
         if ($disk === 's3') {
             return Storage::disk('s3')->url($path);
         }

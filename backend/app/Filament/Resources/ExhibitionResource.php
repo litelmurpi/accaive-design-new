@@ -47,6 +47,7 @@ class ExhibitionResource extends Resource
                             ->label('Visual Pameran')
                             ->image()
                             ->directory('exhibitions')
+                            ->visibility('public')
                             ->helperText('Visual lanskap kualitas tinggi.')
                             ->columnSpanFull(),
                     ])->columns(2),

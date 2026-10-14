@@ -58,6 +58,7 @@ class TeamMemberResource extends Resource
                                     ->label('Foto Potret')
                                     ->image()
                                     ->directory('team')
+                                    ->visibility('public')
                                     ->helperText('Foto potret berkualitas tinggi. Disarankan grayscale untuk konsistensi brand.'),
                             ]),
 

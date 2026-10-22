@@ -1,1 +1,48 @@
-{"data":[]}
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Senior Architect",
+      "department": "Architecture",
+      "location": "New York, Hybrid",
+      "type": "Full-time",
+      "description": null,
+      "is_active": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 2,
+      "title": "Junior Interior Designer",
+      "department": "Interior Design",
+      "location": "London, Studio",
+      "type": "Full-time",
+      "description": null,
+      "is_active": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 3,
+      "title": "BIM Coordinator",
+      "department": "Technical",
+      "location": "Remote",
+      "type": "Full-time",
+      "description": null,
+      "is_active": true,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 4,
+      "title": "Marketing Intern",
+      "department": "Communications",
+      "location": "New York, Studio",
+      "type": "Internship",
+      "description": null,
+      "is_active": true,
+      "created_at": null,
+      "updated_at": null
+    }
+  ]
+}

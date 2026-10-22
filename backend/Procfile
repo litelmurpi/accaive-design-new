@@ -1,1 +1,1 @@
-web: php artisan migrate --force && php artisan filament:assets && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=$PORT
+web: php artisan migrate --force && php artisan filament:assets && php artisan storage:link && php -d session.upload_progress.enabled=0 -d expose_php=0 artisan serve --host=0.0.0.0 --port=$PORT

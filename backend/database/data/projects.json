@@ -1,1 +1,433 @@
-{"data":[{"id":3,"title":"In Memory of the Old Kalumbatan Mosque : The Node of Reconnection : Defragmenting the Living Space.","slug":"in-memory-of-the-old-kalumbatan-mosque-the-node-of-reconnection-defragmenting-the-living-space","category":"Competition","description":"Team in Charges :\nYuan Viero Mahendra\nAhmad Ubaydillah\nDavid Irzha Risqon\nRoufiq Rayjendra\n\nStatus :\nSecond Places Winner\nMore than merely a physical entity above the waters, this landscape captures a moment of spatial catharsis. The Memoriam Mosque stands as a node, mediating the history of fragmentation caused by the earthquake and tsunami in 2000. Its circular mass symbolizes the endless unity and harmony between humanity and the marine environment. Supported by an adaptive floating deck system, this structure does not seek to conquer nature or erase the ruins of the past. Instead, it chooses to anchor beside them, breathing in rhythm with the tides, standing as a witness that the identity of the Children of the Sea will never be submerged by time.\n\nMy deepest gratitude to the Bajo Tribe (The Children of the Sea) in Banggai. Your resilience, history, and profound spiritual bond with the ocean have been the soul and greatest inspiration behind this creation. This is a tribute to your enduring identity.","client":null,"hero_image":"https:\/\/accaive-design-new-production.up.railway.app\/storage\/projects\/hero\/01M25AXWP0ZD0PGAFT3XAW850W.png","size":"small","span":null,"is_featured":true,"sort_order":1},{"id":5,"title":"Badaan Park Magelang City : Pusparagam in Initiation (DEI)","slug":"badaan-park-magelang-city-pusparagam-in-initiation-dei","category":"Competition","description":"Pusparagam symbolizes the beauty and\ndiversity woven into a single, harmonious\nspatial whole\u2014a city park\ndesigned with a commitment to always\nupholding the principles of Diversity, Equality,\nand Inclusion. The creation of a space that is not merely\na city park, but also a form of\nspatial initiative for a dynamic\ncommunity, thereby fostering\na sense of shared ownership and connection\namong one another. A city park designed\nas an initiative to embrace the diversity\nof community groups and their respective\nactivities\u2014spanning all age groups,\nracial groups, and ethnic groups\u2014so that all\nsegments of society can\nexperience a sense of equality despite the\nreal differences among the groups around us.\n","client":null,"hero_image":"https:\/\/accaive-design-new-production.up.railway.app\/storage\/projects\/hero\/01M25CXBWWKCXH2SJ51TKQCTFG.png","size":"small","span":null,"is_featured":true,"sort_order":2},{"id":4,"title":"Reciprocal Vibrancy : Ripples of Connected Places and Shared Opportunities","slug":"reciprocal-vibrancy-ripples-of-connected-places-and-shared-opportunities","category":"Competition","description":"Does an area always need to have a single center to come alive?\n\nWe view cities differently. A place isn\u2019t always just a center that influences its surroundings. It can be both a center and a supporter of other places, giving and receiving from one another, and bringing them to life.\n\nIn the context of Creative Zone: Riverfront by JXB, this idea reimagines the relationship between BNI City Station, Karet Station, Riverfront, the Dukuh Atas TOD, and the surrounding communities.\n\n\u201cReciprocal Vibrancy\u201d serves as the overarching concept for building these connections: when one place brings vitality to another, and at the same time receives that vitality in return.\n\nFrom there emerges \u201cRipples\u201d\u2014ripples that begin at a single point, then spread out, meet other ripples, and create a broader impact.\n\nIt\u2019s not merely about connecting spaces, but transforming spaces into places; bringing forth activities, interactions, identities, and opportunities that can grow together.\n\nBecause ultimately, a city doesn\u2019t thrive because of a single center.\nA city thrives when every place is able to invigorate one another.\n\nTranslated with DeepL.com (free version)","client":"Jakarta Reimagined","hero_image":"https:\/\/accaive-design-new-production.up.railway.app\/storage\/projects\/hero\/01M25BKN3YP80Z4G77Z1XWHGMX.png","size":"small","span":null,"is_featured":true,"sort_order":3},{"id":6,"title":"PIAR House","slug":"piar-house","category":"Residential","description":"PiaR House reinterprets American Classic architecture through balanced symmetry, refined architectural detailing, and carefully composed spatial relationships. Natural stone, elegant moldings, and layered shadows create visual depth while maintaining clarity and restraint. Inside, generous volumes are shaped by natural daylight. A central void connects the living spaces vertically, while the courtyard strengthens the dialogue between architecture and landscape.<br>\nRather than expressing luxury through excess, the design celebrates refinement through proportion, atmosphere, and thoughtful detailing.","client":null,"hero_image":"https:\/\/accaive-design-new-production.up.railway.app\/storage\/projects\/hero\/01M27RE4M5K79A4149626C6FHM.png","size":"small","span":null,"is_featured":false,"sort_order":4},{"id":7,"title":"WH Coffe Shop","slug":"wh-coffe-shop","category":"Commercial","description":"Based in Yogyakarta, WH Coffee Shop wanted its interior to double as a brand statement. Rather than treating decor as an afterthought, we designed a full-height backlit shelving wall to display a rotating collection of ceramic and sculptural pieces, turning what's usually a plain service counter into the visual anchor of the room. Paired with a blue-and-white tile palette that runs through the entire space, the interior does the work a logo alone can't, it makes the brand legible in three dimensions.","client":null,"hero_image":"https:\/\/accaive-design-new-production.up.railway.app\/storage\/projects\/hero\/01M27T19TN8D5D02SEPVWGHAD9.png","size":"small","span":null,"is_featured":true,"sort_order":5}]}
+{
+  "data": [
+    {
+      "id": 3,
+      "title": "In Memory of the Old Kalumbatan Mosque : The Node of Reconnection : Defragmenting the Living Space.",
+      "slug": "in-memory-of-the-old-kalumbatan-mosque-the-node-of-reconnection-defragmenting-the-living-space",
+      "category": "Competition",
+      "location": "Banggai, Sulawesi Tengah",
+      "status": "1st Runner-up & Best Choices Award",
+      "description": "More than merely a physical entity above the waters, this landscape captures a moment of spatial catharsis. The Memoriam Mosque stands as a node, mediating the history of fragmentation caused by the earthquake and tsunami in 2000. Its circular mass symbolizes the endless unity and harmony between humanity and the marine environment. Supported by an adaptive floating deck system, this structure does not seek to conquer nature or erase the ruins of the past. Instead, it chooses to anchor beside them, breathing in rhythm with the tides, standing as a witness that the identity of the Children of the Sea will never be submerged by time.\n\nMy deepest gratitude to the Bajo Tribe (The Children of the Sea) in Banggai. Your resilience, history, and profound spiritual bond with the ocean have been the soul and greatest inspiration behind this creation. This is a tribute to your enduring identity.",
+      "client": "Bajo Tribe Community",
+      "year": "4",
+      "hero_image": "projects/hero/01M3XMJ2JC6J01G66VY7AFQ9DE.png",
+      "size": "small",
+      "span": null,
+      "is_featured": true,
+      "sort_order": 1,
+      "gallery_images": [
+        "projects/gallery/01M3XMJ2JFPBXCQX8GKTS4HQQM.png",
+        "projects/gallery/01M3XMJ2JGWJEMTK4YGSYSZ09X.png",
+        "projects/gallery/01M3XMJ2JHS6N1VA72BD2NJ0AD.png",
+        "projects/gallery/01M3XMJ2JJ23YGKFBQ81ZX916K.png",
+        "projects/gallery/01M3XMJ2JJ23YGKFBQ81ZX916M.png"
+      ],
+      "created_at": "2026-09-28T15:29:00.000000Z",
+      "updated_at": "2026-10-08T06:39:36.000000Z",
+      "team_in_charge": [
+        "Yuan Viero",
+        "Ahmad Ubaydillah",
+        "David Irza Risqon",
+        "Roufiq Rayjendra"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Badaan Park Magelang City : Pusparagam in Initiation (DEI)",
+      "slug": "badaan-park-magelang-city-pusparagam-in-initiation-dei",
+      "category": "Competition",
+      "location": "Magelang, Jawa Tengah",
+      "status": "1st Runner-up",
+      "description": "Pusparagam symbolizes the beauty and\ndiversity woven into a single, harmonious\nspatial whole, a city park\ndesigned with a commitment to always\nupholding the principles of Diversity, Equality,\nand Inclusion. The creation of a space that is not merely\na city park, but also a form of\nspatial initiative for a dynamic\ncommunity, thereby fostering\na sense of shared ownership and connection\namong one another. A city park designed\nas an initiative to embrace the diversity\nof community groups and their respective\nactivities, spanning all age groups,\nracial groups, and ethnic groups, so that all\nsegments of society can\nexperience a sense of equality despite the\nreal differences among the groups around us.\n",
+      "client": "DPUPR Kota Magelang",
+      "year": null,
+      "hero_image": "projects/hero/01M45Q8NBB5C8JF6A3YR28KXW6.png",
+      "size": "small",
+      "span": null,
+      "is_featured": true,
+      "sort_order": 2,
+      "gallery_images": [
+        "projects/gallery/01M45Q8NBEEEVETS1CKBGX5F4V.png",
+        "projects/gallery/01M45Q8NBGJ7M7RZQ50C82DANM.png",
+        "projects/gallery/01M45Q8NBJ60BXGA8P08M6YHHY.png",
+        "projects/gallery/01M45Q8NBKV9CNGYRX6QPGSJME.png",
+        "projects/gallery/01M45Q8NBMPYDDMD856MJE09DA.png",
+        "projects/gallery/01M45Q8NBPRYJJDNW0V5BADSGT.png",
+        "projects/gallery/01M45Q8NBQNDW7YYVYKC8PRAMA.png",
+        "projects/gallery/01M45Q8NBRRQ1WNJ8JBBPD2VH5.png"
+      ],
+      "created_at": "2026-09-28T15:29:00.000000Z",
+      "updated_at": "2026-10-05T09:45:35.000000Z",
+      "team_in_charge": [
+        "Yuan Viero",
+        "Nico Al Farabi",
+        "Ahmad Ubaydillah"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Reciprocal Vibrancy : Ripples of Connected Places and Shared Opportunities",
+      "slug": "reciprocal-vibrancy-ripples-of-connected-places-and-shared-opportunities",
+      "category": "Competition",
+      "location": "Jakarta, Indonesia",
+      "status": "Completed",
+      "description": "Does an area always need to have a single center to come alive?\n\nWe view cities differently. A place isn’t always just a center that influences its surroundings. It can be both a center and a supporter of other places, giving and receiving from one another, and bringing them to life.\n\nIn the context of Creative Zone: Riverfront by JXB, this idea reimagines the relationship between BNI City Station, Karet Station, Riverfront, the Dukuh Atas TOD, and the surrounding communities.\n\n“Reciprocal Vibrancy” serves as the overarching concept for building these connections: when one place brings vitality to another, and at the same time receives that vitality in return.\n\nFrom there emerges “Ripples”—ripples that begin at a single point, then spread out, meet other ripples, and create a broader impact.\n\nIt’s not merely about connecting spaces, but transforming spaces into places; bringing forth activities, interactions, identities, and opportunities that can grow together.\n\nBecause ultimately, a city doesn’t thrive because of a single center.\nA city thrives when every place is able to invigorate one another.\n\nTranslated with DeepL.com (free version)",
+      "client": "Jakarta Reimagined",
+      "year": "4",
+      "hero_image": "projects/hero/01M47VW952DN32ZZ2AEFANAKAP.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 3,
+      "gallery_images": [
+        "projects/gallery/01M47VW958N2WEW0649ZGDJ81M.png",
+        "projects/gallery/01M47VW95DNMAQ288ATTGP57KR.png",
+        "projects/gallery/01M47VW95E5AFGHMCNK8XYK66F.png"
+      ],
+      "created_at": "2026-09-28T15:29:00.000000Z",
+      "updated_at": "2026-10-08T06:39:14.000000Z",
+      "team_in_charge": [
+        "Yuan Viero",
+        "Ahmad Ubaydillah",
+        "Nico Al Farabi"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "PIAR House",
+      "slug": "piar-house",
+      "category": "Residential",
+      "location": "Yogyakarta, Indonesia",
+      "status": "Completed",
+      "description": "PiaR House reinterprets American Classic architecture through balanced symmetry, refined architectural detailing, and carefully composed spatial relationships. Natural stone, elegant moldings, and layered shadows create visual depth while maintaining clarity and restraint. Inside, generous volumes are shaped by natural daylight. A central void connects the living spaces vertically, while the courtyard strengthens the dialogue between architecture and landscape.<br>\nRather than expressing luxury through excess, the design celebrates refinement through proportion, atmosphere, and thoughtful detailing.",
+      "client": "Private Client",
+      "year": "2",
+      "hero_image": "projects/hero/01M47W057BPAHCZE4S23X06FZV.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 4,
+      "gallery_images": [
+        "projects/gallery/01M47W057E3W2TWVY10124ZDF9.png",
+        "projects/gallery/01M47W057FGEC7E8SW3P4SRV2P.png",
+        "projects/gallery/01M47W057MDPH3ND9XKYJT3E2D.png",
+        "projects/gallery/01M47W057Q20ATQSD0VKN3C0BG.png",
+        "projects/gallery/01M47W057W1DC7X0APJB928HRR.png",
+        "projects/gallery/01M47W057ZYP2HSAM78EQRZ9F2.png",
+        "projects/gallery/01M47W0583KVGVWS3C382C72GY.png"
+      ],
+      "created_at": "2026-09-28T15:29:00.000000Z",
+      "updated_at": "2026-10-06T05:46:48.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "WH Coffe Shop",
+      "slug": "wh-coffe-shop",
+      "category": "Commercial",
+      "location": "Yogyakarta, Indonesia",
+      "status": "Completed",
+      "description": "Based in Yogyakarta, WH Coffee Shop wanted its interior to double as a brand statement. Rather than treating decor as an afterthought, we designed a full-height backlit shelving wall to display a rotating collection of ceramic and sculptural pieces, turning what's usually a plain service counter into the visual anchor of the room. Paired with a blue-and-white tile palette that runs through the entire space, the interior does the work a logo alone can't, it makes the brand legible in three dimensions.",
+      "client": "Private Client",
+      "year": "3",
+      "hero_image": "projects/hero/01M47W3NVG5WBX7GTMYYR3827E.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 5,
+      "gallery_images": [
+        "projects/gallery/01M47W3NVPK703AH3Q2ZJ02GGJ.png",
+        "projects/gallery/01M47W3NVT3GAFEAEF53XDB9BR.png",
+        "projects/gallery/01M47W3NVYFPQ2JSA47J3N9WCJ.png",
+        "projects/gallery/01M47W3NW2EEY1NN09AYG4NN3T.png"
+      ],
+      "created_at": "2026-09-28T15:29:00.000000Z",
+      "updated_at": "2026-10-08T06:39:14.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Children Park : Kadipiro Sport Field Area",
+      "slug": "children-park-kadipiro-sport-field-area",
+      "category": "Public Space",
+      "location": "Bantul, Daerah Istimewa Yogyakarta",
+      "status": "Concept",
+      "description": "Beyond the game, what else can a sports field hold?. At Kadipiro Sports Field Area, the existing field is extended with a new layer of public life: a children's play area designed not as an isolated playground, but as a landscape of movement, exploration, and interaction.\n\nIt is a place where sport, play, and everyday life share the same ground.\n",
+      "client": null,
+      "year": "2",
+      "hero_image": "projects/hero/01M45K68G1R1R51B8XRGSHVGGT.png",
+      "size": "small",
+      "span": null,
+      "is_featured": true,
+      "sort_order": 6,
+      "gallery_images": [
+        "projects/gallery/01M45K68G5Z229S9MC0F0BGBCY.png",
+        "projects/gallery/01M45K20XNF88F966PF9C5DTD5.png",
+        "projects/gallery/01M45K20XH5GG9YPPEYNMGA7KT.png",
+        "projects/gallery/01M45K20XR6VM849BJYC39CWVY.png"
+      ],
+      "created_at": "2026-10-05T08:32:04.000000Z",
+      "updated_at": "2026-10-08T06:39:28.000000Z",
+      "team_in_charge": [
+        "Yuan Viero",
+        "Nico Sanjaya"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Grandeur House",
+      "slug": "grandeur-house",
+      "category": "Residential",
+      "location": "Jakarta, Indonesia",
+      "status": "Completed",
+      "description": "This private residence is conceived as a contemporary interpretation of Neoclassical architecture, combining monumental proportions, refined detailing, and timeless elegance. The façade is defined by a balanced composition of fluted columns, classical cornices, and layered architectural mouldings, finished in warm ivory tones and natural stone textures. Large black-framed windows introduce a contemporary contrast, while the grand arched entrance and visible crystal chandelier establish a dramatic focal point and a sense of arrival. The grandeur of the architecture is softened by a carefully composed tropical landscape. Palm trees, sculpted topiary, ornamental planting, and layered greenery create a natural transition between the residence and its surroundings. Black marble accents at the column bases, entrance steps, and selected wall surfaces add depth and sophistication to the predominantly light façade.\n\nThe overall design seeks to balance classical grandeur with contemporary living, creating a residence that is not only a place to live, but also an expression of elegance, character, and refined luxury.",
+      "client": "Private Client",
+      "year": "3",
+      "hero_image": "projects/hero/01M4AF9GA1FK1AVYE0P7K4QHYW.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 7,
+      "gallery_images": [
+        "projects/gallery/01M4AF9GA4WY4NHSKTZZ77VDTF.png",
+        "projects/gallery/01M4AF9GA6KS4449NASH04BMY8.png",
+        "projects/gallery/01M4AF9GA705T1E2KYP9VX1TPG.png",
+        "projects/gallery/01M4AF9GA8847CSZKEENXNPAHP.png",
+        "projects/gallery/01M4AF9GA9SH4TBD6B2JEZXN2G.png"
+      ],
+      "created_at": "2026-10-07T06:02:27.000000Z",
+      "updated_at": "2026-10-08T06:39:16.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Embun Villa",
+      "slug": "embun-villa",
+      "category": "Residential",
+      "location": "Jakarta, Indonesia",
+      "status": "Completed",
+      "description": "This villa is designed as a tropical retreat that seamlessly integrates architecture, landscape, and everyday living. Strong concrete forms are softened by the warmth of natural wood, stone, and lush tropical vegetation, creating a balanced dialogue between contemporary architecture and the surrounding natural environment.\nThrough the concept of indoor outdoor living, courtyards, expansive glass openings, and water elements, every space maintains a strong connection with nature. The villa is not simply a place to live, but a spatial experience that offers tranquility, privacy, and a deeper connection to its surroundings.\n\nBold architecture meets a living landscape, creating a private sanctuary that feels contemporary, warm, and deeply connected to nature.",
+      "client": "Private Client",
+      "year": "4",
+      "hero_image": "projects/hero/01M4CYAW0QG0KGGEWG5KNKTZBH.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 8,
+      "gallery_images": [
+        "projects/gallery/01M4CYAW0WT1M3H1Q61SD1VQVC.png",
+        "projects/gallery/01M4CYAW0YSH43ZRSZDN4EHTCH.png",
+        "projects/gallery/01M4CYAW10Z1FP0H5PF1WZ9BNC.png",
+        "projects/gallery/01M4CYAW12CGVW9BH7TT7CV853.png",
+        "projects/gallery/01M4CYAW13AVA2M4RHDEZQ4Q9D.png",
+        "projects/gallery/01M4CYAW14R7VH1C1PFSNYJ6VM.png",
+        "projects/gallery/01M4CYAW16EBW773RZD5YZ9ZVQ.png",
+        "projects/gallery/01M4CYAW17XAN8PMJ9XX9YQKBV.png",
+        "projects/gallery/01M4CYAW18HKSQ1WXCVSA91965.png",
+        "projects/gallery/01M4CYAW19P3XZCFRKDDSH29CJ.png",
+        "projects/gallery/01M4CYAW1AESJ3TPV4RM2ZD6HP.png"
+      ],
+      "created_at": "2026-10-08T05:03:49.000000Z",
+      "updated_at": "2026-10-08T06:39:17.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "FA House",
+      "slug": "fa-house",
+      "category": "Residential",
+      "location": "Yogyakarta, Indonesia",
+      "status": "Completed",
+      "description": "FA House is a residential project located in a housing cluster in Yogyakarta, designed for a young family who wanted a home that feels warm and bright, private from the street, and distinctive without being showy. Responding to a surrounding of concrete and dark-toned facades, the building adopts a simple gable roof, pulled tall, with a timber-lined underside forming the eaves, and opened up with glazing that spans two floors. In line with this, the use of warm, 'as-is' materials, namely terracotta columns and breeze blocks, and olive-green perforated mesh on the gate and balcony railing, is meant to emphasize that the house is different, yet does not try to stand out.",
+      "client": "Private Client",
+      "year": "2",
+      "hero_image": "projects/hero/01M47WXZWX7EE2XFGC1CJS4ETX.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 9,
+      "gallery_images": [
+        "projects/gallery/01M47WZ8JQ8DSWG08QG9C2H41P.png",
+        "projects/gallery/01M47WZ8JS0M24APFW3R0MPB99.png",
+        "projects/gallery/01M47WZ8JT8TN3JBG600EVHFJK.png",
+        "projects/gallery/01M47WZ8JWP6BFEENNCK11GYF3.png",
+        "projects/gallery/01M47WZ8JY440YEVWK82XGZW5M.png"
+      ],
+      "created_at": "2026-10-06T06:03:06.000000Z",
+      "updated_at": "2026-10-08T06:39:18.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Natura Villa",
+      "slug": "natura-villa",
+      "category": "Residential",
+      "location": "Jakarta, Indonesia",
+      "status": "Completed",
+      "description": "This villa presents an architectural approach that combines bold geometric forms with a naturally tropical atmosphere. A series of gabled volumes creates a strong architectural silhouette, while vertical timber cladding, natural stone, concrete, and glass establish a balance between solid and transparent elements. Each space is designed with generous openings toward the garden, allowing natural light and greenery to become an integral part of the interior, creating an open, spacious atmosphere while maintaining a sense of privacy.\n\nThe experience of the villa unfolds through a seamless transition between shaded areas, open spaces, and the surrounding landscape. The overall design is conceived not merely as a residence, but as a private tropical retreat, that offers comfort, tranquility, and an intimate connection with nature.\n",
+      "client": "Private Client",
+      "year": "3",
+      "hero_image": "projects/hero/01M4D0BWG98AZR5Z7MYNB44BZY.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 10,
+      "gallery_images": [
+        "projects/gallery/01M4D0BWGF1SX16R0VYCWNTF1D.png",
+        "projects/gallery/01M4D0BWGJZEZ6MVHENVVY70FB.png",
+        "projects/gallery/01M4D0BWGNB3D2YCZ72WNJRASX.png",
+        "projects/gallery/01M4D0BWGRT6BFH0RFYJGSY578.png",
+        "projects/gallery/01M4D0BWGT8BTKTPNDBCSR9Z34.png",
+        "projects/gallery/01M4D0BWGXZQRRYVJ3E49DXK7R.png",
+        "projects/gallery/01M4D0BWGZTSQ1FZGANSRS856H.png",
+        "projects/gallery/01M4D0BWH1BN7TM5KF3A58B17T.png",
+        "projects/gallery/01M4D0BWH2MT8WT7ATKE6Y73M6.png",
+        "projects/gallery/01M4D0BWH4QAYSB5MC2DSB16QY.png",
+        "projects/gallery/01M4D0BWH74RD5Q0YDNJ4RW62Y.png",
+        "projects/gallery/01M4D0BWHASMW371QC8HM1Y9B3.png",
+        "projects/gallery/01M4D0BWHBB2NW5AE0TM7Q9M9K.png",
+        "projects/gallery/01M4D0BWHDZW5BNMPZGAMDHH1A.png"
+      ],
+      "created_at": "2026-10-08T05:39:19.000000Z",
+      "updated_at": "2026-10-08T06:39:19.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Hills Villa",
+      "slug": "hills-villa",
+      "category": "Residential",
+      "location": "Bali, Indonesia",
+      "status": "Completed",
+      "description": "This private villa is situated on a hillside at the rear of a rural village, occupying a transitional landscape between the settled area and the surrounding natural terrain. The site offers a sense of retreat without being completely detached from village life, where existing vegetation, contours, and the quiet character of the landscape become the foundation of the design. The villa is positioned lightly on the slope, allowing the natural setting to remain present throughout the experience of arrival and inhabitation.\n\nRather than becoming an isolated object within the hillside, the villa is conceived as a quiet retreat at the edge of the village, an architecture that frames nature and creates a slower, more intimate way of living.",
+      "client": "Private Client",
+      "year": "4",
+      "hero_image": "projects/hero/01M4ACZCBNPZGG6ZMYJPY3EV61.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 12,
+      "gallery_images": [
+        "projects/gallery/01M4ACZCBR0X10XTRSSZP6V9WS.png",
+        "projects/gallery/01M4ACZCBTXZ9GWH21SKVEXGW1.png",
+        "projects/gallery/01M4ACZCBWCGFPSSFN8JC56S0C.png"
+      ],
+      "created_at": "2026-10-07T05:21:58.000000Z",
+      "updated_at": "2026-10-08T06:39:19.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Giri Tirta Villa",
+      "slug": "giri-tirta-villa",
+      "category": "Residential",
+      "location": "Bali, Indonesia",
+      "status": "Completed",
+      "description": "The land slopes gently down in terraces, bordered by forest above and a valley below. Dense trees cover the site, so the buildable area is limited to a single long strip. The brief was simple: a generous gathering space, quiet bedrooms, and a pool facing the valley.\n\nThe main residence is a single elongated volume on the upper level, supported by steel columns. This leaves the ground floor open as a living and dining area that flows into the pool deck, while the bedrooms above look out over the valley and the tree canopy. A flat roof with deep overhangs shades the balcony and glazing from heat and driving rain. The pool sits at the edge of the slope, anchored by a stone retaining wall. The materials are timber, exposed concrete, and steel, chosen for their suitability to the humid climate and their relatively easy upkeep.\n\nThe spaces are arranged as a gradient from open to private. The ground floor is shared by family and guests, while the upper floor is the most private. The result is a house that feels spacious in every mood of the day, misty in the morning, golden toward dusk, and calm and sheltered when the rain comes.",
+      "client": "Private Client",
+      "year": "4",
+      "hero_image": "projects/hero/01M4ABMB6BNFKDVHXT5FTEH1FB.png",
+      "size": "small",
+      "span": null,
+      "is_featured": true,
+      "sort_order": 13,
+      "gallery_images": [
+        "projects/gallery/01M4ABMB6E42ZFDPTS4MWPCZH7.png",
+        "projects/gallery/01M4ABMB6J81AJ1DGVPHWDK0MY.png",
+        "projects/gallery/01M4ABMB6NM3VJCVFQX27T0GGC.png",
+        "projects/gallery/01M4ABMB6QJC7Z1WXW86DYQ5XQ.png"
+      ],
+      "created_at": "2026-10-07T04:58:27.000000Z",
+      "updated_at": "2026-10-08T06:39:24.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Arched House",
+      "slug": "emerald-house",
+      "category": "Residential",
+      "location": "Jakarta, Indonesia",
+      "status": "Completed",
+      "description": "This residence presents a contemporary interpretation of Neoclassical architecture, combining classical proportions and refined detailing with the comfort and functionality of modern living. The façade is defined by a restrained white palette, articulated columns, layered cornices, arched openings, and ornamental metalwork that establish a sophisticated and timeless character. A dark mansard roof provides a strong visual contrast, while timber pergolas and lush landscaping introduce warmth and a more natural expression to the composition. Inside, the classical language is translated into a warmer and more intimate atmosphere through dark timber, textured wall finishes, marble surfaces, arched openings, and warm ambient lighting. The main living, dining, and family areas are conceived as a continuous social space, allowing activities and visual connections to flow naturally throughout the house. Large windows, a central void, and connections to the garden bring daylight deep into the interior, creating a sense of openness and spatial richness. \n\nRather than pursuing grandeur for its own sake, the design seeks to balance elegance, comfort, and everyday living, creating a home that feels both distinctive and deeply personal.",
+      "client": "Private Client",
+      "year": "3",
+      "hero_image": "projects/hero/01M4AEDWWZA3234FB7W0NV9GYV.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 14,
+      "gallery_images": [
+        "projects/gallery/01M4AEDWX26EM0FTAX5GV98EQT.png",
+        "projects/gallery/01M4AEDWX47EASYJQSPFQ10DSH.png",
+        "projects/gallery/01M4AEDWX5T6R7CDAKFBWJDNPQ.png",
+        "projects/gallery/01M4AEDWX6R5Y8EY2XW1GRQQV8.png",
+        "projects/gallery/01M4AEDWX6R5Y8EY2XW1GRQQV9.png",
+        "projects/gallery/01M4AEDWX7HZ8G516G09SPKH54.png",
+        "projects/gallery/01M4AEDWX89YCRB8V2RP2S3DKS.png",
+        "projects/gallery/01M4AEDWX9DHM5283R7A0VTVX7.png"
+      ],
+      "created_at": "2026-10-07T05:47:22.000000Z",
+      "updated_at": "2026-10-08T06:39:20.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "BB House",
+      "slug": "bb-house",
+      "category": "Residential",
+      "location": "Yogyakarta, Indonesia",
+      "status": "Completed",
+      "description": "Babarsari boarding house reinterprets tropical vernacular roofing through a modern architectural lens. Layered gable forms, natural stone textures, and a dark steel gate create a strong street presence while staying warm and approachable. A central courtyard threads light and air through the home, connecting circulation spaces and softening the boundary between architecture and landscape. Vertical greenery cascading along the facade reinforces the dialogue between built form and nature.\n\nRather than expressing scale through mass, the design celebrates restraint through proportion, material honesty, and a quiet sense of arrival.",
+      "client": "Private Client",
+      "year": "2",
+      "hero_image": "projects/hero/01M4D152X38J98JRHRTJQBFCPY.png",
+      "size": "small",
+      "span": null,
+      "is_featured": false,
+      "sort_order": 15,
+      "gallery_images": [],
+      "created_at": "2026-10-08T05:53:05.000000Z",
+      "updated_at": "2026-10-08T06:43:37.000000Z",
+      "team_in_charge": [
+        "Nico Sanjaya",
+        "Haikal Akbar",
+        "Ridwan Hidayat"
+      ]
+    }
+  ]
+}

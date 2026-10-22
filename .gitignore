@@ -25,6 +25,10 @@ scripts/
 # Internal planning/audit docs (not part of the app)
 CLOUDFLARE_DNS_MIGRATION.md
 CMS_AUDIT_REPORT.md
+DEPLOYMENT_GUIDE.md
+CONVERSATION_SUMMARY.md
+R2_INTEGRATION_PLAN.md
+backend/R2_SETUP.md
 
 # Editor directories and files
 .vscode/*

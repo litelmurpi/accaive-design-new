@@ -9,6 +9,12 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        // Always prioritize captured production data if available
+        if (file_exists(database_path('data/projects.json'))) {
+            $this->call(ProductionDataSeeder::class);
+            return;
+        }
+
         // 1. SERVICES
         DB::table('services')->insert([
             ['code' => '01', 'title' => 'Spatial Strategy', 'description' => 'Aligning physical space with organizational vision.', 'sort_order' => 1],

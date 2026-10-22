@@ -76,6 +76,17 @@ class ProductionDataSeeder extends Seeder
                         $team = json_encode($team);
                     }
 
+                    $gallery = $item['gallery_images'] ?? [];
+                    if (is_array($gallery)) {
+                        $gallery = array_values(array_filter(array_map(function ($img) {
+                            if ($img && str_contains($img, '/storage/')) {
+                                $parts = explode('/storage/', $img);
+                                return $parts[1] ?? $img;
+                            }
+                            return $img;
+                        }, $gallery)));
+                    }
+
                     DB::table('projects')->insert([
                         'id' => $item['id'],
                         'title' => $item['title'] ?? '',
@@ -90,7 +101,7 @@ class ProductionDataSeeder extends Seeder
                         'hero_image' => $heroImage,
                         'size' => $item['size'] ?? 'small',
                         'span' => $item['span'] ?? null,
-                        'gallery_images' => json_encode($item['gallery_images'] ?? []),
+                        'gallery_images' => json_encode($gallery),
                         'is_featured' => (bool) ($item['is_featured'] ?? false),
                         'sort_order' => $item['sort_order'] ?? 0,
                         'created_at' => $item['created_at'] ?? now(),
@@ -182,7 +193,51 @@ class ProductionDataSeeder extends Seeder
             }
         }
 
-        // 7. SITE SETTINGS
+        // 7. PRESS ARTICLES
+        if (file_exists("$dataPath/press.json")) {
+            $press = json_decode(file_get_contents("$dataPath/press.json"), true);
+            $data = $press['data'] ?? [];
+            if (!empty($data)) {
+                DB::table('press_articles')->truncate();
+                foreach ($data as $item) {
+                    DB::table('press_articles')->insert([
+                        'id' => $item['id'],
+                        'title' => $item['title'] ?? '',
+                        'source' => $item['source'] ?? '',
+                        'url' => $item['url'] ?? null,
+                        'published_at' => $item['published_at'] ?? now(),
+                        'created_at' => $item['created_at'] ?? now(),
+                        'updated_at' => $item['updated_at'] ?? now(),
+                    ]);
+                }
+                $this->command?->info('✓ Seeded ' . count($data) . ' press articles from Railway production.');
+            }
+        }
+
+        // 8. CAREERS / JOB OPENINGS
+        if (file_exists("$dataPath/careers.json")) {
+            $careers = json_decode(file_get_contents("$dataPath/careers.json"), true);
+            $data = $careers['data'] ?? [];
+            if (!empty($data)) {
+                DB::table('job_openings')->truncate();
+                foreach ($data as $item) {
+                    DB::table('job_openings')->insert([
+                        'id' => $item['id'],
+                        'title' => $item['title'] ?? '',
+                        'department' => $item['department'] ?? '',
+                        'location' => $item['location'] ?? '',
+                        'type' => $item['type'] ?? '',
+                        'description' => $item['description'] ?? null,
+                        'is_active' => (bool) ($item['is_active'] ?? true),
+                        'created_at' => $item['created_at'] ?? now(),
+                        'updated_at' => $item['updated_at'] ?? now(),
+                    ]);
+                }
+                $this->command?->info('✓ Seeded ' . count($data) . ' job openings from Railway production.');
+            }
+        }
+
+        // 9. SITE SETTINGS
         if (file_exists("$dataPath/settings.json")) {
             $settings = json_decode(file_get_contents("$dataPath/settings.json"), true);
             $data = $settings['data'] ?? [];
@@ -200,7 +255,7 @@ class ProductionDataSeeder extends Seeder
             }
         }
 
-        // 8. ADMIN USER
+        // 10. ADMIN USER
         if (DB::table('users')->where('email', 'admin@accaive.com')->doesntExist()) {
             DB::table('users')->insert([
                 'name' => 'Admin Accaive',

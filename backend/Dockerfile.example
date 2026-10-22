@@ -1,4 +1,4 @@
-FROM php:8.3-cli-alpine
+FROM php:8.3.36-cli-alpine
 
 # Install system dependencies & PostgreSQL driver
 RUN apk add --no-cache \
@@ -8,6 +8,14 @@ RUN apk add --no-cache \
     git \
     unzip \
     && docker-php-ext-install pdo pdo_pgsql intl zip pcntl
+
+# PHP Hardening: Mitigate php2shell (CVE-2026-109618 / CVE-2026-109619) & general exposure
+RUN { \
+    echo 'session.upload_progress.enabled = Off'; \
+    echo 'expose_php = Off'; \
+    echo 'display_errors = Off'; \
+    echo 'log_errors = On'; \
+} > /usr/local/etc/php/conf.d/security.ini
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -26,5 +34,5 @@ RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framewor
 
 EXPOSE 10000
 
-# Start command
-CMD php artisan config:clear && php artisan migrate --force && php artisan db:seed --class=ProductionDataSeeder && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+# Start command (with inline security flags as defense-in-depth)
+CMD php artisan config:clear && php artisan migrate --force && php artisan db:seed --class=ProductionDataSeeder && php -d session.upload_progress.enabled=0 -d expose_php=0 artisan serve --host=0.0.0.0 --port=${PORT:-10000}

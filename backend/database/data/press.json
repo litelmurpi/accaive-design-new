@@ -1,1 +1,40 @@
-{"data":[]}
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Redefining the Workplace: Accaive's Approach to Post-Pandemic Office Design",
+      "source": "Architectural Digest",
+      "url": null,
+      "published_at": "2024-03-01",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 2,
+      "title": "Top 10 Emerging Architecture Firms to Watch in 2024",
+      "source": "Dezeen",
+      "url": null,
+      "published_at": "2024-02-15",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 3,
+      "title": "The Void House: A Masterclass in Minimalist Living",
+      "source": "Dwell Magazine",
+      "url": null,
+      "published_at": "2024-01-22",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 4,
+      "title": "Sustainable Urbanism: How Accaive is Rethinking the City Block",
+      "source": "Metropolis",
+      "url": null,
+      "published_at": "2023-11-10",
+      "created_at": null,
+      "updated_at": null
+    }
+  ]
+}
